@@ -22,7 +22,7 @@ Requisitos: Java 17
 2. Por padrão, ele:
    - Utilizará o perfil do Maven `dev`, que configura o perfil ativo
      do Spring Boot para `dev`, que habilita a integração com o `spring-boot-docker-compose`.
-   - Ele irá utilizar o compose em `techchallenge/compose-dev.yaml` para iniciar o banco de dados e também executar os scripts da pasta `bd/`
+   - O `spring-boot-docker-compose` irá utilizar o compose em `techchallenge/compose-dev.yaml` para iniciar o banco de dados e também executar os scripts da pasta `bd/`
 
 ### Testes
 
