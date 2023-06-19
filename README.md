@@ -29,8 +29,9 @@ Requisitos: Java 17
 ### Compilando e publicando a imagem Docker
 
 #### Empacotando o projeto Maven
-1. Utilizando sua IDE, altere o profile Maven para `prod`.
+1. Utilizando sua IDE, **altere o profile Maven para `prod`**.
    - Verifique se `dev` foi desselecionado (`!dev`)
+   - Se isso não for feito, a aplicação depois tentará utilizar o `compose-dev.yaml`. (Tentar criar container enquanto está em um container!)
 2. Execute os scripts de lifecycle do Maven para gerar o .jar, nessa ordem:
    - `clean`, `compile` e `package`
 3. Um arquivo deve ter sido gerado na pasta `target/`. Exemplo: `target/techchallenge-fase-1.jar`
