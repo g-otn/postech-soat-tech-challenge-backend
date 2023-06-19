@@ -1,0 +1,15 @@
+# Esse arquivo compose é para desenvolvimento apenas!
+# Em produção a integração com docker compose será desativada
+# e tentará se conectar com o BD diretamente, pois a aplicação
+# já estará sendo executada dentro de um container.
+services:
+  bd_dev:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=tech_challenge'
+      - 'POSTGRES_PASSWORD=backend'
+      - 'POSTGRES_USER=backend'
+    volumes:
+      - ../bd/01-criar-tabelas.sql:/docker-entrypoint-initdb.d/01-criar-tabelas.sql
+    ports:
+      - 5432:5432
