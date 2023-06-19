@@ -2,6 +2,8 @@ services:
   bd:
     image: postgres
     environment:
+      - POSTGRES_DB=tech_challenge
+      - POSTGRES_USER=backend
       - POSTGRES_PASSWORD=backend
     expose:
       - 5432:5432
@@ -12,7 +14,7 @@ services:
     volumes:
       - ./bd/01-criar-tabelas.sql:/docker-entrypoint-initdb.d/01-criar-tabelas.sql
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: [ "CMD-SHELL", "pg_isready -d tech_challenge -U backend" ]
       interval: 5s
       timeout: 5s
       retries: 5
