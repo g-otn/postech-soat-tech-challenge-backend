@@ -15,6 +15,7 @@ docker-compose up
 
 ## Contribuindo (para integrantes)
 
+### Executando o projeto em `dev`
 Requisitos: Java 17
 
 1. Abra o projeto Maven localizado na pasta `techchallenge/` com sua IDE.
