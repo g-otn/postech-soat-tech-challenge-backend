@@ -17,7 +17,7 @@ services:
       timeout: 5s
       retries: 5
   backend:
-    image: g0tn/soat-tech-challenge-backend
+    image: g0tn/soat-tech-challenge-backend:latest
     environment:
       - DB_HOST=bd # Irá resolver para o IP interno da network
     networks:
