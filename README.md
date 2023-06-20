@@ -16,7 +16,7 @@ docker-compose up
 ## Contribuindo (para integrantes)
 
 ### Executando o projeto em `dev`
-Requisitos: Java 17
+Requisitos: Docker, Java 17
 
 1. Abra o projeto Maven localizado na pasta `techchallenge/` com sua IDE.
 2. Por padrão, ele:
@@ -39,7 +39,7 @@ Requisitos: Java 17
 #### Fazendo build da imagem
 1. Na raiz do repositório, execute esse comando para criar uma imagem local:
    - `docker buildx build -t g0tn/soat-tech-challenge-backend:<tag> techchallenge`
-   - Substitua <tag> por algo como `fase-1`
+   - Substitua `<tag>` por algo como `fase-1`
 2. Aplique também a tag `latest` a imagem:
    - `docker tag g0tn/soat-tech-challenge-backend:<tag> g0tn/soat-tech-challenge-backend:latest`
    - Essa tag é importante para a imagem correta ser baixada pelo [`docker-compose.yml`](docker-compose.yml)
