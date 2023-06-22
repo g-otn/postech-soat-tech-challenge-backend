@@ -1,15 +1,16 @@
-# Esse arquivo compose é para desenvolvimento apenas!
-# Em produção a integração com docker compose será desativada
-# e tentará se conectar com o BD diretamente, pois a aplicação
-# já estará sendo executada dentro de um container.
+# This compose file is for development only!
+# In "production" (compose in dev root) the
+# spring docker compose integration will be deactivated
+# and will try to connect to the DB directly.
+# This is because the backend will already be inside a container.
 services:
-  bd_dev:
+  db_dev:
     image: 'postgres:latest'
     environment:
       - 'POSTGRES_DB=tech_challenge'
       - 'POSTGRES_PASSWORD=backend'
       - 'POSTGRES_USER=backend'
     volumes:
-      - ../bd/01-criar-tabelas.sql:/docker-entrypoint-initdb.d/01-criar-tabelas.sql
+      - ../db/01-create-tables.sql:/docker-entrypoint-initdb.d/01-create-tables.sql
     ports:
       - 5432:5432

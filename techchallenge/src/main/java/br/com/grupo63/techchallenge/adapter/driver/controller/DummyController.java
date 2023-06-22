@@ -1,8 +1,7 @@
-package br.com.grupo63.techchallenge.adapter.driver.controllers;
+package br.com.grupo63.techchallenge.adapter.driver.controller;
 
-import br.com.grupo63.techchallenge.adapter.driven.infrastructures.ClientRepository;
-import br.com.grupo63.techchallenge.core.domain.entities.Client;
-import br.com.grupo63.techchallenge.core.domain.entities.DummyEntity;
+import br.com.grupo63.techchallenge.adapter.driven.infrastructure.ClientRepository;
+import br.com.grupo63.techchallenge.core.domain.entity.Client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +21,9 @@ public class DummyController {
     }
 
     @GetMapping("/entidade")
-    public DummyEntity testeEntidade() {
+    public String testeEntidade() {
         this.clientRepository.save(new Client("12345678900"));
-        return new DummyEntity(-1L, "aaa");
+        return "aaa";
     }
 
 }

@@ -1,4 +1,4 @@
-package br.com.grupo63.techchallenge.core.domain.entities;
+package br.com.grupo63.techchallenge.core.domain.entity;
 
 
 import jakarta.persistence.*;
@@ -27,9 +27,5 @@ public class Product extends DomainEntity{
     @JoinColumn(name = "category", foreignKey = @ForeignKey(name = "fk_product_category"), nullable = false)
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private Category category;
-
-    @JoinColumn(name = "image", foreignKey = @ForeignKey(name = "fk_product_file"), nullable = false)
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private File file;
 
 }

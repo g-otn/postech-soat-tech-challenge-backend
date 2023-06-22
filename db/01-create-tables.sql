@@ -22,17 +22,6 @@ create table if not exists cli_client
 alter table cli_client
     owner to backend;
 
-create table if not exists fil_file
-(
-    creation_date    timestamp(6) not null,
-    id               bigserial
-        primary key,
-    last_update_date timestamp(6) not null
-);
-
-alter table fil_file
-    owner to backend;
-
 create table if not exists ord_order
 (
     total_price      double precision not null,
@@ -90,10 +79,6 @@ create table if not exists prd_product
     creation_date    timestamp(6)     not null,
     id               bigserial
         primary key,
-    image            bigint           not null
-        unique
-        constraint fk_product_file
-            references fil_file,
     last_update_date timestamp(6)     not null,
     name             varchar(255)     not null
 );

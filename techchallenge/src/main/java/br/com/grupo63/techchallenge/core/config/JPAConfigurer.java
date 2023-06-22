@@ -1,4 +1,4 @@
-package br.com.grupo63.techchallenge.core;
+package br.com.grupo63.techchallenge.core.config;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -13,13 +13,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing(dateTimeProviderRef = "auditingDateTimeProvider")
 public class JPAConfigurer {
 
-    // ***********************************************************************
-
     @Bean(name = "auditingDateTimeProvider")
     public DateTimeProvider dateTimeProvider() {
         return () -> Optional.of(LocalDateTime.now());
     }
-
-    // ***********************************************************************
 
 }

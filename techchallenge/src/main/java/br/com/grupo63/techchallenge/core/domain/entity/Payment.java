@@ -1,4 +1,4 @@
-package br.com.grupo63.techchallenge.core.domain.entities;
+package br.com.grupo63.techchallenge.core.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

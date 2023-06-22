@@ -1,4 +1,4 @@
-package br.com.grupo63.techchallenge.core.domain.entities;
+package br.com.grupo63.techchallenge.core.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ public class Order extends DomainEntity {
 
     @AllArgsConstructor
     enum OrderStatus {
-        RECEIVED("Recebido"), PREPARING("Preparando"), READY("Pronto"), DONE("Finalizado");
+        RECEIVED("Recebido"), PREPARING("Em preparação"), READY("Pronto"), DONE("Finalizado");
 
         private String name;
     }
