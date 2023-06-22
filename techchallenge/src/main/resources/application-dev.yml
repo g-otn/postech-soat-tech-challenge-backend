@@ -8,6 +8,7 @@ spring:
         compose:
             enabled: true
             file: compose-dev.yaml
+            # Recreates db_dev container so sql scripts (mapped volumes in compose) are executed each time
             start:
                 command: up
             stop:
