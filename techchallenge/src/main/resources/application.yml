@@ -11,3 +11,6 @@ spring:
     profiles:
         # Value comes from Maven profile (pom.xml)
         active: '@spring.profiles.active@'
+springdoc:
+    swagger-ui:
+        path: /docs

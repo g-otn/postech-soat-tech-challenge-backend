@@ -14,7 +14,7 @@ public class Payment extends DomainEntity {
 
     @AllArgsConstructor
     enum PaymentStatus {
-        CREATED("Criado"), PENDING("Pendente"), PAID("Pago");
+        PENDING("Pendente"), PAID("Pago");
 
         private String name;
     }
