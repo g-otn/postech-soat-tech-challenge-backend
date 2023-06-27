@@ -3,11 +3,13 @@ package br.com.grupo63.techchallenge.adapter.driver.controller;
 import br.com.grupo63.techchallenge.core.domain.entity.Client;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Payments", description = "Controller that handle rest requests related to payment using JSON.")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/payment")

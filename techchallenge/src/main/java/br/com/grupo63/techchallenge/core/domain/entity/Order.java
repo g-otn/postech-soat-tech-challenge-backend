@@ -32,7 +32,7 @@ public class Order extends DomainEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
     private List<OrderItem> items = new ArrayList<>();
 
-    @JoinColumn(name = "payment", foreignKey = @ForeignKey(name = "fk_order_payment"), nullable = false)
+    @JoinColumn(name = "payment", foreignKey = @ForeignKey(name = "fk_order_payment"))
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Payment payment;
 

@@ -27,6 +27,10 @@ public abstract class DomainEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
+    @Basic
+    @Column(name = "deleted", nullable = false)
+    protected boolean deleted = false;
+
     @Column(name = "creation_date", nullable = false)
     @LastModifiedDate
     private LocalDateTime creationDate;
