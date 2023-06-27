@@ -11,7 +11,7 @@ import java.util.List;
 public class Order extends DomainEntity {
 
     @AllArgsConstructor
-    enum OrderStatus {
+    enum Status {
         RECEIVED("Recebido"), PREPARING("Em preparação"), READY("Pronto"), DONE("Finalizado");
 
         private String name;
@@ -19,7 +19,7 @@ public class Order extends DomainEntity {
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private OrderStatus status = OrderStatus.RECEIVED;
+    private Status status = Status.RECEIVED;
 
     @Basic
     @Column(name = "total_price", nullable = false)

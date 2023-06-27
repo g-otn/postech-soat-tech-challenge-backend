@@ -12,7 +12,7 @@ public interface IOrderRepository extends IRepository<Order> {
             "FROM " +
             "   Order order " +
             "WHERE " +
-            "   order.status != Order.OrderStatus.DONE " +
+            "   order.status != Order.Status.DONE " +
             "   AND order.deleted = false " +
             "ORDER BY " +
             "   order.creationDate")
