@@ -1,66 +1,70 @@
 create table if not exists cat_category
 (
+    deleted          boolean      not null,
     creation_date    timestamp(6) not null,
     id               bigserial
-        primary key,
+    primary key,
     last_update_date timestamp(6) not null,
     name             varchar(255) not null
-);
+    );
 
 alter table cat_category
     owner to backend;
 
 create table if not exists cli_client
 (
+    deleted          boolean      not null,
     creation_date    timestamp(6) not null,
     id               bigserial
-        primary key,
+    primary key,
     last_update_date timestamp(6) not null,
     national_id      varchar(11)
-);
+    );
 
 alter table cli_client
     owner to backend;
 
 create table if not exists ord_order
 (
+    deleted          boolean          not null,
     total_price      double precision not null,
     client           bigint           not null
-        constraint fk_order_client
-            references cli_client,
+    constraint fk_order_client
+    references cli_client,
     creation_date    timestamp(6)     not null,
     id               bigserial
-        primary key,
+    primary key,
     last_update_date timestamp(6)     not null,
-    payment          bigint           not null
-        unique,
+    payment          bigint
+    unique,
     status           varchar(255)     not null
-        constraint ord_order_status_check
-            check ((status)::text = ANY
-                   ((ARRAY ['RECEIVED'::character varying, 'PREPARING'::character varying, 'READY'::character varying, 'DONE'::character varying])::text[]))
-);
+    constraint ord_order_status_check
+    check ((status)::text = ANY
+((ARRAY ['RECEIVED'::character varying, 'PREPARING'::character varying, 'READY'::character varying, 'DONE'::character varying])::text[]))
+    );
 
 alter table ord_order
     owner to backend;
 
 create table if not exists pay_payment
 (
+    deleted          boolean      not null,
     creation_date    timestamp(6) not null,
     id               bigserial
-        primary key,
+    primary key,
     last_update_date timestamp(6) not null,
     pay_order        bigint       not null
-        unique
-        constraint fk_payment_order
-            references ord_order,
+    unique
+    constraint fk_payment_order
+    references ord_order,
     payment_method   varchar(255)
-        constraint pay_payment_payment_method_check
-            check ((payment_method)::text = 'MERCADO_PAGO_QR_CODE'::text),
+    constraint pay_payment_payment_method_check
+    check ((payment_method)::text = 'MERCADO_PAGO_QR_CODE'::text),
     payment_status   varchar(255)
-        constraint pay_payment_payment_status_check
-            check ((payment_status)::text = ANY
-                   ((ARRAY ['CREATED'::character varying, 'PENDING'::character varying, 'PAID'::character varying])::text[]))
-);
+    constraint pay_payment_payment_status_check
+    check ((payment_status)::text = ANY
+((ARRAY ['PENDING'::character varying, 'PAID'::character varying])::text[]))
+    );
 
 alter table pay_payment
     owner to backend;
@@ -71,38 +75,39 @@ alter table ord_order
 
 create table if not exists prd_product
 (
+    deleted          boolean          not null,
     price            double precision not null,
     quantity         double precision not null,
     category         bigint           not null
-        constraint fk_product_category
-            references cat_category,
+    constraint fk_product_category
+    references cat_category,
     creation_date    timestamp(6)     not null,
     id               bigserial
-        primary key,
+    primary key,
     last_update_date timestamp(6)     not null,
     name             varchar(255)     not null
-);
+    );
 
 alter table prd_product
     owner to backend;
 
 create table if not exists ori_order_item
 (
+    deleted          boolean          not null,
     price            double precision not null,
     creation_date    timestamp(6)     not null,
     id               bigserial
-        primary key,
+    primary key,
     last_update_date timestamp(6)     not null,
     ori_order        bigint           not null
-        constraint fk_order_item_order
-            references ord_order,
+    constraint fk_order_item_order
+    references ord_order,
     product          bigint           not null
-        constraint fk_order_item_product
-            references prd_product,
+    constraint fk_order_item_product
+    references prd_product,
     quantity         bigint           not null
-);
+    );
 
 alter table ori_order_item
     owner to backend;
-
 
