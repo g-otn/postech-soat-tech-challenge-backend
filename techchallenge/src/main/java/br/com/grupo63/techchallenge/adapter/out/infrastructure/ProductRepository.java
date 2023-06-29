@@ -1,4 +1,4 @@
-package br.com.grupo63.techchallenge.adapter.driven.infrastructure;
+package br.com.grupo63.techchallenge.adapter.out.infrastructure;
 
 import br.com.grupo63.techchallenge.core.domain.entity.Product;
 import br.com.grupo63.techchallenge.core.application.repository.IProductRepository;

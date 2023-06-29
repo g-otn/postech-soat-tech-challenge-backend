@@ -1,11 +1,10 @@
-package br.com.grupo63.techchallenge.adapter.driver.controller.product;
+package br.com.grupo63.techchallenge.adapter.in.controller.product;
 
-import br.com.grupo63.techchallenge.adapter.driver.controller.dto.DefaultResponseDTO;
-import br.com.grupo63.techchallenge.adapter.driver.controller.product.dto.ProductDTO;
+import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO;
+import br.com.grupo63.techchallenge.adapter.in.controller.product.dto.ProductDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.ProductUseCase;
 import br.com.grupo63.techchallenge.core.domain.entity.Product;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

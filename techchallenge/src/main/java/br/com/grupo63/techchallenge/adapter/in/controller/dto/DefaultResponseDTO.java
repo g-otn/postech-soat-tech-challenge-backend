@@ -1,4 +1,4 @@
-package br.com.grupo63.techchallenge.adapter.driver.controller.dto;
+package br.com.grupo63.techchallenge.adapter.in.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

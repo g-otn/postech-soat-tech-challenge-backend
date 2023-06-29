@@ -1,4 +1,4 @@
-package br.com.grupo63.techchallenge.adapter.driver.controller.product.dto;
+package br.com.grupo63.techchallenge.adapter.in.controller.product.dto;
 
 import br.com.grupo63.techchallenge.core.domain.entity.Product;
 

@@ -1,74 +1,75 @@
-# FIAP - SOAT1 - Tech Challenge - Grupo 63
+# FIAP - SOAT1 - Tech Challenge - Group 63
 
-Sistema de autoatendimento de fast food.
+Group course project of a self service and kitchen management system for a fictional fast food restaurant.
 
-## Executando (para professores)
+## Executing (for teachers)
 
-Requisitos: Docker, Docker Compose
+Requirements: Docker, Docker Compose
 
-1. Certifique-se que a porta `80` está disponível.
-2. Com uma cópia do projeto (a pasta `bd` possui scripts de inicialização do BD necessários), execute o Docker Compose:
+1. Make sure port `80` is available.
+2. With a copy of this repo (the `bd` folder has some required SQL scripts), execute Docker Compose:
 
 ```bash
 docker compose up
-# ou
+# or
 docker-compose up
 ```
 
-3. Acesse http://localhost/docs ou http://localhost/swagger-ui/index.html para acessar uma documentação viva dos endpoints.
+3. Access http://localhost/ or http://localhost/swagger-ui/index.html to access 
+a live OpenAPI spec of the available endpoints.
 
 <hr>
 
-## Contribuindo (para integrantes)
+## Contributing (for group members)
 
-### Executando o projeto em `dev`
+### Executing the project in `dev` mode
 
-Requisitos: Docker, Docker Compose, Java 17
+Requirements: Docker, Docker Compose, Java 17
 
-1. Abra o projeto Maven localizado na pasta `techchallenge/` com sua IDE.
-2. Por padrão, ele:
-   - Utilizará o perfil do Maven `dev`, que configura o perfil ativo
-     do Spring Boot para `dev`, que habilita a integração com o `spring-boot-docker-compose`.
-   - O `spring-boot-docker-compose` irá utilizar o compose em `techchallenge/compose-dev.yaml` para iniciar o banco de dados e também executar os scripts da pasta `bd/`
-3. Acesse http://localhost:8080/docs para acessar o Swagger UI.
+1. Open the Spring Boot Maven project in the `techchallenge/` folder with your IDE.
+2. By default it'll:
+   - Use the `dev` Maven profile, which sets the Spring boot profile to `dev`,
+   which enables the `spring-boot-docker-compose` integration.
+   - `spring-boot-docker-compose` will use the compose file at `techchallenge/compose-dev.yaml`
+   to start a dev database, executing the scripts in `db` folder.
+3. Start the project, no environment variables are required.
+3. Access http://localhost:8080 to open the Open API live docs (Swagger UI).
 
-### Testes
+### Manually compiling and publishing the Docker image
 
-TODO: Como criar testes
+#### Packaging the Maven project
 
-### Compilando e publicando a imagem Docker
+1. With your IDE, **change the Maven profile to `prod`**. (see `application-prod.yml`)
+   - Check if `dev` profile is not enabled at the same time (`!dev`)
+   - If `dev` is enabled in some way, the application will try to use the `compose-dev.yaml`.
+   (We don't want a container to try to create containers, 
+   We want the app to simply directly connect to the db instead)
+   
+2. Execute the Maven lifecycle commands to generate the final .jar file, in this order:
+   - `clean`, `compile` and then `package`
+3. A .jar file should be created in the `target/` folder. Example: `target/techchallenge-fase-1.jar`
 
-#### Empacotando o projeto Maven
+#### Building the Docker image
 
-1. Utilizando sua IDE, **altere o profile Maven para `prod`**.
-   - Verifique se `dev` foi desselecionado (`!dev`)
-   - Se isso não for feito, a aplicação depois tentará utilizar o `compose-dev.yaml`. (Tentar criar container enquanto está em um container!)
-2. Execute os scripts de lifecycle do Maven para gerar o .jar, nessa ordem:
-   - `clean`, `compile` e `package`
-3. Um arquivo deve ter sido gerado na pasta `target/`. Exemplo: `target/techchallenge-fase-1.jar`
-
-#### Fazendo build da imagem
-
-1. Na raiz do repositório, execute esse comando para criar uma imagem local:
-   - `docker buildx build -t g0tn/soat-tech-challenge-backend:<tag> techchallenge`
-   - Substitua `<tag>` por algo como `fase-1`
-2. Aplique também a tag `latest` a imagem:
+1. Execute the build command in the `techchallenge/` folder, where the `Dockerfile` is located to create a local image:
+   - `docker buildx build -t g0tn/soat-tech-challenge-backend:<tag> .`
+   - Replace `<tag>` for something like `fase-1`
+2. Apply the `latest` tag to the image too:
    - `docker tag g0tn/soat-tech-challenge-backend:<tag> g0tn/soat-tech-challenge-backend:latest`
-   - Essa tag é importante para a imagem correta ser baixada pelo [`docker-compose.yml`](docker-compose.yml)
+   - **This tag is important so the correct version is downloaded from Docker Hub** by [`docker-compose.yml`](docker-compose.yml)
 
-#### Enviando imagem ao Docker Hub
+#### Pushing image to Docker Hub
 
-3. Envie a imagem com as duas novas tags ao Docker Hub:
+3. Pushing the image to Docker Hub:
    - `docker push g0tn/soat-tech-challenge-backend:latest`
    - `docker push g0tn/soat-tech-challenge-backend:<tag>`
 
-#### Validando o `docker-compose.yaml` com a nova imagem
+#### Validating the `docker-compose.yaml` with the new image
 
-Execute os passos em "Executando (para professores)" no inicio desse documento.
+Execute the steps in "Executing (for teachers)" at the beginning of this doc.
 
-## Integrantes
+## Acknowledgments
 
-- RM 350013 - Gabriel Otani
-- RM 350008 - Henrique Zaim
-- RM 350009 - Marcelo Vilas Boas
-- RM 350383 - Thiago Bezerra
+- Course project group members: [g-otn](https://github.com/g-otn), [HenriqueZaim](https://github.com/HenriqueZaim),
+[marcelovbcfilho](https://github.com/marcelovbcfilho), [thgosii](https://github.com/thgosii).
+- Course teachers

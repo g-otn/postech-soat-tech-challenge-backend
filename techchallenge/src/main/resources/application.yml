@@ -13,4 +13,4 @@ spring:
         active: '@spring.profiles.active@'
 springdoc:
     swagger-ui:
-        path: /docs
+        path: /

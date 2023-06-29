@@ -1,10 +1,9 @@
 package br.com.grupo63.techchallenge.core.application.usecase;
 
-import br.com.grupo63.techchallenge.adapter.driven.infrastructure.ProductRepository;
+import br.com.grupo63.techchallenge.adapter.out.infrastructure.ProductRepository;
 import br.com.grupo63.techchallenge.core.domain.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;

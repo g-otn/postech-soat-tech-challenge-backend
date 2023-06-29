@@ -1,4 +1,4 @@
-package br.com.grupo63.techchallenge.adapter.driver.controller;
+package br.com.grupo63.techchallenge.adapter.in.controller;
 
 import br.com.grupo63.techchallenge.core.domain.entity.Client;
 import io.swagger.v3.oas.annotations.Operation;
