@@ -11,7 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class DefaultResponseDTO {
-    private String code;
-    private String title;
-    private String description;
+    private String title = "Internal server error";
+    private String description = "An unknown server error happened try again.";
 }

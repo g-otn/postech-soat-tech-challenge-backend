@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface IOrderRepository extends IRepository<Order> {
 
-//    @Query("SELECT " +
-//            "   order " +
-//            "FROM " +
-//            "   Order order " +
-//            "WHERE " +
-//            "   order.status != Order.Status.DONE " +
-//            "   AND order.deleted = false " +
-//            "ORDER BY " +
-//            "   order.creationDate")
-//    List<Order> findByStatusDoneAndDeletedFalseOrderByCreationDate();
+    @Query("SELECT " +
+            "   order " +
+            "FROM " +
+            "   Order order " +
+            "WHERE " +
+            "   order.status IN ('RECEIVED', 'PREPARING', 'READY') " +
+            "   AND order.deleted = false " +
+            "ORDER BY " +
+            "   order.creationDate")
+    List<Order> findByStatusDoneAndDeletedFalseOrderByCreationDate();
 
 }

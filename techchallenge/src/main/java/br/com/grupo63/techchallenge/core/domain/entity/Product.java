@@ -2,8 +2,13 @@ package br.com.grupo63.techchallenge.core.domain.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+@AllArgsConstructor
+@NoArgsConstructor
 
 @Getter
 @Setter
@@ -27,5 +32,4 @@ public class Product extends DomainEntity{
     @JoinColumn(name = "category", foreignKey = @ForeignKey(name = "fk_product_category"), nullable = false)
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private Category category;
-
 }

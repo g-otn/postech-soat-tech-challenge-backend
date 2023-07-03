@@ -9,12 +9,12 @@ public interface ICRUDUseCase<T> {
 
     T create(T entity);
 
-    Optional<T> read();
+    Optional<T> read(Long id);
 
     List<T> list();
 
-    T update();
+    T update(T entity, Long id);
 
-    void delete();
+    void delete(Long id);
 
 }

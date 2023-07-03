@@ -1,6 +1,7 @@
 package br.com.grupo63.techchallenge.core.application.usecase;
 
 import br.com.grupo63.techchallenge.adapter.out.infrastructure.ProductRepository;
+import br.com.grupo63.techchallenge.core.application.repository.IProductRepository;
 import br.com.grupo63.techchallenge.core.domain.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,26 +15,26 @@ import java.util.Optional;
 @Service
 public class ProductUseCase implements ICRUDUseCase<Product> {
 
-    private final ProductRepository repository;
+    private final IProductRepository repository;
 
     @Override
     public Product create(Product product) {
-        return product;
+        return repository.saveAndFlush(product);
     }
 
-    public Optional<Product> read() {
-        return Optional.empty();
+    public Optional<Product> read(Long id) {
+        return repository.findById(id);
     }
 
     public List<Product> list() {
-        return new ArrayList<>();
+        return repository.findByDeletedFalse();
     }
 
-    public Product update() {
-        return null;
+    public Product update(Product product, Long id) {
+        return repository.saveAndFlush(product);
     }
 
-    public void delete() {
-        //
+    public void delete(Long id) {
+        repository.removeLogicallyById(id);
     }
 }
