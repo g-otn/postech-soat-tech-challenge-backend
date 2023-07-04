@@ -9,7 +9,7 @@ public interface ICRUDUseCase<T> {
 
     T create(T entity);
 
-    Optional<T> read(Long id);
+    T read(Long id);
 
     List<T> list();
 

@@ -1,0 +1,52 @@
+package br.com.grupo63.techchallenge.adapter.in.controller;
+
+import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO;
+import br.com.grupo63.techchallenge.core.application.usecase.exception.GenericException;
+import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+public abstract class AbstractController {
+
+    @Autowired
+    private MessageSource messageSource;
+
+    @ExceptionHandler
+    public ResponseEntity<DefaultResponseDTO> handleException(Exception exception) {
+        DefaultResponseDTO responseDTO = new DefaultResponseDTO();
+
+        if (exception instanceof ValidationException validationException) {
+            responseDTO.setTitle(validationException.getName());
+            responseDTO.setDescription(validationException.getDescription());
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDTO);
+        } else if (exception instanceof GenericException genericException) {
+            responseDTO.setTitle(genericException.getName());
+            responseDTO.setDescription(genericException.getDescription());
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDTO);
+        } else if (exception instanceof MethodArgumentNotValidException methodArgumentNotValidException) {
+            responseDTO.setTitle(messageSource.getMessage("default.title.validationError", null, LocaleContextHolder.getLocale()));
+            responseDTO.setDescription(
+                    methodArgumentNotValidException
+                            .getBindingResult().getAllErrors()
+                            .stream().map(ObjectError::getDefaultMessage)
+                            .filter(Objects::nonNull)
+                            .map(message -> messageSource.getMessage(message, null, LocaleContextHolder.getLocale()))
+                            .collect(Collectors.joining("; ")));
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDTO);
+        }
+
+        return ResponseEntity.internalServerError().body(responseDTO);
+    }
+}
