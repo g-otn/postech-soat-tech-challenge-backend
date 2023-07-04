@@ -110,8 +110,3 @@ create table if not exists ori_order_item
 
 alter table ori_order_item
     owner to backend;
-
-INSERT INTO cat_category(deleted, creation_date, last_update_date, name) VALUES(false, NOW(), NOW(), 'Lanche');
-INSERT INTO cat_category(deleted, creation_date, last_update_date, name) VALUES(false, NOW(), NOW(), 'Acompanhamento');
-INSERT INTO cat_category(deleted, creation_date, last_update_date, name) VALUES(false, NOW(), NOW(), 'Bebida');
-INSERT INTO cat_category(deleted, creation_date, last_update_date, name) VALUES(false, NOW(), NOW(), 'Sobremesa');
