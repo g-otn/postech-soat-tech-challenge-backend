@@ -13,19 +13,19 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+
 @Entity
 @Table(name = "ord_order", indexes = {})
 public class Order extends DomainEntity {
 
     @AllArgsConstructor
-    public
-    enum Status {
+    public enum Status {
         RECEIVED("Recebido"), PREPARING("Em preparação"), READY("Pronto"), DONE("Finalizado");
 
         private String name;
     }
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status status;
 
