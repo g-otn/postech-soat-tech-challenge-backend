@@ -2,24 +2,29 @@ package br.com.grupo63.techchallenge.core.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+@Getter
+@Setter
 
 @Entity
 @Table(name = "ord_order", indexes = {})
 public class Order extends DomainEntity {
 
     @AllArgsConstructor
-    enum Status {
+    public enum Status {
         RECEIVED("Recebido"), PREPARING("Em preparação"), READY("Pronto"), DONE("Finalizado");
 
         private String name;
     }
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private Status status = Status.RECEIVED;
+    private Status status;
 
     @Basic
     @Column(name = "total_price", nullable = false)

@@ -4,6 +4,7 @@ import br.com.grupo63.techchallenge.core.domain.entity.Order;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IOrderRepository extends IRepository<Order> {
 
@@ -17,5 +18,9 @@ public interface IOrderRepository extends IRepository<Order> {
             "ORDER BY " +
             "   order.creationDate")
     List<Order> findByStatusDoneAndDeletedFalseOrderByCreationDate();
+
+    Optional<Order> findById(Long id);
+
+    Order saveAndFlush(Order order);
 
 }
