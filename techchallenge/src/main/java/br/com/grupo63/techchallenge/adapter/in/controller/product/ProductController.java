@@ -62,4 +62,12 @@ public class ProductController extends AbstractController {
         useCase.delete(id);
         return ResponseEntity.ok(new DefaultResponseDTO());
     }
+
+    @Operation(
+            summary = "List all products by category",
+            description = "List all products by category.")
+    @GetMapping("/listar-por-categoria")
+    public ResponseEntity<List<ProductDTO>> listByCategoryId(@RequestParam(value = "categoria") String categoryId) throws NotFoundException {
+        return ResponseEntity.ok(useCase.listByCategoryId(Long.valueOf(categoryId)));
+    }
 }

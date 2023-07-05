@@ -30,7 +30,7 @@ public class ProductUseCase implements ICRUDUseCase<ProductDTO> {
     }
 
     public ProductDTO read(Long id) throws NotFoundException {
-        Product product = repository.findById(id).orElseThrow(NotFoundException::new);
+        Product product = repository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
 
         return ProductDTO.toDto(product);
     }
@@ -40,7 +40,7 @@ public class ProductUseCase implements ICRUDUseCase<ProductDTO> {
     }
 
     public ProductDTO update(@Valid ProductDTO productDTO, Long id) throws NotFoundException {
-        Product product = repository.findById(id).orElseThrow(NotFoundException::new);
+        Product product = repository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
 
         productDTO.toDomain(product);
 
@@ -48,10 +48,14 @@ public class ProductUseCase implements ICRUDUseCase<ProductDTO> {
     }
 
     public void delete(Long id) throws NotFoundException {
-        Product product = repository.findById(id).orElseThrow(NotFoundException::new);
+        Product product = repository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
 
         product.delete();
 
         repository.saveAndFlush(product);
+    }
+
+    public List<ProductDTO> listByCategoryId(Long categoryId) throws NotFoundException {
+        return repository.findByDeletedFalseAndCategory_Id(categoryId).stream().map(ProductDTO::toDto).toList();
     }
 }
