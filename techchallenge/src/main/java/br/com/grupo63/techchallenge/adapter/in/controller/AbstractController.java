@@ -2,6 +2,7 @@ package br.com.grupo63.techchallenge.adapter.in.controller;
 
 import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.GenericException;
+import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -29,11 +30,6 @@ public abstract class AbstractController {
             responseDTO.setDescription(validationException.getDescription());
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDTO);
-        } else if (exception instanceof GenericException genericException) {
-            responseDTO.setTitle(genericException.getName());
-            responseDTO.setDescription(genericException.getDescription());
-
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDTO);
         } else if (exception instanceof MethodArgumentNotValidException methodArgumentNotValidException) {
             responseDTO.setTitle(messageSource.getMessage("default.title.validationError", null, LocaleContextHolder.getLocale()));
             responseDTO.setDescription(
@@ -45,6 +41,16 @@ public abstract class AbstractController {
                             .collect(Collectors.joining("; ")));
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDTO);
+        } else if (exception instanceof NotFoundException) {
+            responseDTO.setTitle(messageSource.getMessage("default.title.notFoundError", null, LocaleContextHolder.getLocale()));
+            responseDTO.setDescription(messageSource.getMessage("default.title.notFoundError.description", null, LocaleContextHolder.getLocale()));
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDTO);
+        } else if (exception instanceof GenericException genericException) {
+            responseDTO.setTitle(genericException.getName());
+            responseDTO.setDescription(genericException.getDescription());
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDTO);
         }
 
         return ResponseEntity.internalServerError().body(responseDTO);

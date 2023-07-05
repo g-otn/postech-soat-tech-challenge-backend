@@ -3,6 +3,7 @@ package br.com.grupo63.techchallenge.adapter.in.controller.product;
 import br.com.grupo63.techchallenge.adapter.in.controller.AbstractController;
 import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.ProductDTO;
+import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import br.com.grupo63.techchallenge.core.application.usecase.product.ProductUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,7 +34,7 @@ public class ProductController extends AbstractController {
             summary = "Get a product by it's id",
             description = "Find a product by their id.")
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> read(@PathVariable("id") Long id) {
+    public ResponseEntity<ProductDTO> read(@PathVariable("id") Long id) throws NotFoundException {
         return ResponseEntity.ok(useCase.read(id));
     }
 
@@ -49,7 +50,7 @@ public class ProductController extends AbstractController {
             summary = "Update a product",
             description = "Update a product in the database with the DTO data.")
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> update(@RequestBody ProductDTO dto, @PathVariable("id") Long id) {
+    public ResponseEntity<ProductDTO> update(@RequestBody ProductDTO dto, @PathVariable("id") Long id) throws NotFoundException {
         return ResponseEntity.ok(useCase.update(dto, id));
     }
 
@@ -57,7 +58,7 @@ public class ProductController extends AbstractController {
             summary = "Delete a product",
             description = "Delete a product in the database by their id.")
     @DeleteMapping("/{id}")
-    public ResponseEntity<DefaultResponseDTO> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<DefaultResponseDTO> delete(@PathVariable("id") Long id) throws NotFoundException {
         useCase.delete(id);
         return ResponseEntity.ok(new DefaultResponseDTO());
     }

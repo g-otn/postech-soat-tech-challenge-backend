@@ -37,6 +37,8 @@ public abstract class DomainEntity implements Serializable {
     @LastModifiedDate
     private LocalDateTime lastUpdateDate;
 
-
+    public void delete() {
+        this.deleted = true;
+    }
 
 }

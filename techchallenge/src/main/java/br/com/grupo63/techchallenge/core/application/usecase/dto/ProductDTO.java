@@ -20,6 +20,7 @@ public class ProductDTO {
 
     @Schema(defaultValue = "0")
     private Long id;
+
     @Schema(example ="X-Bacon")
     @NotEmpty(message = "product.name.notEmpty")
     @NotNull(message = "product.name.notNull")
@@ -40,14 +41,17 @@ public class ProductDTO {
     @Min(message = "product.category.notLessThanOne", value = 1)
     private Long category;
 
-    public Product toDomain() {
-        return new Product(name, price, quantity, new Category(category));
+    public void toDomain(Product product) {
+        product.setName(name);
+        product.setPrice(price);
+        product.setQuantity(quantity);
+        product.setCategory(new Category(category));
     }
 
     public static ProductDTO toDto(Product product) {
         ProductDTO productDTO = new ProductDTO();
 
-        productDTO.setId(productDTO.getId());
+        productDTO.setId(product.getId());
         productDTO.setName(product.getName());
         productDTO.setPrice(product.getPrice());
         productDTO.setQuantity(product.getQuantity());

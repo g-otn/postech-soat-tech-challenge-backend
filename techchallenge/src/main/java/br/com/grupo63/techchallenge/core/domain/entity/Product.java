@@ -15,7 +15,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "prd_product", indexes = {})
-public class Product extends DomainEntity{
+public class Product extends DomainEntity {
 
     @Basic
     @Column(name = "name", nullable = false)
