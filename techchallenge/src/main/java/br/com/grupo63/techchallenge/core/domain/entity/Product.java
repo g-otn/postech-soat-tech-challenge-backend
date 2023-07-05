@@ -32,4 +32,8 @@ public class Product extends DomainEntity {
     @JoinColumn(name = "category", foreignKey = @ForeignKey(name = "fk_product_category"), nullable = false)
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private Category category;
+
+    public Product(Long productId) {
+        this.id = productId;
+    }
 }

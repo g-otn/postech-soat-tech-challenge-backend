@@ -1,11 +1,15 @@
 package br.com.grupo63.techchallenge.core.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 
 @Entity
 @Table(name = "ori_order_item", indexes = {})
@@ -27,4 +31,9 @@ public class OrderItem extends DomainEntity {
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private Product product;
 
+    public OrderItem(Long quantity, Double price, Long productId) {
+        this.quantity = quantity;
+        this.price = price;
+        this.product.setId(productId);
+    }
 }

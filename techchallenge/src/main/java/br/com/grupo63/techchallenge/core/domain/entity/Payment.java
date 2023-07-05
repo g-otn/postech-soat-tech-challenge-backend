@@ -5,14 +5,23 @@ import br.com.grupo63.techchallenge.core.domain.entity.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 
 @Entity
 @Table(name = "pay_payment", indexes = {})
 public class Payment extends DomainEntity {
+    public Payment(Status status, Method method, String qrData) {
+        this.status = status;
+        this.method = method;
+        this.qrData = qrData;
+    }
+
     @AllArgsConstructor
     public enum Status {
         PENDING("Pendente"), PAID("Pago");
