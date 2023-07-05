@@ -3,8 +3,9 @@ package br.com.grupo63.techchallenge.adapter.in.controller.product;
 import br.com.grupo63.techchallenge.adapter.in.controller.AbstractController;
 import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.ProductDTO;
-import br.com.grupo63.techchallenge.core.application.usecase.ProductUseCase;
+import br.com.grupo63.techchallenge.core.application.usecase.product.ProductUseCase;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Produtos", description = "CRUD de produtos para gerenciamento e exibição ao cliente")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/produtos")
@@ -46,7 +48,7 @@ public class ProductController extends AbstractController {
     @Operation(
             summary = "Update a product",
             description = "Update a product in the database with the DTO data.")
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ProductDTO> update(@RequestBody ProductDTO dto, @PathVariable("id") Long id) {
         return ResponseEntity.ok(useCase.update(dto, id));
     }

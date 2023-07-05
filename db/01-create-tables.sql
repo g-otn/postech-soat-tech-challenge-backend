@@ -57,13 +57,13 @@ create table if not exists pay_payment
     unique
     constraint fk_payment_order
     references ord_order,
-    payment_method   varchar(255)
-    constraint pay_payment_payment_method_check
-    check ((payment_method)::text = 'MERCADO_PAGO_QR_CODE'::text),
-    payment_status   varchar(255)
-    constraint pay_payment_payment_status_check
-    check ((payment_status)::text = ANY
-((ARRAY ['PENDING'::character varying, 'PAID'::character varying])::text[]))
+    qr_data          varchar(200),
+    method           varchar(255) not null
+    constraint pay_payment_method_check
+    check ((method)::text = 'MERCADO_PAGO_QR_CODE'::text),
+    status           varchar(255) not null
+    constraint pay_payment_status_check
+    check ((status)::text = ANY ((ARRAY ['PENDING'::character varying, 'PAID'::character varying])::text[]))
     );
 
 alter table pay_payment
@@ -110,3 +110,4 @@ create table if not exists ori_order_item
 
 alter table ori_order_item
     owner to backend;
+

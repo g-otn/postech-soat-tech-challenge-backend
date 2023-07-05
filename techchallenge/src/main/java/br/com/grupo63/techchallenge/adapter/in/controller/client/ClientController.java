@@ -5,6 +5,7 @@ import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO
 import br.com.grupo63.techchallenge.core.application.usecase.client.ClientUseCase;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.ClientDTO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Clientes", description = "CRUD de clientes permitindo identificação e gerenciamento")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/clientes")
@@ -54,7 +56,7 @@ public class ClientController extends AbstractController {
     @Operation(
             summary = "Update a client",
             description = "Update a client in the database with the DTO data.")
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ClientDTO> update(@RequestBody ClientDTO dto, @PathVariable("id") Long id) {
         return ResponseEntity.ok(useCase.update(dto, id));
     }

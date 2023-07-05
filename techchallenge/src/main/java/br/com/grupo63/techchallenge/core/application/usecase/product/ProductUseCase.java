@@ -1,6 +1,7 @@
-package br.com.grupo63.techchallenge.core.application.usecase;
+package br.com.grupo63.techchallenge.core.application.usecase.product;
 
 import br.com.grupo63.techchallenge.core.application.repository.IProductRepository;
+import br.com.grupo63.techchallenge.core.application.usecase.ICRUDUseCase;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.ProductDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

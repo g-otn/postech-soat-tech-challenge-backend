@@ -1,6 +1,11 @@
 package br.com.grupo63.techchallenge.adapter.in.controller.payment;
 
 import br.com.grupo63.techchallenge.adapter.in.controller.AbstractController;
+import br.com.grupo63.techchallenge.adapter.in.controller.payment.dto.PaymentStatusResponseDTO;
+import br.com.grupo63.techchallenge.adapter.in.controller.payment.dto.QRCodeResponseDTO;
+import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
+import br.com.grupo63.techchallenge.core.application.usecase.payment.IPaymentUseCase;
+import br.com.grupo63.techchallenge.core.domain.entity.Payment;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,15 +19,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/pagamentos")
 public class PaymentController extends AbstractController {
 
+    private final IPaymentUseCase paymentUseCase;
+
     @Operation(
             summary = "Fake checkout: Gerar QR Code",
             description = "Creates a payment entity associated with an order and returns it's id and Mercado Pago QR Code to be paid." )
     @PostMapping("/criar-qrcode")
-    public String createQRCodeFromOrderId(
+    public QRCodeResponseDTO createQRCodeFromOrderId(
             @Parameter(description = "Id do pedido associado ao pagamento") @RequestParam Long orderId
     ) {
-        // TODO
-        return "new payment id and qrcode";
+        String qrData = paymentUseCase.generateQRCode(orderId);
+        return new QRCodeResponseDTO(qrData);
     }
 
     @Operation(
@@ -31,21 +38,18 @@ public class PaymentController extends AbstractController {
     @PostMapping("/finalizar")
     @ResponseStatus(HttpStatus.OK)
     public void confirmPaymentFromOrderId(@Parameter(description = "Id do pedido associado ao pagamento")
-                                              @RequestParam Long orderId) {
-        // https://www.mercadopago.com.br/developers/pt/docs/qr-code/integration-configuration/qr-dynamic/integration
-        // https://www.mercadopago.com.br/developers/pt/docs/your-integrations/notifications/webhooks
-        // point_integration_wh state_FINISHED
-        // TODO
+                                              @RequestParam Long orderId) throws ValidationException {
+        paymentUseCase.confirmPayment(orderId);
     }
 
     @Operation(
             summary = "Get a payment by its id",
             description = "Would be polled by the customer totem to check if the payment was completed successfully." )
     @GetMapping("/status")
-    public String getStatusByOrderId(@Parameter(description = "Id do pedido associado ao pagamento")
+    public PaymentStatusResponseDTO getStatusByOrderId(@Parameter(description = "Id do pedido associado ao pagamento")
                                          @RequestParam Long orderId) {
-        // TODO
-        return orderId.toString();
+        Payment.Status status = paymentUseCase.getPaymentStatus(orderId);
+        return new PaymentStatusResponseDTO(status);
     }
 
 }
