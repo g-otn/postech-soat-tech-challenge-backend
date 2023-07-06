@@ -47,4 +47,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long>, I
                 .map(ProductEntity::toModel)
                 .toList();
     }
+
 }

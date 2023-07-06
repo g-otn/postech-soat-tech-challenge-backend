@@ -9,9 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public interface OrderRepository extends JpaRepository<OrderEntity, Long>, IOrderRepository {
+
+    Optional<OrderEntity> findByIdAndDeleted(Long id, boolean deleted);
+    List<OrderEntity> findByDeleted(boolean deleted);
 
     @Query("SELECT " +
             "   order " +
@@ -31,16 +35,21 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long>, IOrde
 
     @Override
     default Optional<Order> findByIdAndDeletedFalse(Long id) {
-        return Optional.empty();
+        return this.findByIdAndDeleted(id, false).map(OrderEntity::toModel);
     }
 
     @Override
     default Order saveAndFlush(Order order) {
-        return null;
+        OrderEntity entity = new OrderEntity(order);
+
+        entity = this.saveAndFlush(entity);
+
+        return entity.toModel();
     }
 
     @Override
     default List<Order> findByDeletedFalse() {
-        return null;
+        return this.findByDeleted(false).stream().map(OrderEntity::toModel).toList();
     }
+
 }

@@ -43,7 +43,7 @@ public class ClientUseCase implements IClientUseCase {
 
     @Override
     public List<ClientDTO> list() {
-        return repository.findByDeletedFalse().stream().map(ClientDTO::toDto).collect(Collectors.toList());
+        return repository.findByDeletedFalse().stream().map(ClientDTO::toDto).toList();
     }
 
     @Override
@@ -63,4 +63,5 @@ public class ClientUseCase implements IClientUseCase {
 
         repository.saveAndFlush(client);
     }
+
 }

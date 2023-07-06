@@ -35,7 +35,7 @@ public class OrderUseCase implements IOrderUseCase {
     }
 
     public List<OrderDTO> listUnfinishedOrders() {
-        return orderRepository.findByStatusDoneAndDeletedFalseOrderByCreationDate().stream().map(OrderDTO::toDto).collect(Collectors.toList());
+        return orderRepository.findByStatusDoneAndDeletedFalseOrderByCreationDate().stream().map(OrderDTO::toDto).toList();
     }
 
     @Override
