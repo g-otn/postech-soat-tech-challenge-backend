@@ -68,7 +68,7 @@ public class ClientController extends AbstractController {
     @DeleteMapping("/{id}")
     public ResponseEntity<DefaultResponseDTO> delete(@PathVariable("id") Long id) throws NotFoundException {
         useCase.delete(id);
-        return ResponseEntity.ok(new DefaultResponseDTO());
+        return ResponseEntity.ok().build();
     }
 
 

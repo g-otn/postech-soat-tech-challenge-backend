@@ -23,7 +23,9 @@ public abstract class AbstractController {
 
     @ExceptionHandler
     public ResponseEntity<DefaultResponseDTO> handleException(Exception exception) {
-        DefaultResponseDTO responseDTO = new DefaultResponseDTO();
+        DefaultResponseDTO responseDTO = new DefaultResponseDTO(
+                messageSource.getMessage("default.title.unknownError", null, LocaleContextHolder.getLocale()),
+                messageSource.getMessage("default.title.unknownError.description", null, LocaleContextHolder.getLocale()));
 
         if (exception instanceof ValidationException validationException) {
             responseDTO.setTitle(validationException.getName());
