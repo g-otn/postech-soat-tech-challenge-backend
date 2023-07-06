@@ -8,21 +8,8 @@ import java.util.Optional;
 
 public interface IOrderRepository extends IRepository<Order> {
 
-    @Query("SELECT " +
-            "   order " +
-            "FROM " +
-            "   OrderEntity order " +
-            "WHERE " +
-            "   order.status IN ('RECEIVED', 'PREPARING', 'READY') " +
-            "   AND order.deleted = false " +
-            "ORDER BY " +
-            "   order.creationDate")
     List<Order> findByStatusDoneAndDeletedFalseOrderByCreationDate();
-
     Optional<Order> findByIdAndDeletedFalse(Long id);
-
     Order saveAndFlush(Order order);
-
-    Optional<Order> findByIdAndDeletedFalse(Long id);
 
 }

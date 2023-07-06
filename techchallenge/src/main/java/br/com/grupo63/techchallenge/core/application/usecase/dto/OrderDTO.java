@@ -1,6 +1,7 @@
 package br.com.grupo63.techchallenge.core.application.usecase.dto;
 
 import br.com.grupo63.techchallenge.core.domain.model.Order;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

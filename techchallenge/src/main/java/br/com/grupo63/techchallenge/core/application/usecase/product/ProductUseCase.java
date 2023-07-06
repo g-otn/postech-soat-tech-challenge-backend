@@ -53,7 +53,7 @@ public class ProductUseCase implements ICRUDUseCase<ProductDTO> {
         repository.saveAndFlush(product);
     }
 
-    public List<ProductDTO> listByCategoryId(Long categoryId) throws NotFoundException {
+    public List<ProductDTO> listByCategoryId(Long categoryId) {
         return repository.findByDeletedFalseAndCategory_Id(categoryId).stream().map(ProductDTO::toDto).toList();
     }
 }

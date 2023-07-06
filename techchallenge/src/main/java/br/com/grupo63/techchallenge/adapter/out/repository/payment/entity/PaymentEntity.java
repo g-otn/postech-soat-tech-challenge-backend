@@ -16,11 +16,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "pay_payment", indexes = {})
 public class PaymentEntity extends DomainEntity {
-    public PaymentEntity(Status status, Method method, String qrData) {
-        this.status = status;
-        this.method = method;
-        this.qrData = qrData;
-    }
 
     @AllArgsConstructor
     public enum Status {
