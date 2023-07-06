@@ -3,7 +3,7 @@ package br.com.grupo63.techchallenge.core.application.usecase.order;
 import br.com.grupo63.techchallenge.core.application.repository.IOrderRepository;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
-import br.com.grupo63.techchallenge.core.domain.entity.Order;
+import br.com.grupo63.techchallenge.core.domain.model.Order;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;

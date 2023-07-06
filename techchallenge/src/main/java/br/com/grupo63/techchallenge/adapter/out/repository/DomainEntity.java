@@ -1,7 +1,11 @@
-package br.com.grupo63.techchallenge.core.domain.entity;
+package br.com.grupo63.techchallenge.adapter.out.repository;
 
+import br.com.grupo63.techchallenge.core.domain.model.Domain;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -9,8 +13,10 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
-@Setter(AccessLevel.PACKAGE)
+@Setter
 
 @MappedSuperclass
 @EntityListeners({AuditingEntityListener.class})
@@ -19,7 +25,7 @@ public abstract class DomainEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @jakarta.persistence.Id
+    @Id
     @Access(AccessType.FIELD)
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +43,8 @@ public abstract class DomainEntity implements Serializable {
     @LastModifiedDate
     private LocalDateTime lastUpdateDate;
 
-    public void delete() {
-        this.deleted = true;
+    public DomainEntity(Domain domain) {
+        this.id = domain.getId();
+        this.deleted = domain.isDeleted();
     }
-
 }

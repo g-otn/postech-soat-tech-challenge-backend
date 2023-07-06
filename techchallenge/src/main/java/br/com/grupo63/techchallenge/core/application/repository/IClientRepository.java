@@ -1,6 +1,6 @@
 package br.com.grupo63.techchallenge.core.application.repository;
 
-import br.com.grupo63.techchallenge.core.domain.entity.Client;
+import br.com.grupo63.techchallenge.core.domain.model.Client;
 
 import java.util.Optional;
 
@@ -10,5 +10,5 @@ public interface IClientRepository extends IRepository<Client> {
 
     Optional<Client> findByNationalId(String nationalId);
 
-    Optional<Client> findById(Long id);
+    Optional<Client> findByIdAndDeletedFalse(Long id);
 }

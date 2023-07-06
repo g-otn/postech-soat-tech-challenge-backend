@@ -5,7 +5,8 @@ import br.com.grupo63.techchallenge.adapter.in.controller.payment.dto.PaymentSta
 import br.com.grupo63.techchallenge.adapter.in.controller.payment.dto.QRCodeResponseDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
 import br.com.grupo63.techchallenge.core.application.usecase.payment.IPaymentUseCase;
-import br.com.grupo63.techchallenge.core.domain.entity.Payment;
+import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
+import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -48,7 +49,7 @@ public class PaymentController extends AbstractController {
     @GetMapping("/status")
     public PaymentStatusResponseDTO getStatusByOrderId(@Parameter(description = "Id do pedido associado ao pagamento")
                                          @RequestParam Long orderId) {
-        Payment.Status status = paymentUseCase.getPaymentStatus(orderId);
+        PaymentStatus status = paymentUseCase.getPaymentStatus(orderId);
         return new PaymentStatusResponseDTO(status);
     }
 

@@ -1,7 +1,8 @@
 package br.com.grupo63.techchallenge.core.application.usecase.payment;
 
 import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
-import br.com.grupo63.techchallenge.core.domain.entity.Payment;
+import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
+import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;
 import jakarta.validation.constraints.NotNull;
 
 public interface IPaymentUseCase {
@@ -10,6 +11,6 @@ public interface IPaymentUseCase {
 
     void confirmPayment(@NotNull Long orderId) throws ValidationException;
 
-    Payment.Status getPaymentStatus(@NotNull Long orderId);
+    PaymentStatus getPaymentStatus(@NotNull Long orderId);
 
 }

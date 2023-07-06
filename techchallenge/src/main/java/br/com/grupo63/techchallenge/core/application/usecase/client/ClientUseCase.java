@@ -1,7 +1,10 @@
 package br.com.grupo63.techchallenge.core.application.usecase.client;
 
-import br.com.grupo63.techchallenge.core.application.usecase.dto.ClientDTO;
 import br.com.grupo63.techchallenge.core.application.repository.IClientRepository;
+import br.com.grupo63.techchallenge.core.application.usecase.dto.ClientDTO;
+import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
+import br.com.grupo63.techchallenge.core.domain.model.Client;
+import br.com.grupo63.techchallenge.core.domain.model.Product;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +31,7 @@ public class ClientUseCase implements IClientUseCase {
 
     @Override
     public ClientDTO read(Long id) {
-        return ClientDTO.toDto(repository.findById(id).orElseThrow());
+        return ClientDTO.toDto(repository.findByIdAndDeletedFalse(id).orElseThrow());
     }
 
     @Override
@@ -42,7 +45,11 @@ public class ClientUseCase implements IClientUseCase {
     }
 
     @Override
-    public void delete(Long id) {
-        repository.removeLogicallyById(id);
+    public void delete(Long id) throws NotFoundException {
+        Client client = repository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
+
+        client.delete();
+
+        repository.saveAndFlush(client);
     }
 }

@@ -1,5 +1,7 @@
-package br.com.grupo63.techchallenge.core.domain.entity;
+package br.com.grupo63.techchallenge.adapter.out.repository.order.entity;
 
+import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
+import br.com.grupo63.techchallenge.adapter.out.repository.product.entity.ProductEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +15,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "ori_order_item", indexes = {})
-public class OrderItem extends DomainEntity {
+public class OrderItemEntity extends DomainEntity {
 
     @Basic
     @Column(name = "quantity", nullable = false)
@@ -25,13 +27,13 @@ public class OrderItem extends DomainEntity {
 
     @JoinColumn(name = "ori_order", foreignKey = @ForeignKey(name = "fk_order_item_order"), nullable = false)
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private Order order;
+    private OrderEntity order;
 
     @JoinColumn(name = "product", foreignKey = @ForeignKey(name = "fk_order_item_product"), nullable = false)
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    private Product product;
+    private ProductEntity product;
 
-    public OrderItem(Long quantity, Double price, Long productId) {
+    public OrderItemEntity(Long quantity, Double price, Long productId) {
         this.quantity = quantity;
         this.price = price;
         this.product.setId(productId);
