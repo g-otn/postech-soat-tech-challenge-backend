@@ -1,13 +1,17 @@
 package br.com.grupo63.techchallenge.core.application.usecase.order;
 
 import br.com.grupo63.techchallenge.core.application.repository.IOrderRepository;
+import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderDTO;
+import br.com.grupo63.techchallenge.core.application.usecase.dto.ProductDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import br.com.grupo63.techchallenge.core.domain.entity.Order;
+import br.com.grupo63.techchallenge.core.domain.entity.Product;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 import static java.util.Map.entry;
@@ -25,10 +29,46 @@ public class OrderUseCase implements IOrderUseCase {
 
     @Override
     public void advanceOrderStatus(@NotNull Long orderId) throws NotFoundException {
-        Order order = orderRepository.findById(orderId).orElseThrow(NotFoundException::new);
+        Order order = orderRepository.findByIdAndDeletedFalse(orderId).orElseThrow(NotFoundException::new);
         order.setStatus(null == order.getStatus() ? Order.Status.RECEIVED : nextOrderMap.get(order.getStatus()));
 
         orderRepository.saveAndFlush(order);
     }
 
+    @Override
+    public OrderDTO create(OrderDTO orderDTO) {
+        Order order = new Order();
+
+        orderDTO.toDomain(order);
+
+        return OrderDTO.toDto(orderRepository.saveAndFlush(order));
+    }
+
+    @Override
+    public OrderDTO read(Long id) throws NotFoundException {
+        return OrderDTO.toDto(orderRepository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new));
+    }
+
+    @Override
+    public List<OrderDTO> list() {
+        return orderRepository.findByStatusDoneAndDeletedFalseOrderByCreationDate().stream().map(OrderDTO::toDto).toList();
+    }
+
+    @Override
+    public OrderDTO update(OrderDTO orderDTO, Long id) throws NotFoundException {
+        Order order = orderRepository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
+
+        orderDTO.toDomain(order);
+
+        return OrderDTO.toDto(orderRepository.saveAndFlush(order));
+    }
+
+    @Override
+    public void delete(Long id) throws NotFoundException {
+        Order order = orderRepository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
+
+        order.delete();
+
+        orderRepository.saveAndFlush(order);
+    }
 }
