@@ -1,5 +1,6 @@
 package br.com.grupo63.techchallenge.core.application.usecase.dto;
 
+import br.com.grupo63.techchallenge.core.domain.model.Client;
 import br.com.grupo63.techchallenge.core.domain.model.Order;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -32,9 +33,13 @@ public class OrderDTO {
     private PaymentDTO paymentDTO;
 
     public void toDomain(Order order) {
+        Client client = new Client();
+
+        clientDTO.toDomain(client);
+
         order.setTotalPrice(totalPrice);
         order.setStatus(Order.Status.valueOf(status));
-        order.setClient(clientDTO.toDomain());
+        order.setClient(client);
         order.setItems(itemsDTO.stream().map(OrderItemDTO::toDomain).toList());
         order.setPayment(paymentDTO.toDomain());
     }

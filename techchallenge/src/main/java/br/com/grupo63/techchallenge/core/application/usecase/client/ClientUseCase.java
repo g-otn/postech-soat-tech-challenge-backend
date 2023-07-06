@@ -4,7 +4,6 @@ import br.com.grupo63.techchallenge.core.application.repository.IClientRepositor
 import br.com.grupo63.techchallenge.core.application.usecase.dto.ClientDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import br.com.grupo63.techchallenge.core.domain.model.Client;
-import br.com.grupo63.techchallenge.core.domain.model.Product;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,18 +19,26 @@ public class ClientUseCase implements IClientUseCase {
     private final IClientRepository repository;
 
     @Override
-    public ClientDTO getByNationalId(String nationalId) {
-        return ClientDTO.toDto(repository.findByNationalId(nationalId).orElseThrow());
+    public ClientDTO getByNationalId(String nationalId) throws NotFoundException {
+        Client client = repository.findByNationalId(nationalId).orElseThrow(NotFoundException::new);
+
+        return ClientDTO.toDto(client);
     }
 
     @Override
     public ClientDTO create(@Valid ClientDTO clientDTO) {
-        return ClientDTO.toDto(repository.saveAndFlush(clientDTO.toDomain()));
+        Client client = new Client();
+
+        clientDTO.toDomain(client);
+
+        return ClientDTO.toDto(repository.saveAndFlush(client));
     }
 
     @Override
-    public ClientDTO read(Long id) {
-        return ClientDTO.toDto(repository.findByIdAndDeletedFalse(id).orElseThrow());
+    public ClientDTO read(Long id) throws NotFoundException {
+        Client client = repository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
+
+        return ClientDTO.toDto(client);
     }
 
     @Override
@@ -40,8 +47,12 @@ public class ClientUseCase implements IClientUseCase {
     }
 
     @Override
-    public ClientDTO update(@Valid ClientDTO clientDTO, Long id) {
-        return ClientDTO.toDto(repository.saveAndFlush(clientDTO.toDomain()));
+    public ClientDTO update(@Valid ClientDTO clientDTO, Long id) throws NotFoundException {
+        Client client = repository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
+
+        clientDTO.toDomain(client);
+
+        return ClientDTO.toDto(repository.saveAndFlush(client));
     }
 
     @Override

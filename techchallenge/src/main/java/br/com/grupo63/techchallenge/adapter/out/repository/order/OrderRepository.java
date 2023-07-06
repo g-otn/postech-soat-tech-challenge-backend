@@ -26,7 +26,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long>, IOrde
 
     @Override
     default List<Order> findByStatusDoneAndDeletedFalseOrderByCreationDate() {
-        return null;
+        return this.findByStatusDoneAndDeletedOrderByCreationDate();
     }
 
     @Override

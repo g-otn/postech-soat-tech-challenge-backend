@@ -26,7 +26,7 @@ public class ClientController extends AbstractController {
             summary = "Find a client by their national id",
             description = "Get client data by their national id.")
     @GetMapping("/{nationalId}")
-    public ClientDTO findByNationalId(@PathVariable String nationalId) {
+    public ClientDTO findByNationalId(@PathVariable String nationalId) throws NotFoundException {
         return useCase.getByNationalId(nationalId);
     }
 
@@ -42,7 +42,7 @@ public class ClientController extends AbstractController {
             summary = "Get a client by it's id",
             description = "Find a client by their id.")
     @GetMapping("/{id}")
-    public ResponseEntity<ClientDTO> read(@PathVariable("id") Long id) {
+    public ResponseEntity<ClientDTO> read(@PathVariable("id") Long id) throws NotFoundException {
         return ResponseEntity.ok(useCase.read(id));
     }
 
@@ -58,7 +58,7 @@ public class ClientController extends AbstractController {
             summary = "Update a client",
             description = "Update a client in the database with the DTO data.")
     @PutMapping("/{id}")
-    public ResponseEntity<ClientDTO> update(@RequestBody ClientDTO dto, @PathVariable("id") Long id) {
+    public ResponseEntity<ClientDTO> update(@RequestBody ClientDTO dto, @PathVariable("id") Long id) throws NotFoundException {
         return ResponseEntity.ok(useCase.update(dto, id));
     }
 

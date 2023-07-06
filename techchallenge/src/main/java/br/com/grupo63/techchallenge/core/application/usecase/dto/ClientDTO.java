@@ -19,8 +19,8 @@ public class ClientDTO {
     @Schema(example ="012.345.678-90")
     private String nationalId;
 
-    public Client toDomain() {
-        return new Client(nationalId);
+    public void toDomain(Client client) {
+        client.setNationalId(nationalId);
     }
 
     public static ClientDTO toDto(Client client) {
