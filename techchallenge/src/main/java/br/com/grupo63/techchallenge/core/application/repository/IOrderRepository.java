@@ -23,4 +23,6 @@ public interface IOrderRepository extends IRepository<Order> {
 
     Order saveAndFlush(Order order);
 
+    Optional<Order> findByIdAndDeletedFalse(Long id);
+
 }
