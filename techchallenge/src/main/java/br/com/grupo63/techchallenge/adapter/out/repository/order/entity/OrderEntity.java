@@ -56,7 +56,7 @@ public class OrderEntity extends DomainEntity {
                 this.getStatus(),
                 this.getTotalPrice(),
                 this.getClient().toModel(),
-                this.getItems().stream().map(OrderItemEntity::toModel),
+                this.getItems().stream().map(OrderItemEntity::toModel).toList(),
                 this.getPayment().toModel());
     }
 
