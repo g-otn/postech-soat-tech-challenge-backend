@@ -1,6 +1,6 @@
 package br.com.grupo63.techchallenge.core.application.repository;
 
-import br.com.grupo63.techchallenge.core.domain.model.Payment;
+import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
 
 import java.util.Optional;
 

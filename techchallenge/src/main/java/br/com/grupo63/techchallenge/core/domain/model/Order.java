@@ -1,5 +1,6 @@
 package br.com.grupo63.techchallenge.core.domain.model;
 
+import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

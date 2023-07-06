@@ -3,7 +3,8 @@ package br.com.grupo63.techchallenge.core.application.usecase.payment;
 import br.com.grupo63.techchallenge.core.application.external.payment.IMercadoPagoService;
 import br.com.grupo63.techchallenge.core.application.repository.IPaymentRepository;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
-import br.com.grupo63.techchallenge.core.domain.model.Payment;
+import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
+import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -35,11 +36,11 @@ public class PaymentUseCase implements IPaymentUseCase {
 //            );
 //        }
 //
-//        payment.setStatus(Payment.Status.PAID);
+//        payment.setStatus(PaymentStatus.PAID);
 //        paymentRepository.saveAndFlush(payment);
     }
 
-    public Payment.Status getPaymentStatus(@NotNull Long orderId) {
+    public PaymentStatus getPaymentStatus(@NotNull Long orderId) {
 //        Order order = orderUseCase.read(orderId);
 //        Payment payment = paymentRepository.findById(order.getId()).orElseThrow();
 //

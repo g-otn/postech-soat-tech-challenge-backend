@@ -2,6 +2,8 @@ package br.com.grupo63.techchallenge.adapter.out.repository.payment.entity;
 
 import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
 import br.com.grupo63.techchallenge.adapter.out.repository.order.entity.OrderEntity;
+import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentMethod;
+import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,27 +19,14 @@ import lombok.Setter;
 @Table(name = "pay_payment", indexes = {})
 public class PaymentEntity extends DomainEntity {
 
-    @AllArgsConstructor
-    public enum Status {
-        PENDING("Pendente"), PAID("Pago");
-
-        private String name;
-    }
-
-    @AllArgsConstructor
-    public enum Method {
-        MERCADO_PAGO_QR_CODE("QR Code Mercado Pago");
-
-        private String name;
-    }
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private PaymentStatus status;
 
     @Column(name = "method", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Method method;
+    private PaymentMethod method;
 
     @Column(name = "qr_data", length = 200)
     private String qrData;

@@ -1,6 +1,8 @@
 package br.com.grupo63.techchallenge.core.application.usecase.dto;
 
-import br.com.grupo63.techchallenge.core.domain.model.Payment;
+import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
+import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentMethod;
+import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,7 @@ public class PaymentDTO {
 
     private String qrData;
 
-    public Payment toDomain() { return new Payment(Payment.Status.valueOf(status), Payment.Method.valueOf(method), qrData); }
+    public Payment toDomain() { return new Payment(PaymentStatus.valueOf(status), PaymentMethod.valueOf(method), qrData); }
 
     public static PaymentDTO toDto(Payment payment) {
         PaymentDTO paymentDTO = new PaymentDTO();
