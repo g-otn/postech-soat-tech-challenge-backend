@@ -2,10 +2,8 @@ package br.com.grupo63.techchallenge.core.application.usecase.order;
 
 import br.com.grupo63.techchallenge.core.application.repository.IOrderRepository;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderDTO;
-import br.com.grupo63.techchallenge.core.application.usecase.dto.ProductDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import br.com.grupo63.techchallenge.core.domain.entity.Order;
-import br.com.grupo63.techchallenge.core.domain.entity.Product;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;

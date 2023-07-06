@@ -1,7 +1,6 @@
 package br.com.grupo63.techchallenge.core.application.repository;
 
 import br.com.grupo63.techchallenge.core.domain.entity.Order;
-import br.com.grupo63.techchallenge.core.domain.entity.Product;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
