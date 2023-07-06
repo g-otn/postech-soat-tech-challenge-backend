@@ -5,7 +5,7 @@ import br.com.grupo63.techchallenge.adapter.in.controller.payment.dto.PaymentSta
 import br.com.grupo63.techchallenge.adapter.in.controller.payment.dto.QRCodeResponseDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
 import br.com.grupo63.techchallenge.core.application.usecase.payment.IPaymentUseCase;
-import br.com.grupo63.techchallenge.core.domain.entity.Payment;
+import br.com.grupo63.techchallenge.core.domain.model.Payment;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -4,6 +4,7 @@ import br.com.grupo63.techchallenge.adapter.in.controller.AbstractController;
 import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.client.ClientUseCase;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.ClientDTO;
+import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -65,7 +66,7 @@ public class ClientController extends AbstractController {
             summary = "Delete a client",
             description = "Delete a client in the database by their id.")
     @DeleteMapping("/{id}")
-    public ResponseEntity<DefaultResponseDTO> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<DefaultResponseDTO> delete(@PathVariable("id") Long id) throws NotFoundException {
         useCase.delete(id);
         return ResponseEntity.ok(new DefaultResponseDTO());
     }

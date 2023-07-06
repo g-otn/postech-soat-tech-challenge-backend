@@ -4,14 +4,12 @@ import br.com.grupo63.techchallenge.core.application.repository.IProductReposito
 import br.com.grupo63.techchallenge.core.application.usecase.ICRUDUseCase;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.ProductDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
-import br.com.grupo63.techchallenge.core.domain.entity.Product;
+import br.com.grupo63.techchallenge.core.domain.model.Product;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 

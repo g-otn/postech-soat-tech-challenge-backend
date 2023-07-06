@@ -1,5 +1,6 @@
-package br.com.grupo63.techchallenge.core.domain.entity;
+package br.com.grupo63.techchallenge.adapter.out.repository.client.entity;
 
+import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -15,7 +16,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "cli_client", indexes = {})
-public class Client extends DomainEntity {
+public class ClientEntity extends DomainEntity {
 
     @Column(name = "national_id", length = 11)
     private String nationalId;

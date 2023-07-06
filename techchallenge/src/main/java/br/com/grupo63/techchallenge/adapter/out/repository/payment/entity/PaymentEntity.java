@@ -1,7 +1,7 @@
-package br.com.grupo63.techchallenge.core.domain.entity;
+package br.com.grupo63.techchallenge.adapter.out.repository.payment.entity;
 
-import br.com.grupo63.techchallenge.core.domain.entity.DomainEntity;
-import br.com.grupo63.techchallenge.core.domain.entity.Order;
+import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
+import br.com.grupo63.techchallenge.adapter.out.repository.order.entity.OrderEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,8 +15,8 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "pay_payment", indexes = {})
-public class Payment extends DomainEntity {
-    public Payment(Status status, Method method, String qrData) {
+public class PaymentEntity extends DomainEntity {
+    public PaymentEntity(Status status, Method method, String qrData) {
         this.status = status;
         this.method = method;
         this.qrData = qrData;
@@ -49,6 +49,6 @@ public class Payment extends DomainEntity {
 
     @JoinColumn(name = "pay_order", foreignKey = @ForeignKey(name = "fk_payment_order"), nullable = false)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Order order;
+    private OrderEntity order;
 
 }

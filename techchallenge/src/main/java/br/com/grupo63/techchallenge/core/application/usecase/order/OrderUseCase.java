@@ -2,7 +2,7 @@ package br.com.grupo63.techchallenge.core.application.usecase.order;
 
 import br.com.grupo63.techchallenge.core.application.repository.IOrderRepository;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
-import br.com.grupo63.techchallenge.core.domain.entity.Order;
+import br.com.grupo63.techchallenge.core.domain.model.Order;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -25,7 +25,7 @@ public class OrderUseCase implements IOrderUseCase {
 
     @Override
     public void advanceOrderStatus(@NotNull Long orderId) throws NotFoundException {
-        Order order = orderRepository.findById(orderId).orElseThrow(NotFoundException::new);
+        Order order = orderRepository.findByIdAndDeletedFalse(orderId).orElseThrow(NotFoundException::new);
         order.setStatus(null == order.getStatus() ? Order.Status.RECEIVED : nextOrderMap.get(order.getStatus()));
 
         orderRepository.saveAndFlush(order);

@@ -1,7 +1,7 @@
 package br.com.grupo63.techchallenge.core.application.usecase.payment;
 
 import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
-import br.com.grupo63.techchallenge.core.domain.entity.Payment;
+import br.com.grupo63.techchallenge.core.domain.model.Payment;
 import jakarta.validation.constraints.NotNull;
 
 public interface IPaymentUseCase {

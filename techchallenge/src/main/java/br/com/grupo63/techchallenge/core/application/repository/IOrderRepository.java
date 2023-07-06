@@ -1,6 +1,6 @@
 package br.com.grupo63.techchallenge.core.application.repository;
 
-import br.com.grupo63.techchallenge.core.domain.entity.Order;
+import br.com.grupo63.techchallenge.core.domain.model.Order;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public interface IOrderRepository extends IRepository<Order> {
     @Query("SELECT " +
             "   order " +
             "FROM " +
-            "   Order order " +
+            "   OrderEntity order " +
             "WHERE " +
             "   order.status IN ('RECEIVED', 'PREPARING', 'READY') " +
             "   AND order.deleted = false " +
@@ -19,7 +19,7 @@ public interface IOrderRepository extends IRepository<Order> {
             "   order.creationDate")
     List<Order> findByStatusDoneAndDeletedFalseOrderByCreationDate();
 
-    Optional<Order> findById(Long id);
+    Optional<Order> findByIdAndDeletedFalse(Long id);
 
     Order saveAndFlush(Order order);
 
