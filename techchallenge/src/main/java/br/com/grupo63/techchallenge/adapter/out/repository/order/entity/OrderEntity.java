@@ -23,16 +23,9 @@ import java.util.stream.Collectors;
 @Table(name = "ord_order", indexes = {})
 public class OrderEntity extends DomainEntity {
 
-    @AllArgsConstructor
-    public enum Status {
-        RECEIVED("Recebido"), PREPARING("Em preparação"), READY("Pronto"), DONE("Finalizado");
-
-        private String name;
-    }
-
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Order.Status status;
 
     @Basic
     @Column(name = "total_price", nullable = false)
@@ -51,7 +44,7 @@ public class OrderEntity extends DomainEntity {
 
     public OrderEntity(Order order) {
         super(order);
-        this.status = Status.valueOf(order.getStatus().name());
+        this.status = order.getStatus();
         this.totalPrice = order.getTotalPrice();
         this.client = new ClientEntity(order.getClient());
         this.payment = new PaymentEntity(order.getPayment());
@@ -60,7 +53,7 @@ public class OrderEntity extends DomainEntity {
 
     public Order toModel() {
         return new Order(
-                Order.Status.valueOf(this.getStatus().name()),
+                this.getStatus(),
                 this.getTotalPrice(),
                 this.getClient().toModel(),
                 this.getItems().stream().map(OrderItemEntity::toModel).collect(Collectors.toList()),
