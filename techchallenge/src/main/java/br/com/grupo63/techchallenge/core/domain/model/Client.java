@@ -13,4 +13,9 @@ import lombok.Setter;
 public class Client extends Domain {
 
     private String nationalId;
+
+    public Client(Long id, boolean deleted, String nationalId) {
+        super(id, deleted);
+        this.nationalId = nationalId;
+    }
 }

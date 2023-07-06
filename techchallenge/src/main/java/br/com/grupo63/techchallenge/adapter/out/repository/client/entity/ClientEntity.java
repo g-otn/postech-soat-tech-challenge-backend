@@ -1,6 +1,7 @@
 package br.com.grupo63.techchallenge.adapter.out.repository.client.entity;
 
 import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
+import br.com.grupo63.techchallenge.core.domain.model.Client;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -20,4 +21,13 @@ public class ClientEntity extends DomainEntity {
 
     @Column(name = "national_id", length = 11)
     private String nationalId;
+
+    public ClientEntity(Client client) {
+        super(client);
+        this.nationalId = client.getNationalId();
+    }
+
+    public Client toModel() {
+        return new Client(this.getId(), this.isDeleted(), this.getNationalId());
+    }
 }
