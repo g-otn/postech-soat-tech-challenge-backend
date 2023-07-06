@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.util.Map.entry;
 
@@ -31,6 +32,10 @@ public class OrderUseCase implements IOrderUseCase {
         order.setStatus(null == order.getStatus() ? Order.Status.RECEIVED : nextOrderMap.get(order.getStatus()));
 
         orderRepository.saveAndFlush(order);
+    }
+
+    public List<OrderDTO> listUnfinishedOrders() {
+        return orderRepository.findByStatusDoneAndDeletedFalseOrderByCreationDate().stream().map(OrderDTO::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -69,4 +74,5 @@ public class OrderUseCase implements IOrderUseCase {
 
         orderRepository.saveAndFlush(order);
     }
+
 }
