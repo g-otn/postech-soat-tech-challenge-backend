@@ -1,6 +1,7 @@
 package br.com.grupo63.techchallenge.core.application.usecase.dto;
 
 import br.com.grupo63.techchallenge.core.domain.model.OrderItem;
+import br.com.grupo63.techchallenge.core.domain.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,9 @@ public class OrderItemDTO {
     private Long productId;
 
     public OrderItem toDomain() {
-        return new OrderItem(quantity, price, productId);
+        Product product = new Product(productId);
+
+        return new OrderItem(quantity, price, null, product);
     }
 
     public static OrderItemDTO toDto(OrderItem orderItem) {

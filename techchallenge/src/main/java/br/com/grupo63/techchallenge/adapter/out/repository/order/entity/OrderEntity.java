@@ -3,6 +3,7 @@ package br.com.grupo63.techchallenge.adapter.out.repository.order.entity;
 import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
 import br.com.grupo63.techchallenge.adapter.out.repository.client.entity.ClientEntity;
 import br.com.grupo63.techchallenge.adapter.out.repository.payment.entity.PaymentEntity;
+import br.com.grupo63.techchallenge.core.domain.model.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -46,5 +48,23 @@ public class OrderEntity extends DomainEntity {
     @JoinColumn(name = "payment", foreignKey = @ForeignKey(name = "fk_order_payment"))
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PaymentEntity payment;
+
+    public OrderEntity(Order order) {
+        super(order);
+        this.status = Status.valueOf(order.getStatus().name());
+        this.totalPrice = order.getTotalPrice();
+        this.client = new ClientEntity(order.getClient());
+        this.payment = new PaymentEntity(order.getPayment());
+        this.items = order.getItems().stream().map(OrderItemEntity::new).collect(Collectors.toList());
+    }
+
+    public Order toModel() {
+        return new Order(
+                Order.Status.valueOf(this.getStatus().name()),
+                this.getTotalPrice(),
+                this.getClient().toModel(),
+                this.getItems().stream().map(OrderItemEntity::toModel).collect(Collectors.toList()),
+                this.getPayment().toModel());
+    }
 
 }

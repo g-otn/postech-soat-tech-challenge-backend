@@ -18,4 +18,5 @@ public abstract class Domain implements Serializable {
     public void delete() {
         this.deleted = true;
     }
+
 }

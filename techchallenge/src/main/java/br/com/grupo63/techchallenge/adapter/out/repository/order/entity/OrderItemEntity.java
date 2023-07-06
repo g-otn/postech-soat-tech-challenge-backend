@@ -2,6 +2,7 @@ package br.com.grupo63.techchallenge.adapter.out.repository.order.entity;
 
 import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
 import br.com.grupo63.techchallenge.adapter.out.repository.product.entity.ProductEntity;
+import br.com.grupo63.techchallenge.core.domain.model.OrderItem;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,9 +34,16 @@ public class OrderItemEntity extends DomainEntity {
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private ProductEntity product;
 
-    public OrderItemEntity(Long quantity, Double price, Long productId) {
-        this.quantity = quantity;
-        this.price = price;
-        this.product.setId(productId);
+    public OrderItemEntity(OrderItem item) {
+        super(item);
+        this.quantity = item.getQuantity();
+        this.price = item.getPrice();
+        this.order = new OrderEntity(item.getOrder());
+        this.product = new ProductEntity(item.getProduct());
     }
+
+    public OrderItem toModel() {
+        return new OrderItem(this.getQuantity(), this.getPrice(), null, this.product.toModel());
+    }
+
 }

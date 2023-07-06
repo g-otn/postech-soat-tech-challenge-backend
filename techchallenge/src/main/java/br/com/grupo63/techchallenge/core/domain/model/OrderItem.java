@@ -17,9 +17,4 @@ public class OrderItem extends Domain {
     private Order order;
     private Product product;
 
-    public OrderItem(Long quantity, Double price, Long productId) {
-        this.quantity = quantity;
-        this.price = price;
-        this.product.setId(productId);
-    }
 }
