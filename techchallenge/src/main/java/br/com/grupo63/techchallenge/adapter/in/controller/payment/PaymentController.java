@@ -3,9 +3,9 @@ package br.com.grupo63.techchallenge.adapter.in.controller.payment;
 import br.com.grupo63.techchallenge.adapter.in.controller.AbstractController;
 import br.com.grupo63.techchallenge.adapter.in.controller.payment.dto.PaymentStatusResponseDTO;
 import br.com.grupo63.techchallenge.adapter.in.controller.payment.dto.QRCodeResponseDTO;
+import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
 import br.com.grupo63.techchallenge.core.application.usecase.payment.IPaymentUseCase;
-import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
 import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -23,32 +23,33 @@ public class PaymentController extends AbstractController {
     private final IPaymentUseCase paymentUseCase;
 
     @Operation(
+            tags = { "asfasf"},
             summary = "Fake checkout: Gerar QR Code",
-            description = "Creates a payment entity associated with an order and returns it's id and Mercado Pago QR Code to be paid." )
+            description = "Cria e associa um QRCode a um pagamento de um pedido. Retorna o QRCode gerado para exibição ao cliente." )
     @PostMapping("/criar-qrcode")
     public QRCodeResponseDTO createQRCodeFromOrderId(
             @Parameter(description = "Id do pedido associado ao pagamento") @RequestParam Long orderId
-    ) {
-        String qrData = paymentUseCase.generateQRCode(orderId);
+    ) throws NotFoundException {
+        String qrData = paymentUseCase.startPayment(orderId);
         return new QRCodeResponseDTO(qrData);
     }
 
     @Operation(
             summary = "Fake checkout: Finalizar pagamento",
-            description = "Would be called by the external system Mercado Pago via an IPN Webhook integration to notify backend that the payment was completed." )
+            description = "Atualiza o status do pagamento e do pedido. Seria utilizado pelo sistema externo Mercado Pago para simular uma integração de Webhook IPN para notificar o sistema que o pagamento foi concluido." )
     @PostMapping("/finalizar")
     @ResponseStatus(HttpStatus.OK)
     public void confirmPaymentFromOrderId(@Parameter(description = "Id do pedido associado ao pagamento")
-                                              @RequestParam Long orderId) throws ValidationException {
-        paymentUseCase.confirmPayment(orderId);
+                                              @RequestParam Long orderId) throws ValidationException, NotFoundException {
+        paymentUseCase.finishPayment(orderId);
     }
 
     @Operation(
-            summary = "Get a payment by its id",
-            description = "Would be polled by the customer totem to check if the payment was completed successfully." )
+            summary = "Recuperar status do pagamento",
+            description = "Recupera o status atual do pagamento. Seria utilizado na tela de pagamento do cliente para verificar se o pagamento foi realizado." )
     @GetMapping("/status")
     public PaymentStatusResponseDTO getStatusByOrderId(@Parameter(description = "Id do pedido associado ao pagamento")
-                                         @RequestParam Long orderId) {
+                                         @RequestParam Long orderId) throws NotFoundException {
         PaymentStatus status = paymentUseCase.getPaymentStatus(orderId);
         return new PaymentStatusResponseDTO(status);
     }

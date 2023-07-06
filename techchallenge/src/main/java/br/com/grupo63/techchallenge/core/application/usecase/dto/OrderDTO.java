@@ -48,7 +48,7 @@ public class OrderDTO {
         OrderDTO orderDTO = new OrderDTO();
 
         orderDTO.setId(order.getId());
-        orderDTO.setStatus(orderDTO.getStatus().toString());
+        orderDTO.setStatus(orderDTO.getStatus());
         orderDTO.setTotalPrice(order.getTotalPrice());
 
         orderDTO.setPaymentDTO(PaymentDTO.toDto(order.getPayment()));

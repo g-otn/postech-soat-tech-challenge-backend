@@ -68,7 +68,7 @@ public class OrderController extends AbstractController {
     @Operation(
             summary = "Update an order",
             description = "Update an order in the database with the DTO data.")
-    @PutMapping("/{id}")
+//    @PutMapping("/{id}")
     public ResponseEntity<OrderDTO> update(@RequestBody OrderDTO dto, @PathVariable("id") Long id) throws NotFoundException {
         return ResponseEntity.ok(orderUseCase.update(dto, id));
     }
