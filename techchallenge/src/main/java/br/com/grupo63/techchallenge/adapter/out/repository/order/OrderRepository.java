@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface OrderRepository extends JpaRepository<OrderEntity, Long>, IOrderRepository {
 
     Optional<OrderEntity> findByIdAndDeleted(Long id, boolean deleted);
+
     List<OrderEntity> findByDeleted(boolean deleted);
 
     @Query("SELECT " +
@@ -25,11 +26,11 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long>, IOrde
             "   AND order.deleted = false " +
             "ORDER BY " +
             "   order.creationDate")
-    List<Order> findByStatusDoneAndDeletedOrderByCreationDate();
+    List<OrderEntity> findByStatusDoneAndDeletedOrderByCreationDate();
 
     @Override
     default List<Order> findByStatusDoneAndDeletedFalseOrderByCreationDate() {
-        return this.findByStatusDoneAndDeletedOrderByCreationDate();
+        return this.findByStatusDoneAndDeletedOrderByCreationDate().stream().map(OrderEntity::toModel).toList();
     }
 
     @Override

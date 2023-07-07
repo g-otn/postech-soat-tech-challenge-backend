@@ -49,17 +49,18 @@ public class OrderEntity extends DomainEntity {
         this.status = order.getStatus();
         this.totalPrice = order.getTotalPrice();
         this.client = new ClientEntity(order.getClient());
-        this.payment = order.getPayment() != null ? new PaymentEntity(order) : null ;
+        this.payment = order.getPayment() != null ? new PaymentEntity(order) : null;
         this.items = order.getItems().stream().map(OrderItemEntity::new).toList();
     }
 
     public Order toModel() {
         return new Order(
+                this.getId(),
+                this.isDeleted(),
                 this.getStatus(),
                 this.getTotalPrice(),
                 this.getClient().toModel(),
                 this.getItems().stream().map(OrderItemEntity::toModel).toList(),
-                this.getPayment() != null ?  this.getPayment().toModel() : null);
+                this.getPayment() != null ? this.getPayment().toModel() : null);
     }
-
 }

@@ -1,7 +1,5 @@
 package br.com.grupo63.techchallenge.core.application.usecase.payment;
 
-import br.com.grupo63.techchallenge.core.application.usecase.ICRUDUseCase;
-import br.com.grupo63.techchallenge.core.application.usecase.dto.PaymentDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
 import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;

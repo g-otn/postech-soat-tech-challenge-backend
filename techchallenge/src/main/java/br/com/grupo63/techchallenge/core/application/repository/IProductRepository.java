@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface IProductRepository extends IRepository<Product> {
 
     Product saveAndFlush(Product product);
+
     Optional<Product> findByIdAndDeletedFalse(Long id);
+
     List<Product> findByDeletedFalseAndCategory_Id(Long categoryId);
 }

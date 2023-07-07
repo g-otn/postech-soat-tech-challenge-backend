@@ -2,6 +2,7 @@ package br.com.grupo63.techchallenge.core.application.usecase.dto;
 
 import br.com.grupo63.techchallenge.core.domain.model.Client;
 import br.com.grupo63.techchallenge.core.domain.model.Order;
+import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,24 +27,11 @@ public class OrderDTO {
     @Schema(defaultValue = "Recebido")
     private String status;
 
-    private ClientDTO clientDTO;
+    private ClientDTO client;
 
-    private List<OrderItemDTO> itemsDTO = new ArrayList<>();
+    private List<OrderItemDTO> items = new ArrayList<>();
 
-    private PaymentDTO paymentDTO;
-
-    public void toDomain(Order order) {
-        Client client = new Client();
-
-        clientDTO.toDomain(client);
-
-        order.setId(id);
-        order.setTotalPrice(totalPrice);
-        order.setStatus(status != null ? Order.Status.valueOf(status) : null);
-        order.setClient(client);
-        order.setItems(itemsDTO.stream().map(OrderItemDTO::toDomain).toList());
-        order.setPayment(paymentDTO.toDomain());
-    }
+    private PaymentDTO payment;
 
     public static OrderDTO toDto(Order order) {
         OrderDTO orderDTO = new OrderDTO();
@@ -52,10 +40,24 @@ public class OrderDTO {
         orderDTO.setStatus(orderDTO.getStatus());
         orderDTO.setTotalPrice(order.getTotalPrice());
 
-        orderDTO.setPaymentDTO(order.getPayment() != null ? PaymentDTO.toDto(order.getPayment()) : null);
-        orderDTO.setClientDTO(ClientDTO.toDto(order.getClient()));
-        orderDTO.setItemsDTO(order.getItems().stream().map(OrderItemDTO::toDto).toList());
+        orderDTO.setPayment(order.getPayment() != null ? PaymentDTO.toDto(order.getPayment()) : null);
+        orderDTO.setClient(ClientDTO.toDto(order.getClient()));
+        orderDTO.setItems(order.getItems().stream().map(OrderItemDTO::toDto).toList());
 
         return orderDTO;
+    }
+
+    public void toDomain(Order order) {
+        order.setTotalPrice(totalPrice);
+        order.setStatus(status != null ? Order.Status.valueOf(status) : null);
+        order.setItems(items.stream().map(OrderItemDTO::toDomain).toList());
+        Client clientModel = order.getClient() != null ? order.getClient() : new Client();
+        client.toDomain(clientModel);
+        order.setClient(clientModel);
+        if (payment != null) {
+            Payment paymentModel = order.getPayment() != null ? order.getPayment() : new Payment();
+            payment.toDomain(paymentModel);
+            order.setPayment(paymentModel);
+        }
     }
 }

@@ -16,17 +16,24 @@ import java.util.List;
 
 public class Order extends Domain {
 
+    private Status status;
+    private Double totalPrice;
+    private Client client;
+    private List<OrderItem> items = new ArrayList<>();
+    private Payment payment;
+    public Order(Long id, boolean deleted, Status status, Double totalPrice, Client client, List<OrderItem> items, Payment payment) {
+        super(id, deleted);
+        this.status = status;
+        this.totalPrice = totalPrice;
+        this.client = client;
+        this.items = items;
+        this.payment = payment;
+    }
+
     @AllArgsConstructor
     public enum Status {
         RECEIVED("Recebido"), PREPARING("Em preparação"), READY("Pronto"), DONE("Finalizado");
 
         private String name;
     }
-
-    private Status status;
-    private Double totalPrice;
-    private Client client;
-    private List<OrderItem> items = new ArrayList<>();
-    private Payment payment;
-
 }

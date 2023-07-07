@@ -20,8 +20,6 @@ public class PaymentDTO {
 
     private String qrData;
 
-    public Payment toDomain() { return new Payment(status, method, qrData); }
-
     public static PaymentDTO toDto(Payment payment) {
         PaymentDTO paymentDTO = new PaymentDTO();
 
@@ -31,6 +29,12 @@ public class PaymentDTO {
 
 
         return paymentDTO;
+    }
+
+    public void toDomain(Payment payment) {
+        payment.setStatus(status);
+        payment.setMethod(method);
+        payment.setQrData(qrData);
     }
 
 }

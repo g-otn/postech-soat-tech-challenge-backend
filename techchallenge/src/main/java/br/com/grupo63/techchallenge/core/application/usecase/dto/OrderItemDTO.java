@@ -19,12 +19,6 @@ public class OrderItemDTO {
 
     private Long productId;
 
-    public OrderItem toDomain() {
-        Product product = new Product(productId);
-
-        return new OrderItem(quantity, price, null, product);
-    }
-
     public static OrderItemDTO toDto(OrderItem orderItem) {
         OrderItemDTO orderItemDTO = new OrderItemDTO();
 
@@ -33,5 +27,11 @@ public class OrderItemDTO {
         orderItemDTO.setProductId(orderItem.getProduct().getId());
 
         return orderItemDTO;
+    }
+
+    public OrderItem toDomain() {
+        Product product = new Product(productId);
+
+        return new OrderItem(quantity, price, null, product);
     }
 }

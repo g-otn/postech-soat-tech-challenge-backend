@@ -4,6 +4,7 @@ import br.com.grupo63.techchallenge.adapter.in.controller.AbstractController;
 import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
+import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
 import br.com.grupo63.techchallenge.core.application.usecase.order.IOrderUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -26,7 +27,7 @@ public class OrderController extends AbstractController {
 
     @Operation(
             summary = "Orders: Listar pedidos não finalizados.",
-            description = "Returns all unfinished orders." )
+            description = "Returns all unfinished orders.")
     @GetMapping("/listar-fila")
     public ResponseEntity<List<OrderDTO>> listUnfinishedOrders() {
         return ResponseEntity.ok(orderUseCase.listUnfinishedOrders());
@@ -37,7 +38,7 @@ public class OrderController extends AbstractController {
             description = "Should be called to advance a specific order status.")
     @PostMapping("/avancar-estado")
     @ResponseStatus(HttpStatus.OK)
-    public void advanceOrderStatusFromOrderId(@Parameter(description = "Id do pedido.") @RequestParam Long orderId) throws NotFoundException {
+    public void advanceOrderStatusFromOrderId(@Parameter(description = "Id do pedido.") @RequestParam Long orderId) throws NotFoundException, ValidationException {
         orderUseCase.advanceOrderStatus(orderId);
     }
 

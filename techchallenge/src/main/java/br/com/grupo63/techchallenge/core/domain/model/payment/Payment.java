@@ -20,9 +20,11 @@ public class Payment extends Domain {
     private String qrData;
     private Order order;
 
-    public Payment(PaymentStatus status, PaymentMethod method, String qrData) {
+    public Payment(Long id, boolean deleted, PaymentStatus status, PaymentMethod method, String qrData, Order order) {
+        super(id, deleted);
         this.status = status;
         this.method = method;
         this.qrData = qrData;
+        this.order = order;
     }
 }

@@ -29,8 +29,8 @@ public abstract class AbstractController {
                 messageSource.getMessage("default.title.unknownError.description", null, LocaleContextHolder.getLocale()));
 
         if (exception instanceof ValidationException validationException) {
-            responseDTO.setTitle(validationException.getName());
-            responseDTO.setDescription(validationException.getDescription());
+            responseDTO.setTitle(messageSource.getMessage(validationException.getName(), null, LocaleContextHolder.getLocale()));
+            responseDTO.setDescription(messageSource.getMessage(validationException.getDescription(), null, LocaleContextHolder.getLocale()));
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDTO);
         } else if (exception instanceof MethodArgumentNotValidException methodArgumentNotValidException) {

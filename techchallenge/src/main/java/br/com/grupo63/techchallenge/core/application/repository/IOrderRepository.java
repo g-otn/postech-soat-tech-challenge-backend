@@ -8,7 +8,9 @@ import java.util.Optional;
 public interface IOrderRepository extends IRepository<Order> {
 
     List<Order> findByStatusDoneAndDeletedFalseOrderByCreationDate();
+
     Optional<Order> findByIdAndDeletedFalse(Long id);
+
     Order saveAndFlush(Order order);
 
 }

@@ -3,10 +3,10 @@ package br.com.grupo63.techchallenge.core.application.usecase.order;
 import br.com.grupo63.techchallenge.core.application.repository.IOrderRepository;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
+import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
 import br.com.grupo63.techchallenge.core.domain.model.Order;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +18,6 @@ import static java.util.Map.entry;
 @Service
 public class OrderUseCase implements IOrderUseCase {
 
-    private final MessageSource messageSource;
     private final IOrderRepository orderRepository;
     private final Map<Order.Status, Order.Status> nextOrderMap = Map.ofEntries(
             entry(Order.Status.RECEIVED, Order.Status.PREPARING),
@@ -26,9 +25,16 @@ public class OrderUseCase implements IOrderUseCase {
             entry(Order.Status.READY, Order.Status.DONE));
 
     @Override
-    public void advanceOrderStatus(@NotNull Long orderId) throws NotFoundException {
+    public void advanceOrderStatus(@NotNull Long orderId) throws NotFoundException, ValidationException {
         Order order = orderRepository.findByIdAndDeletedFalse(orderId).orElseThrow(NotFoundException::new);
-        order.setStatus(null == order.getStatus() ? Order.Status.RECEIVED : nextOrderMap.get(order.getStatus()));
+
+        if (order.getStatus() == null) {
+            order.setStatus(Order.Status.RECEIVED);
+        } else if (order.getStatus() == Order.Status.DONE) {
+            throw new ValidationException("order.cantAdvance.done.title", "order.cantAdvance.done.description");
+        } else {
+            order.setStatus(nextOrderMap.get(order.getStatus()));
+        }
 
         orderRepository.saveAndFlush(order);
     }

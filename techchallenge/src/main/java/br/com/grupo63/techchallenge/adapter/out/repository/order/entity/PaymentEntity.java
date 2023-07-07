@@ -1,13 +1,11 @@
 package br.com.grupo63.techchallenge.adapter.out.repository.order.entity;
 
 import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
-import br.com.grupo63.techchallenge.adapter.out.repository.order.entity.OrderEntity;
 import br.com.grupo63.techchallenge.core.domain.model.Order;
 import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
 import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentMethod;
 import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,7 +45,13 @@ public class PaymentEntity extends DomainEntity {
     }
 
     public Payment toModel() {
-        return new Payment(status, method, qrData, null);
+        return new Payment(
+                this.getId(),
+                this.isDeleted(),
+                status,
+                method,
+                qrData,
+                null);
     }
 
 }

@@ -13,7 +13,9 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<ProductEntity, Long>, IProductRepository {
 
     Optional<ProductEntity> findByIdAndDeleted(Long id, boolean deleted);
+
     List<ProductEntity> findByDeletedAndCategory_Id(boolean deleted, Long categoryId);
+
     List<ProductEntity> findByDeleted(boolean deleted);
 
     @Override
