@@ -4,6 +4,7 @@ import br.com.grupo63.techchallenge.core.domain.model.Client;
 import br.com.grupo63.techchallenge.core.domain.model.Order;
 import br.com.grupo63.techchallenge.core.domain.model.OrderItem;
 import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
+import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +27,7 @@ public class OrderDTO {
     private Double totalPrice;
 
     @Schema(defaultValue = "Recebido")
-    private String status;
+    private Order.Status status;
 
     private ClientDTO client;
 
@@ -38,7 +39,7 @@ public class OrderDTO {
         OrderDTO orderDTO = new OrderDTO();
 
         orderDTO.setId(order.getId());
-        orderDTO.setStatus(orderDTO.getStatus());
+        orderDTO.setStatus(order.getStatus());
         orderDTO.setTotalPrice(order.getTotalPrice());
         orderDTO.setPayment(order.getPayment() != null ? PaymentDTO.toDto(order.getPayment()) : null);
         orderDTO.setClient(ClientDTO.toDto(order.getClient()));
@@ -49,7 +50,7 @@ public class OrderDTO {
 
     public void toDomain(Order order) {
         order.setTotalPrice(totalPrice);
-        order.setStatus(status != null ? Order.Status.valueOf(status) : null);
+        order.setStatus(status);
         order.setItems(items.stream().map(item -> {
             OrderItem orderItem = order.getByProductId(item.getProductId());
             item.toDomain(orderItem);
