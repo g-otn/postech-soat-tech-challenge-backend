@@ -26,16 +26,18 @@ public class OrderController extends AbstractController {
     private final IOrderUseCase orderUseCase;
 
     @Operation(
-            summary = "Orders: Listar pedidos não finalizados.",
-            description = "Returns all unfinished orders.")
+            tags = "5ª chamada - fluxo principal",
+            summary = "Listar pedidos pagos porém não finalizados.",
+            description = "Seria utilizado pelo monitor no restaurante para exibir os pedidos em preparação e prontos")
     @GetMapping("/listar-fila")
     public ResponseEntity<List<OrderDTO>> listUnfinishedOrders() {
         return ResponseEntity.ok(orderUseCase.listUnfinishedOrders());
     }
 
     @Operation(
-            summary = "Orders: Avançar com o status do pedido.",
-            description = "Should be called to advance a specific order status.")
+            tags = "5ª chamada - fluxo principal",
+            summary = "Avançar com o status do pedido.",
+            description = "Após o pedido ser recebido, esse endpoint seria utilizado pelo funcionário para avançar o status do pedido")
     @PostMapping("/avancar-estado")
     @ResponseStatus(HttpStatus.OK)
     public void advanceOrderStatusFromOrderId(@Parameter(description = "Id do pedido.") @RequestParam Long orderId) throws NotFoundException, ValidationException {
@@ -43,8 +45,9 @@ public class OrderController extends AbstractController {
     }
 
     @Operation(
-            summary = "Registers an order",
-            description = "Register a new order in the database with the DTO data.")
+            tags = "2ª chamada - fluxo principal",
+            summary = "Fake checkout: Tela de resumo do pedido",
+            description = "Registra um pedido a ser realizado, retorna o valor total")
     @PostMapping("/criar")
     public ResponseEntity<OrderDTO> create(@Valid @RequestBody OrderDTO dto) {
         return ResponseEntity.ok(orderUseCase.create(dto));

@@ -34,7 +34,10 @@ public class PaymentUseCase implements IPaymentUseCase {
     public void finishPayment(@NotNull(message = "payment.order.id.notNull") Long orderId) throws ValidationException, NotFoundException {
         OrderDTO orderDTO = orderUseCase.read(orderId);
 
-        if (orderDTO.getPayment() == null || PaymentStatus.PAID.equals(orderDTO.getPayment().getStatus())) {
+        if (orderDTO.getPayment() == null) {
+            throw new ValidationException("payment.confirm.title", "payment.notStarted");
+        }
+        if (PaymentStatus.PAID.equals(orderDTO.getPayment().getStatus())) {
             throw new ValidationException("payment.confirm.title", "payment.confirm.alreadyPaid");
         }
 

@@ -1,6 +1,6 @@
 package br.com.grupo63.techchallenge.core.application.usecase.dto;
 
-import br.com.grupo63.techchallenge.core.domain.model.Client;
+import br.com.grupo63.techchallenge.core.domain.model.client.Client;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

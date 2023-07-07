@@ -3,7 +3,7 @@ package br.com.grupo63.techchallenge.core.application.usecase.client;
 import br.com.grupo63.techchallenge.core.application.repository.IClientRepository;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.ClientDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
-import br.com.grupo63.techchallenge.core.domain.model.Client;
+import br.com.grupo63.techchallenge.core.domain.model.client.Client;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

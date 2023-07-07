@@ -14,3 +14,4 @@ spring:
 springdoc:
     swagger-ui:
         path: /
+        tags-sorter: alpha

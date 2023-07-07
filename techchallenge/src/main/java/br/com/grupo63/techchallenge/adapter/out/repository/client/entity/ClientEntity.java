@@ -1,7 +1,7 @@
 package br.com.grupo63.techchallenge.adapter.out.repository.client.entity;
 
 import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
-import br.com.grupo63.techchallenge.core.domain.model.Client;
+import br.com.grupo63.techchallenge.core.domain.model.client.Client;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

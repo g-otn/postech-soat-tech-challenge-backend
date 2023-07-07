@@ -31,8 +31,9 @@ public class ClientController extends AbstractController {
     }
 
     @Operation(
-            summary = "Registers a client",
-            description = "Register a new client in the database with the DTO data.")
+            tags = "1ª chamada - fluxo principal",
+            summary = "Identifica um cliente",
+            description = "Registra um cliente com seu CPF")
     @PostMapping("/criar")
     public ResponseEntity<ClientDTO> create(@Valid @RequestBody ClientDTO dto) {
         return ResponseEntity.ok(useCase.create(dto));

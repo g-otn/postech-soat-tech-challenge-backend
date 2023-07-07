@@ -2,7 +2,8 @@ package br.com.grupo63.techchallenge.adapter.out.repository.order.entity;
 
 import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
 import br.com.grupo63.techchallenge.adapter.out.repository.client.entity.ClientEntity;
-import br.com.grupo63.techchallenge.core.domain.model.Order;
+import br.com.grupo63.techchallenge.core.domain.model.order.Order;
+import br.com.grupo63.techchallenge.core.domain.model.order.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,7 @@ public class OrderEntity extends DomainEntity {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private Order.Status status;
+    private OrderStatus status;
 
     @Basic
     @Column(name = "total_price", nullable = false)

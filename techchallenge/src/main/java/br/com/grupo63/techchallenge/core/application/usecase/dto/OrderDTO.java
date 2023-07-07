@@ -1,10 +1,10 @@
 package br.com.grupo63.techchallenge.core.application.usecase.dto;
 
-import br.com.grupo63.techchallenge.core.domain.model.Client;
-import br.com.grupo63.techchallenge.core.domain.model.Order;
-import br.com.grupo63.techchallenge.core.domain.model.OrderItem;
+import br.com.grupo63.techchallenge.core.domain.model.client.Client;
+import br.com.grupo63.techchallenge.core.domain.model.order.Order;
+import br.com.grupo63.techchallenge.core.domain.model.order.OrderItem;
+import br.com.grupo63.techchallenge.core.domain.model.order.OrderStatus;
 import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
-import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public class OrderDTO {
     private Double totalPrice;
 
     @Schema(defaultValue = "Recebido")
-    private Order.Status status;
+    private OrderStatus status;
 
     private ClientDTO client;
 

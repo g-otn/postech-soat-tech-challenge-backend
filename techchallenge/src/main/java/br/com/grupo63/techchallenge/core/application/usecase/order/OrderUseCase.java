@@ -4,7 +4,8 @@ import br.com.grupo63.techchallenge.core.application.repository.IOrderRepository
 import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
-import br.com.grupo63.techchallenge.core.domain.model.Order;
+import br.com.grupo63.techchallenge.core.domain.model.order.Order;
+import br.com.grupo63.techchallenge.core.domain.model.order.OrderStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,18 +20,18 @@ import static java.util.Map.entry;
 public class OrderUseCase implements IOrderUseCase {
 
     private final IOrderRepository orderRepository;
-    private final Map<Order.Status, Order.Status> nextOrderMap = Map.ofEntries(
-            entry(Order.Status.RECEIVED, Order.Status.PREPARING),
-            entry(Order.Status.PREPARING, Order.Status.READY),
-            entry(Order.Status.READY, Order.Status.DONE));
+    private final Map<OrderStatus, OrderStatus> nextOrderMap = Map.ofEntries(
+            entry(OrderStatus.RECEIVED, OrderStatus.PREPARING),
+            entry(OrderStatus.PREPARING, OrderStatus.READY),
+            entry(OrderStatus.READY, OrderStatus.DONE));
 
     @Override
     public void advanceOrderStatus(@NotNull Long orderId) throws NotFoundException, ValidationException {
         Order order = orderRepository.findByIdAndDeletedFalse(orderId).orElseThrow(NotFoundException::new);
 
         if (order.getStatus() == null) {
-            order.setStatus(Order.Status.RECEIVED);
-        } else if (order.getStatus() == Order.Status.DONE) {
+            order.setStatus(OrderStatus.RECEIVED);
+        } else if (order.getStatus() == OrderStatus.DONE) {
             throw new ValidationException("order.cantAdvance.done.title", "order.cantAdvance.done.description");
         } else {
             order.setStatus(nextOrderMap.get(order.getStatus()));

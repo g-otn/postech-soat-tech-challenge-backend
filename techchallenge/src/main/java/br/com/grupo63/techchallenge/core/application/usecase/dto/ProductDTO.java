@@ -1,7 +1,7 @@
 package br.com.grupo63.techchallenge.core.application.usecase.dto;
 
-import br.com.grupo63.techchallenge.core.domain.model.Category;
-import br.com.grupo63.techchallenge.core.domain.model.Product;
+import br.com.grupo63.techchallenge.core.domain.model.product.Category;
+import br.com.grupo63.techchallenge.core.domain.model.product.Product;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;

@@ -1,7 +1,7 @@
 package br.com.grupo63.techchallenge.adapter.out.repository.order.entity;
 
 import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
-import br.com.grupo63.techchallenge.core.domain.model.Order;
+import br.com.grupo63.techchallenge.core.domain.model.order.Order;
 import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
 import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentMethod;
 import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;

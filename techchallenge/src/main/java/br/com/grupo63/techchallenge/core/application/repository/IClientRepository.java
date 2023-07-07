@@ -1,6 +1,6 @@
 package br.com.grupo63.techchallenge.core.application.repository;
 
-import br.com.grupo63.techchallenge.core.domain.model.Client;
+import br.com.grupo63.techchallenge.core.domain.model.client.Client;
 
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package br.com.grupo63.techchallenge.core.application.repository;
 
-import br.com.grupo63.techchallenge.core.domain.model.Product;
+import br.com.grupo63.techchallenge.core.domain.model.product.Product;
 
 import java.util.List;
 import java.util.Optional;

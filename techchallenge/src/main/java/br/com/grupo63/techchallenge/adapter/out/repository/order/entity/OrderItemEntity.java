@@ -2,8 +2,7 @@ package br.com.grupo63.techchallenge.adapter.out.repository.order.entity;
 
 import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
 import br.com.grupo63.techchallenge.adapter.out.repository.product.entity.ProductEntity;
-import br.com.grupo63.techchallenge.core.domain.model.Order;
-import br.com.grupo63.techchallenge.core.domain.model.OrderItem;
+import br.com.grupo63.techchallenge.core.domain.model.order.OrderItem;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

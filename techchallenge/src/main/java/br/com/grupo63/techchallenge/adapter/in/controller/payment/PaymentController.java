@@ -23,9 +23,9 @@ public class PaymentController extends AbstractController {
     private final IPaymentUseCase paymentUseCase;
 
     @Operation(
-            tags = {"1º Chamada", " asfasfa"},
-            summary = "Fake checkout: Gerar QR Code",
-            description = "Cria e associa um QRCode a um pagamento de um pedido. Retorna o QRCode gerado para exibição ao cliente.")
+            tags = "3ª chamada - fluxo principal",
+            summary = "Fake checkout: Confirma pedido",
+            description = "Registra um pedido e o associa a um pedido. Retorna o QRCode gerado via Mercado Pago para exibição ao cliente.")
     @PostMapping("/iniciar")
     public QRCodeResponseDTO startPayment(
             @Parameter(description = "Id do pedido") @RequestParam Long orderId
@@ -35,6 +35,7 @@ public class PaymentController extends AbstractController {
     }
 
     @Operation(
+            tags = "4ª chamada - fluxo principal",
             summary = "Fake checkout: Finalizar pagamento",
             description = "Atualiza o status do pagamento e do pedido. Seria utilizado pelo sistema externo Mercado Pago para simular uma integração de Webhook IPN para notificar o sistema que o pagamento foi concluido.")
     @PostMapping("/finalizar")
@@ -45,6 +46,7 @@ public class PaymentController extends AbstractController {
     }
 
     @Operation(
+            tags = "4ª chamada - fluxo principal",
             summary = "Recuperar status do pagamento",
             description = "Recupera o status atual do pagamento. Seria utilizado na tela de pagamento do cliente para verificar se o pagamento foi realizado.")
     @GetMapping("/status")

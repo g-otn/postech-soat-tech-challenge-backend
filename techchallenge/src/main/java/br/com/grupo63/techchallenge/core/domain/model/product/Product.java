@@ -1,6 +1,7 @@
-package br.com.grupo63.techchallenge.core.domain.model;
+package br.com.grupo63.techchallenge.core.domain.model.product;
 
 
+import br.com.grupo63.techchallenge.core.domain.model.Domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
