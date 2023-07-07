@@ -6,6 +6,7 @@ import br.com.grupo63.techchallenge.core.domain.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +40,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long>, IOrde
     }
 
     @Override
+    @Transactional
     default Order saveAndFlush(Order order) {
         OrderEntity entity = new OrderEntity(order);
 

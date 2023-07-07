@@ -13,15 +13,15 @@ import lombok.Setter;
 @Setter
 public class OrderItemDTO {
 
+    private Long id;
     private Long quantity;
-
     private Double price;
-
     private Long productId;
 
     public static OrderItemDTO toDto(OrderItem orderItem) {
         OrderItemDTO orderItemDTO = new OrderItemDTO();
 
+        orderItemDTO.setId(orderItem.getId());
         orderItemDTO.setQuantity(orderItem.getQuantity());
         orderItemDTO.setPrice(orderItem.getPrice());
         orderItemDTO.setProductId(orderItem.getProduct().getId());
@@ -29,9 +29,10 @@ public class OrderItemDTO {
         return orderItemDTO;
     }
 
-    public OrderItem toDomain() {
-        Product product = new Product(productId);
-
-        return new OrderItem(quantity, price, null, product);
+    public void toDomain(OrderItem orderItem) {
+        orderItem.setQuantity(quantity);
+        orderItem.setPrice(price);
+        if (orderItem.getProduct() == null)
+            orderItem.setProduct(new Product(productId));
     }
 }

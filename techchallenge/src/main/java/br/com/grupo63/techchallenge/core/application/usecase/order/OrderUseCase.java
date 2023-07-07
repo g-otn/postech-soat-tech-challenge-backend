@@ -59,7 +59,7 @@ public class OrderUseCase implements IOrderUseCase {
 
     @Override
     public List<OrderDTO> list() {
-        return orderRepository.findByStatusDoneAndDeletedFalseOrderByCreationDate().stream().map(OrderDTO::toDto).toList();
+        return orderRepository.findByDeletedFalse().stream().map(OrderDTO::toDto).toList();
     }
 
     @Override

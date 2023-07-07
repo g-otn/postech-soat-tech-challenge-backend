@@ -2,6 +2,7 @@ package br.com.grupo63.techchallenge.core.application.usecase.dto;
 
 import br.com.grupo63.techchallenge.core.domain.model.Client;
 import br.com.grupo63.techchallenge.core.domain.model.Order;
+import br.com.grupo63.techchallenge.core.domain.model.OrderItem;
 import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -39,7 +40,6 @@ public class OrderDTO {
         orderDTO.setId(order.getId());
         orderDTO.setStatus(orderDTO.getStatus());
         orderDTO.setTotalPrice(order.getTotalPrice());
-
         orderDTO.setPayment(order.getPayment() != null ? PaymentDTO.toDto(order.getPayment()) : null);
         orderDTO.setClient(ClientDTO.toDto(order.getClient()));
         orderDTO.setItems(order.getItems().stream().map(OrderItemDTO::toDto).toList());
@@ -50,7 +50,11 @@ public class OrderDTO {
     public void toDomain(Order order) {
         order.setTotalPrice(totalPrice);
         order.setStatus(status != null ? Order.Status.valueOf(status) : null);
-        order.setItems(items.stream().map(OrderItemDTO::toDomain).toList());
+        order.setItems(items.stream().map(item -> {
+            OrderItem orderItem = order.getByProductId(item.getProductId());
+            item.toDomain(orderItem);
+            return orderItem;
+        }).toList());
         Client clientModel = order.getClient() != null ? order.getClient() : new Client();
         client.toDomain(clientModel);
         order.setClient(clientModel);

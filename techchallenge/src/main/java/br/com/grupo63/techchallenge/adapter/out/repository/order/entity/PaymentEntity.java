@@ -33,7 +33,7 @@ public class PaymentEntity extends DomainEntity {
     private String qrData;
 
     @JoinColumn(name = "pay_order", foreignKey = @ForeignKey(name = "fk_payment_order"), nullable = false)
-    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private OrderEntity order;
 
     public PaymentEntity(Order order) {
