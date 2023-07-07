@@ -1,7 +1,8 @@
-package br.com.grupo63.techchallenge.adapter.out.repository.payment.entity;
+package br.com.grupo63.techchallenge.adapter.out.repository.order.entity;
 
 import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
 import br.com.grupo63.techchallenge.adapter.out.repository.order.entity.OrderEntity;
+import br.com.grupo63.techchallenge.core.domain.model.Order;
 import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
 import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentMethod;
 import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;
@@ -37,12 +38,12 @@ public class PaymentEntity extends DomainEntity {
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private OrderEntity order;
 
-    public PaymentEntity(@NotNull Payment payment) {
-        super(payment);
-        this.status = payment.getStatus();
-        this.method = payment.getMethod();
-        this.qrData = payment.getQrData();
-        this.order = null;
+    public PaymentEntity(Order order) {
+        super(order.getPayment());
+        this.status = order.getPayment().getStatus();
+        this.method = order.getPayment().getMethod();
+        this.qrData = order.getPayment().getQrData();
+        this.order = new OrderEntity(order.getId());
     }
 
     public Payment toModel() {

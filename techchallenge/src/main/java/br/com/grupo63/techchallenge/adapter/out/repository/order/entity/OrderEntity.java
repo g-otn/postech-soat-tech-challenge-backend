@@ -2,7 +2,6 @@ package br.com.grupo63.techchallenge.adapter.out.repository.order.entity;
 
 import br.com.grupo63.techchallenge.adapter.out.repository.DomainEntity;
 import br.com.grupo63.techchallenge.adapter.out.repository.client.entity.ClientEntity;
-import br.com.grupo63.techchallenge.adapter.out.repository.payment.entity.PaymentEntity;
 import br.com.grupo63.techchallenge.core.domain.model.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +11,6 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,12 +40,16 @@ public class OrderEntity extends DomainEntity {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PaymentEntity payment;
 
+    public OrderEntity(Long id) {
+        this.id = id;
+    }
+
     public OrderEntity(Order order) {
         super(order);
         this.status = order.getStatus();
         this.totalPrice = order.getTotalPrice();
         this.client = new ClientEntity(order.getClient());
-        this.payment = new PaymentEntity(order.getPayment());
+        this.payment = order.getPayment() != null ? new PaymentEntity(order) : null ;
         this.items = order.getItems().stream().map(OrderItemEntity::new).toList();
     }
 
@@ -57,7 +59,7 @@ public class OrderEntity extends DomainEntity {
                 this.getTotalPrice(),
                 this.getClient().toModel(),
                 this.getItems().stream().map(OrderItemEntity::toModel).toList(),
-                this.getPayment().toModel());
+                this.getPayment() != null ?  this.getPayment().toModel() : null);
     }
 
 }

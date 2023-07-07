@@ -23,12 +23,12 @@ public class PaymentController extends AbstractController {
     private final IPaymentUseCase paymentUseCase;
 
     @Operation(
-            tags = { "asfasf"},
+            tags = { "1º Chamada" ," asfasfa"},
             summary = "Fake checkout: Gerar QR Code",
             description = "Cria e associa um QRCode a um pagamento de um pedido. Retorna o QRCode gerado para exibição ao cliente." )
-    @PostMapping("/criar-qrcode")
-    public QRCodeResponseDTO createQRCodeFromOrderId(
-            @Parameter(description = "Id do pedido associado ao pagamento") @RequestParam Long orderId
+    @PostMapping("/iniciar")
+    public QRCodeResponseDTO startPayment(
+            @Parameter(description = "Id do pedido") @RequestParam Long orderId
     ) throws NotFoundException {
         String qrData = paymentUseCase.startPayment(orderId);
         return new QRCodeResponseDTO(qrData);
@@ -49,7 +49,7 @@ public class PaymentController extends AbstractController {
             description = "Recupera o status atual do pagamento. Seria utilizado na tela de pagamento do cliente para verificar se o pagamento foi realizado." )
     @GetMapping("/status")
     public PaymentStatusResponseDTO getStatusByOrderId(@Parameter(description = "Id do pedido associado ao pagamento")
-                                         @RequestParam Long orderId) throws NotFoundException {
+                                         @RequestParam Long orderId) throws NotFoundException, ValidationException {
         PaymentStatus status = paymentUseCase.getPaymentStatus(orderId);
         return new PaymentStatusResponseDTO(status);
     }

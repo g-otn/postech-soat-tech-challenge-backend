@@ -13,13 +13,14 @@ import lombok.Setter;
 @Setter
 public class ClientDTO {
 
-    @Schema(defaultValue = "0")
+    @Schema(defaultValue = "123")
     private Long id;
 
-    @Schema(example ="012.345.678-90")
+    @Schema(example ="01234567890")
     private String nationalId;
 
     public void toDomain(Client client) {
+        client.setId(id);
         client.setNationalId(nationalId);
     }
 
@@ -27,7 +28,7 @@ public class ClientDTO {
         ClientDTO clientDTO = new ClientDTO();
 
         clientDTO.setId(client.getId());
-        clientDTO.setNationalId(clientDTO.getNationalId());
+        clientDTO.setNationalId(client.getNationalId());
 
         return clientDTO;
     }

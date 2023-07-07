@@ -11,9 +11,9 @@ import java.util.Optional;
 @Repository
 public interface ClientRepository extends JpaRepository<ClientEntity, Long>, IClientRepository {
 
-    Optional<Client> findByNationalId(String nationalId);
+    Optional<ClientEntity> findByNationalIdAndDeleted(String nationalId, boolean deleted);
 
-    Optional<Client> findByIdAndDeletedFalse(Long id);
+    Optional<ClientEntity> findByIdAndDeleted(Long id, boolean deleted);
 
     @Override
     default Client saveAndFlush(Client client) {
@@ -24,4 +24,13 @@ public interface ClientRepository extends JpaRepository<ClientEntity, Long>, ICl
         return entity.toModel();
     }
 
+    @Override
+    default Optional<Client> findByNationalId(String nationalId) {
+        return this.findByNationalIdAndDeleted(nationalId, false).map(ClientEntity::toModel);
+    }
+
+    @Override
+    default Optional<Client> findByIdAndDeletedFalse(Long id) {
+        return this.findByIdAndDeleted(id, false).map(ClientEntity::toModel);
+    }
 }

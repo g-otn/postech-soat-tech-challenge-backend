@@ -13,6 +13,6 @@ public interface IPaymentUseCase {
 
     void finishPayment(@NotNull Long orderId) throws ValidationException, NotFoundException;
 
-    PaymentStatus getPaymentStatus(@NotNull Long orderId) throws NotFoundException;
+    PaymentStatus getPaymentStatus(@NotNull Long orderId) throws NotFoundException, ValidationException;
 
 }

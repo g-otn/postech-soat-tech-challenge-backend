@@ -7,7 +7,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter(AccessLevel.PACKAGE)
+@Setter
 
 public abstract class Domain implements Serializable {
 

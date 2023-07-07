@@ -25,7 +25,7 @@ public class ClientController extends AbstractController {
     @Operation(
             summary = "Find a client by their national id",
             description = "Get client data by their national id.")
-    @GetMapping("/{nationalId}")
+    @GetMapping("/cpf/{nationalId}")
     public ClientDTO findByNationalId(@PathVariable String nationalId) throws NotFoundException {
         return useCase.getByNationalId(nationalId);
     }

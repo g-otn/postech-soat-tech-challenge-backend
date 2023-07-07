@@ -14,19 +14,19 @@ import lombok.Setter;
 @Setter
 public class PaymentDTO {
 
-    private String status;
+    private PaymentStatus status;
 
-    private String method;
+    private PaymentMethod method;
 
     private String qrData;
 
-    public Payment toDomain() { return new Payment(PaymentStatus.valueOf(status), PaymentMethod.valueOf(method), qrData); }
+    public Payment toDomain() { return new Payment(status, method, qrData); }
 
     public static PaymentDTO toDto(Payment payment) {
         PaymentDTO paymentDTO = new PaymentDTO();
 
-        paymentDTO.setStatus(payment.getStatus().toString());
-        paymentDTO.setMethod(payment.getMethod().toString());
+        paymentDTO.setStatus(payment.getStatus());
+        paymentDTO.setMethod(payment.getMethod());
         paymentDTO.setQrData(payment.getQrData());
 
 

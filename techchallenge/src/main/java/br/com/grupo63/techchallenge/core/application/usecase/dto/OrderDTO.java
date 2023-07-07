@@ -37,8 +37,9 @@ public class OrderDTO {
 
         clientDTO.toDomain(client);
 
+        order.setId(id);
         order.setTotalPrice(totalPrice);
-        order.setStatus(Order.Status.valueOf(status));
+        order.setStatus(status != null ? Order.Status.valueOf(status) : null);
         order.setClient(client);
         order.setItems(itemsDTO.stream().map(OrderItemDTO::toDomain).toList());
         order.setPayment(paymentDTO.toDomain());
@@ -51,7 +52,7 @@ public class OrderDTO {
         orderDTO.setStatus(orderDTO.getStatus());
         orderDTO.setTotalPrice(order.getTotalPrice());
 
-        orderDTO.setPaymentDTO(PaymentDTO.toDto(order.getPayment()));
+        orderDTO.setPaymentDTO(order.getPayment() != null ? PaymentDTO.toDto(order.getPayment()) : null);
         orderDTO.setClientDTO(ClientDTO.toDto(order.getClient()));
         orderDTO.setItemsDTO(order.getItems().stream().map(OrderItemDTO::toDto).toList());
 

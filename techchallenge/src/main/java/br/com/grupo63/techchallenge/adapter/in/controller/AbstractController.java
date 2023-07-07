@@ -23,6 +23,7 @@ public abstract class AbstractController {
 
     @ExceptionHandler
     public ResponseEntity<DefaultResponseDTO> handleException(Exception exception) {
+        exception.printStackTrace();
         DefaultResponseDTO responseDTO = new DefaultResponseDTO(
                 messageSource.getMessage("default.title.unknownError", null, LocaleContextHolder.getLocale()),
                 messageSource.getMessage("default.title.unknownError.description", null, LocaleContextHolder.getLocale()));
