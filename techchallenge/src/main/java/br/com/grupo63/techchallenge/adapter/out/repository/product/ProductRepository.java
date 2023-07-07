@@ -2,7 +2,6 @@ package br.com.grupo63.techchallenge.adapter.out.repository.product;
 
 import br.com.grupo63.techchallenge.adapter.out.repository.product.entity.ProductEntity;
 import br.com.grupo63.techchallenge.core.application.repository.IProductRepository;
-import br.com.grupo63.techchallenge.core.domain.model.Category;
 import br.com.grupo63.techchallenge.core.domain.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
