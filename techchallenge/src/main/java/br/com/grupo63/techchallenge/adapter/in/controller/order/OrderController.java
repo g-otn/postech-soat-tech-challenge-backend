@@ -3,7 +3,6 @@ package br.com.grupo63.techchallenge.adapter.in.controller.order;
 import br.com.grupo63.techchallenge.adapter.in.controller.AbstractController;
 import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO;
 import br.com.grupo63.techchallenge.adapter.in.controller.order.dto.CreateOrderRequestDTO;
-import br.com.grupo63.techchallenge.core.application.usecase.dto.ClientDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
@@ -11,7 +10,6 @@ import br.com.grupo63.techchallenge.core.application.usecase.order.IOrderUseCase
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +41,7 @@ public class OrderController extends AbstractController {
     @PostMapping("/avancar-estado")
     @ResponseStatus(HttpStatus.OK)
     public void advanceOrderStatusFromOrderId(@Parameter(description = "Id do pedido.") @RequestParam Long orderId) throws NotFoundException, ValidationException {
-        orderUseCase.advanceOrderStatus(orderId);
+        orderUseCase.advanceStatus(orderId);
     }
 
     @Operation(

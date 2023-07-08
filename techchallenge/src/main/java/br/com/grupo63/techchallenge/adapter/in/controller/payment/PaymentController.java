@@ -29,7 +29,7 @@ public class PaymentController extends AbstractController {
     @PostMapping("/iniciar")
     public QRCodeResponseDTO startPayment(
             @Parameter(description = "Id do pedido") @RequestParam Long orderId
-    ) throws NotFoundException {
+    ) throws NotFoundException, ValidationException {
         String qrData = paymentUseCase.startPayment(orderId);
         return new QRCodeResponseDTO(qrData);
     }

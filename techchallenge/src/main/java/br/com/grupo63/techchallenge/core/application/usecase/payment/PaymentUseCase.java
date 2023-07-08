@@ -20,8 +20,14 @@ public class PaymentUseCase implements IPaymentUseCase {
     private final OrderUseCase orderUseCase;
 
     @Override
-    public String startPayment(@NotNull(message = "payment.order.id.notNull") Long orderId) throws NotFoundException {
+    public String startPayment(@NotNull(message = "payment.order.id.notNull") Long orderId) throws NotFoundException, ValidationException {
         OrderDTO orderDTO = orderUseCase.read(orderId);
+
+        if (orderDTO.getStatus() != null) {
+            throw new ValidationException("payment.startPayment.title", "payment.startPayment.alreadyFinished");
+        } else if (orderDTO.getPayment() != null) {
+            throw new ValidationException("payment.startPayment.title", "payment.startPayment.alreadyStarted");
+        }
 
         String qrData = mercadoPagoService.generateQRCode(orderDTO.getId(), orderDTO.getTotalPrice());
 
@@ -43,7 +49,7 @@ public class PaymentUseCase implements IPaymentUseCase {
 
         orderDTO.getPayment().setStatus(PaymentStatus.PAID);
         orderUseCase.update(orderDTO, orderId);
-        orderUseCase.advanceOrderStatus(orderId);
+        orderUseCase.advanceStatus(orderId);
     }
 
     @Override

@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 
 public interface IPaymentUseCase {
 
-    String startPayment(@NotNull Long orderId) throws NotFoundException;
+    String startPayment(@NotNull Long orderId) throws NotFoundException, ValidationException;
 
     void finishPayment(@NotNull Long orderId) throws ValidationException, NotFoundException;
 

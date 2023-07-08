@@ -9,6 +9,7 @@ import br.com.grupo63.techchallenge.core.application.usecase.product.ProductUseC
 import br.com.grupo63.techchallenge.core.domain.model.order.Order;
 import br.com.grupo63.techchallenge.core.domain.model.order.OrderItem;
 import br.com.grupo63.techchallenge.core.domain.model.order.OrderStatus;
+import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class OrderUseCase implements IOrderUseCase {
 
     private void fillCurrentPrices(Order order) throws NotFoundException {
         double totalPrice = 0.0D;
-        for (OrderItem orderItem: order.getItems()) {
+        for (OrderItem orderItem : order.getItems()) {
             ProductDTO productDTO = productUseCase.read(orderItem.getProduct().getId());
 
             orderItem.setPrice(productDTO.getPrice());
@@ -41,14 +42,16 @@ public class OrderUseCase implements IOrderUseCase {
     }
 
     @Override
-    public void advanceOrderStatus(@NotNull Long orderId) throws NotFoundException, ValidationException {
+    public void advanceStatus(@NotNull Long orderId) throws NotFoundException, ValidationException {
         Order order = orderRepository.findByIdAndDeletedFalse(orderId).orElseThrow(NotFoundException::new);
 
-        if (order.getStatus() == null) {
-            order.setStatus(OrderStatus.RECEIVED);
+        if (order.getPayment() == null || order.getPayment().getStatus() != PaymentStatus.PAID) {
+            throw new ValidationException("order.advanceStatus.title", "order.advanceStatus.notPaid");
         } else if (order.getStatus() == OrderStatus.FINISHED) {
-            throw new ValidationException("order.cantAdvance.done.title", "order.cantAdvance.done.description");
-        } else {
+            throw new ValidationException("order.advanceStatus.title", "order.advanceStatus.finished");
+        } else if (order.getStatus() == null) {
+            order.setStatus(OrderStatus.RECEIVED);
+        }  else {
             order.setStatus(nextOrderMap.get(order.getStatus()));
         }
 

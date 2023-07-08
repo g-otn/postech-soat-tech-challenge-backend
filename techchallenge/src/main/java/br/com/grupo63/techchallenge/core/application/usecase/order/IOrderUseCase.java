@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface IOrderUseCase extends ICRUDUseCase<OrderDTO> {
 
-    void advanceOrderStatus(@NotNull Long orderId) throws NotFoundException, ValidationException;
+    void advanceStatus(@NotNull Long orderId) throws NotFoundException, ValidationException;
 
     List<OrderDTO> listUnfinishedOrders();
 
