@@ -6,6 +6,7 @@ import br.com.grupo63.techchallenge.core.application.usecase.dto.ProductDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import br.com.grupo63.techchallenge.core.domain.model.product.Product;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 
 @Service
-public class ProductUseCase implements ICRUDUseCase<ProductDTO> {
+public class ProductUseCase implements IProductUseCase {
 
     private final IProductRepository repository;
 
@@ -53,7 +54,7 @@ public class ProductUseCase implements ICRUDUseCase<ProductDTO> {
         repository.saveAndFlush(product);
     }
 
-    public List<ProductDTO> listByCategoryId(Long categoryId) {
-        return repository.findByDeletedFalseAndCategory_Id(categoryId).stream().map(ProductDTO::toDto).toList();
+    public List<ProductDTO> listByCategoryName(@NotNull String categoryName) {
+        return repository.findByDeletedFalseAndCategory_Name(categoryName).stream().map(ProductDTO::toDto).toList();
     }
 }

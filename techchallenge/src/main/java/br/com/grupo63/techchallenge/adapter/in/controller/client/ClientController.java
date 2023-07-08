@@ -3,6 +3,7 @@ package br.com.grupo63.techchallenge.adapter.in.controller.client;
 import br.com.grupo63.techchallenge.adapter.in.controller.AbstractController;
 import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.client.ClientUseCase;
+import br.com.grupo63.techchallenge.core.application.usecase.client.IClientUseCase;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.ClientDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,7 +23,7 @@ import java.util.List;
 @RequestMapping("/clientes")
 public class ClientController extends AbstractController {
 
-    private final ClientUseCase useCase;
+    private final IClientUseCase useCase;
 
     @Operation(
             summary = "Find a client by their national id",
@@ -37,7 +38,7 @@ public class ClientController extends AbstractController {
             summary = "Identificação: Identifica um cliente",
             description = "Registra um cliente com seu CPF")
     @PostMapping("/criar")
-    public ResponseEntity<ClientDTO> create(@RequestParam String nationalId) {
+    public ResponseEntity<ClientDTO> create(@RequestParam String nationalId) throws NotFoundException {
         ClientDTO clientDTO = new ClientDTO(nationalId);
         return ResponseEntity.ok(useCase.create(clientDTO));
     }

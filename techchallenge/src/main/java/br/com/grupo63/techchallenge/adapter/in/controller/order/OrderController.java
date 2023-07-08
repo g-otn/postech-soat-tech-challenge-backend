@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/pedidos")
 public class OrderController extends AbstractController {
 
-    private final IOrderUseCase orderUseCase;
+    private final IOrderUseCase useCase;
 
     @Operation(
             tags = "5ª chamada - fluxo principal",
@@ -31,7 +31,7 @@ public class OrderController extends AbstractController {
             description = "Seria utilizado pelo monitor no restaurante para exibir os pedidos em preparação e prontos")
     @GetMapping("/listar-fila")
     public ResponseEntity<List<OrderDTO>> listUnfinishedOrders() {
-        return ResponseEntity.ok(orderUseCase.listUnfinishedOrders());
+        return ResponseEntity.ok(useCase.listUnfinishedOrders());
     }
 
     @Operation(
@@ -41,7 +41,7 @@ public class OrderController extends AbstractController {
     @PostMapping("/avancar-estado")
     @ResponseStatus(HttpStatus.OK)
     public void advanceOrderStatusFromOrderId(@Parameter(description = "Id do pedido.") @RequestParam Long orderId) throws NotFoundException, ValidationException {
-        orderUseCase.advanceStatus(orderId);
+        useCase.advanceStatus(orderId);
     }
 
     @Operation(
@@ -52,7 +52,7 @@ public class OrderController extends AbstractController {
     public ResponseEntity<OrderDTO> create(@RequestParam Long clientId,
                                            @RequestBody CreateOrderRequestDTO createOrderRequestDTO) throws NotFoundException {
 
-        return ResponseEntity.ok(orderUseCase.create(createOrderRequestDTO.toDomainDto(clientId)));
+        return ResponseEntity.ok(useCase.create(createOrderRequestDTO.toDomainDto(clientId)));
     }
 
     @Operation(
@@ -61,7 +61,7 @@ public class OrderController extends AbstractController {
             description = "Find a order by their id.")
     @GetMapping("/{id}")
     public ResponseEntity<OrderDTO> read(@PathVariable("id") Long id) throws NotFoundException {
-        return ResponseEntity.ok(orderUseCase.read(id));
+        return ResponseEntity.ok(useCase.read(id));
     }
 
     @Operation(
@@ -69,7 +69,7 @@ public class OrderController extends AbstractController {
             description = "List all orders.")
     @GetMapping("/listar")
     public ResponseEntity<List<OrderDTO>> list() {
-        return ResponseEntity.ok(orderUseCase.list());
+        return ResponseEntity.ok(useCase.list());
     }
 
     @Operation(
@@ -77,7 +77,7 @@ public class OrderController extends AbstractController {
             description = "Update an order in the database with the DTO data.")
 //    @PutMapping("/{id}")
     public ResponseEntity<OrderDTO> update(@RequestBody OrderDTO dto, @PathVariable("id") Long id) throws NotFoundException {
-        return ResponseEntity.ok(orderUseCase.update(dto, id));
+        return ResponseEntity.ok(useCase.update(dto, id));
     }
 
     @Operation(
@@ -85,7 +85,7 @@ public class OrderController extends AbstractController {
             description = "Delete a client in the database by their id.")
     @DeleteMapping("/{id}")
     public ResponseEntity<DefaultResponseDTO> delete(@PathVariable("id") Long id) throws NotFoundException {
-        orderUseCase.delete(id);
+        useCase.delete(id);
         return ResponseEntity.ok().build();
     }
 

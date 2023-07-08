@@ -4,8 +4,10 @@ import br.com.grupo63.techchallenge.adapter.in.controller.AbstractController;
 import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.ProductDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
+import br.com.grupo63.techchallenge.core.application.usecase.product.IProductUseCase;
 import br.com.grupo63.techchallenge.core.application.usecase.product.ProductUseCase;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +22,14 @@ import java.util.List;
 @RequestMapping("/produtos")
 public class ProductController extends AbstractController {
 
-    private final ProductUseCase useCase;
+    private final IProductUseCase useCase;
 
     @Operation(
-            summary = "Registers a product",
-            description = "Register a new product in the database with the DTO data.")
+            summary = "Criar um produto",
+            description = "Cria um produto com nome, preço, estoque inicial e categoria. Possíveis categorias (IDs): " +
+                    "1 - Lanche, 2 - Acompanhamento, 3 - Bebida, 4 - Sobremesa")
     @PostMapping("/criar")
-    public ResponseEntity<ProductDTO> create(@Valid @RequestBody ProductDTO dto) {
+    public ResponseEntity<ProductDTO> create(@Valid @RequestBody ProductDTO dto) throws NotFoundException {
         return ResponseEntity.ok(useCase.create(dto));
     }
 
@@ -64,10 +67,12 @@ public class ProductController extends AbstractController {
     }
 
     @Operation(
-            summary = "List all products by category",
-            description = "List all products by category.")
+            summary = "Listar produtos por categoria",
+            description = "Lista todos os produtos por nome da categoria")
     @GetMapping("/listar-por-categoria")
-    public ResponseEntity<List<ProductDTO>> listByCategoryId(@RequestParam(value = "categoria") String categoryId) throws NotFoundException {
-        return ResponseEntity.ok(useCase.listByCategoryId(Long.valueOf(categoryId)));
+    public ResponseEntity<List<ProductDTO>> listByCategoryName(
+            @Schema(allowableValues = {"Lanche", "Acompanhamento", "Bebida", "Sobremesa"})
+            @RequestParam(value = "categoria") String categoryName) {
+        return ResponseEntity.ok(useCase.listByCategoryName(categoryName));
     }
 }

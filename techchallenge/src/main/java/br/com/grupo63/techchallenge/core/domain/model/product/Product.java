@@ -16,7 +16,7 @@ public class Product extends Domain {
 
     private String name;
     private Double price;
-    private Double quantity;
+    private Double quantity; // (stock)
     private Category category;
 
     public Product(Long id) {

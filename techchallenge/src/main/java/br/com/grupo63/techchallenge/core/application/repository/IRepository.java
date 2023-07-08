@@ -6,4 +6,6 @@ public interface IRepository<T> {
 
     List<T> findByDeletedFalse();
 
+    T saveAndFlush(T entity);
+
 }

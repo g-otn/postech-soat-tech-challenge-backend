@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/pagamentos")
 public class PaymentController extends AbstractController {
 
-    private final IPaymentUseCase paymentUseCase;
+    private final IPaymentUseCase useCase;
 
     @Operation(
             tags = "3ª chamada - fluxo principal",
@@ -30,7 +30,7 @@ public class PaymentController extends AbstractController {
     public QRCodeResponseDTO startPayment(
             @Parameter(description = "Id do pedido") @RequestParam Long orderId
     ) throws NotFoundException, ValidationException {
-        String qrData = paymentUseCase.startPayment(orderId);
+        String qrData = useCase.startPayment(orderId);
         return new QRCodeResponseDTO(qrData);
     }
 
@@ -42,7 +42,7 @@ public class PaymentController extends AbstractController {
     @ResponseStatus(HttpStatus.OK)
     public void confirmPaymentFromOrderId(@Parameter(description = "Id do pedido associado ao pagamento")
                                           @RequestParam Long orderId) throws ValidationException, NotFoundException {
-        paymentUseCase.finishPayment(orderId);
+        useCase.finishPayment(orderId);
     }
 
     @Operation(
@@ -52,7 +52,7 @@ public class PaymentController extends AbstractController {
     @GetMapping("/status")
     public PaymentStatusResponseDTO getStatusByOrderId(@Parameter(description = "Id do pedido associado ao pagamento")
                                                        @RequestParam Long orderId) throws NotFoundException, ValidationException {
-        PaymentStatus status = paymentUseCase.getPaymentStatus(orderId);
+        PaymentStatus status = useCase.getPaymentStatus(orderId);
         return new PaymentStatusResponseDTO(status);
     }
 

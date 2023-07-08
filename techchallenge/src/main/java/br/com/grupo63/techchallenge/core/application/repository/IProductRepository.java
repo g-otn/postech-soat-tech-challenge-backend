@@ -11,5 +11,5 @@ public interface IProductRepository extends IRepository<Product> {
 
     Optional<Product> findByIdAndDeletedFalse(Long id);
 
-    List<Product> findByDeletedFalseAndCategory_Id(Long categoryId);
+    List<Product> findByDeletedFalseAndCategory_Name(String categoryName);
 }
