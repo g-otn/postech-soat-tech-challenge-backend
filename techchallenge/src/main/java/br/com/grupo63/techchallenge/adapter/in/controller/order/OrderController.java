@@ -58,6 +58,7 @@ public class OrderController extends AbstractController {
     }
 
     @Operation(
+            tags = { "3ª chamada - fluxo principal", "5ª chamada - fluxo principal" },
             summary = "Get a order by it's id",
             description = "Find a order by their id.")
     @GetMapping("/{id}")

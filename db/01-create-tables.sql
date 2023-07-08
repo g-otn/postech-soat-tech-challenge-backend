@@ -40,7 +40,7 @@ create table if not exists ord_order
     status           varchar(255)
     constraint ord_order_status_check
     check ((status)::text = ANY
-((ARRAY ['RECEIVED'::character varying, 'PREPARING'::character varying, 'READY'::character varying, 'DONE'::character varying])::text[]))
+((ARRAY ['RECEIVED'::character varying, 'PREPARING'::character varying, 'READY'::character varying, 'FINISHED'::character varying])::text[]))
     );
 
 alter table ord_order

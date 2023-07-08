@@ -34,7 +34,7 @@ public class ClientController extends AbstractController {
 
     @Operation(
             tags = "1ª chamada - fluxo principal",
-            summary = "Identifica um cliente",
+            summary = "Identificação: Identifica um cliente",
             description = "Registra um cliente com seu CPF")
     @PostMapping("/criar")
     public ResponseEntity<ClientDTO> create(@RequestParam String nationalId) {
