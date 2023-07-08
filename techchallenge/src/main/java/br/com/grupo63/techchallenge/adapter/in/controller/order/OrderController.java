@@ -2,11 +2,13 @@ package br.com.grupo63.techchallenge.adapter.in.controller.order;
 
 import br.com.grupo63.techchallenge.adapter.in.controller.AbstractController;
 import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO;
+import br.com.grupo63.techchallenge.adapter.in.controller.order.dto.AdvanceOrderStatusResponseDTO;
 import br.com.grupo63.techchallenge.adapter.in.controller.order.dto.CreateOrderRequestDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
 import br.com.grupo63.techchallenge.core.application.usecase.order.IOrderUseCase;
+import br.com.grupo63.techchallenge.core.domain.model.order.OrderStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -38,10 +40,9 @@ public class OrderController extends AbstractController {
             tags = "5ª chamada - fluxo principal",
             summary = "Avançar com o status do pedido.",
             description = "Após o pedido ser recebido, esse endpoint seria utilizado pelo funcionário para avançar o status do pedido")
-    @PostMapping("/avancar-estado")
-    @ResponseStatus(HttpStatus.OK)
-    public void advanceOrderStatusFromOrderId(@Parameter(description = "Id do pedido.") @RequestParam Long orderId) throws NotFoundException, ValidationException {
-        useCase.advanceStatus(orderId);
+    @PostMapping("/avancar-status")
+    public AdvanceOrderStatusResponseDTO advanceOrderStatusFromOrderId(@Parameter(description = "Id do pedido.") @RequestParam Long orderId) throws NotFoundException, ValidationException {
+        return new AdvanceOrderStatusResponseDTO(useCase.advanceStatus(orderId));
     }
 
     @Operation(

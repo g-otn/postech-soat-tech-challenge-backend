@@ -42,7 +42,7 @@ public class OrderUseCase implements IOrderUseCase {
     }
 
     @Override
-    public void advanceStatus(@NotNull Long orderId) throws NotFoundException, ValidationException {
+    public OrderStatus advanceStatus(@NotNull Long orderId) throws NotFoundException, ValidationException {
         Order order = orderRepository.findByIdAndDeletedFalse(orderId).orElseThrow(NotFoundException::new);
 
         if (order.getPayment() == null || order.getPayment().getStatus() != PaymentStatus.PAID) {
@@ -55,7 +55,7 @@ public class OrderUseCase implements IOrderUseCase {
             order.setStatus(nextOrderMap.get(order.getStatus()));
         }
 
-        orderRepository.saveAndFlush(order);
+        return orderRepository.saveAndFlush(order).getStatus();
     }
 
     public List<OrderDTO> listUnfinishedOrders() {
