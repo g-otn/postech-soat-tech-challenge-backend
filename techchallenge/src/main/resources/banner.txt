@@ -6,9 +6,9 @@
     |_|\___|\___|_| |_|  \_____|_| |_|\__,_|_|_|\___|_| |_|\__, |\___|
                                                             __/ |
                                                            |___/
-Grupo 63 ${application.version}
+Grupo 63
 - RM 350013 - Gabriel Otani
 - RM 350008 - Henrique Zaim
 - RM 350009 - Marcelo Vilas Boas
 - RM 350383 - Thiago Bezerra
-Spring Boot ${spring-boot.version}
+Version ${app.version} - Spring Boot ${spring-boot.version}

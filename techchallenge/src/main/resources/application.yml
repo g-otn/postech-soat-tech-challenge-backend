@@ -1,4 +1,6 @@
 # Global config
+app:
+    version: '@project.version@'
 spring:
     docker:
         compose:
