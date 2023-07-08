@@ -28,11 +28,6 @@ public class ProductDTO extends AbstractUseCaseDomainDTO<Product> {
     @Min(message = "product.price.notLessThanZero", value = 0)
     private Double price;
 
-    @Schema(example = "10.0")
-    @NotNull(message = "product.quantity.notNull")
-    @Min(message = "product.quantity.notLessThanZero", value = 0)
-    private Double quantity;
-
     @Schema(example = "1")
     @NotNull(message = "product.category.notNull")
     @Min(message = "product.category.notLessThanOne", value = 1)
@@ -44,7 +39,6 @@ public class ProductDTO extends AbstractUseCaseDomainDTO<Product> {
         productDTO.setId(product.getId());
         productDTO.setName(product.getName());
         productDTO.setPrice(product.getPrice());
-        productDTO.setQuantity(product.getQuantity());
         productDTO.setCategory(product.getCategory().getId());
 
         return productDTO;
@@ -53,7 +47,6 @@ public class ProductDTO extends AbstractUseCaseDomainDTO<Product> {
     public void fillDomain(Product product) {
         product.setName(name);
         product.setPrice(price);
-        product.setQuantity(quantity);
         product.setCategory(new Category(category));
     }
 }

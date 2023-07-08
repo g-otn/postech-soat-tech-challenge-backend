@@ -27,10 +27,6 @@ public class ProductEntity extends DomainEntity {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @Basic
-    @Column(name = "quantity", nullable = false)
-    private Double quantity;
-
     @JoinColumn(name = "category", foreignKey = @ForeignKey(name = "fk_product_category"), nullable = false)
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private CategoryEntity category;
@@ -39,7 +35,6 @@ public class ProductEntity extends DomainEntity {
         super(product);
         this.name = product.getName();
         this.price = product.getPrice();
-        this.quantity = product.getQuantity();
         if (product.getCategory() != null)
             this.category = new CategoryEntity(product.getCategory());
     }
@@ -49,7 +44,6 @@ public class ProductEntity extends DomainEntity {
                 this.isDeleted(),
                 this.getName(),
                 this.getPrice(),
-                this.getQuantity(),
                 this.getCategory() != null ? this.getCategory().toModel() : null);
     }
 }

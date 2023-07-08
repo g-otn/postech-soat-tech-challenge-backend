@@ -16,18 +16,16 @@ public class Product extends Domain {
 
     private String name;
     private Double price;
-    private Double quantity; // (stock)
     private Category category;
 
     public Product(Long id) {
         this.id = id;
     }
 
-    public Product(Long id, boolean deleted, String name, Double price, Double quantity, Category category) {
+    public Product(Long id, boolean deleted, String name, Double price, Category category) {
         super(id, deleted);
         this.name = name;
         this.price = price;
-        this.quantity = quantity;
         this.category = category;
     }
 }

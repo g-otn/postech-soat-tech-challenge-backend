@@ -77,7 +77,6 @@ create table if not exists prd_product
 (
     deleted          boolean          not null,
     price            double precision not null,
-    quantity         double precision not null,
     category         bigint           not null
     constraint fk_product_category
     references cat_category,
