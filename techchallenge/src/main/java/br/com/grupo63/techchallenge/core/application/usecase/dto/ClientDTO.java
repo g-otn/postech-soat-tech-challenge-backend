@@ -11,10 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ClientDTO {
-
-    @Schema(defaultValue = "123")
-    private Long id;
+public class ClientDTO extends AbstractUseCaseDomainDTO<Client> {
 
     @Schema(example = "01234567890")
     private String nationalId;
@@ -28,7 +25,7 @@ public class ClientDTO {
         return clientDTO;
     }
 
-    public void toDomain(Client client) {
+    public void fillDomain(Client client) {
         client.setId(id);
         client.setNationalId(nationalId);
     }

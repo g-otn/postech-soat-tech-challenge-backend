@@ -8,6 +8,8 @@ import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundE
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +37,9 @@ public class ClientController extends AbstractController {
             summary = "Identifica um cliente",
             description = "Registra um cliente com seu CPF")
     @PostMapping("/criar")
-    public ResponseEntity<ClientDTO> create(@Valid @RequestBody ClientDTO dto) {
-        return ResponseEntity.ok(useCase.create(dto));
+    public ResponseEntity<ClientDTO> create(@RequestParam String nationalId) {
+        ClientDTO clientDTO = new ClientDTO(nationalId);
+        return ResponseEntity.ok(useCase.create(clientDTO));
     }
 
     @Operation(

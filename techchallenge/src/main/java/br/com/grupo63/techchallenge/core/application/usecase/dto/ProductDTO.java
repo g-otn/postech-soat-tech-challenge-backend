@@ -16,10 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class ProductDTO {
-
-    @Schema(defaultValue = "0")
-    private Long id;
+public class ProductDTO extends AbstractUseCaseDomainDTO<Product> {
 
     @Schema(example = "X-Bacon")
     @NotEmpty(message = "product.name.notEmpty")
@@ -53,7 +50,7 @@ public class ProductDTO {
         return productDTO;
     }
 
-    public void toDomain(Product product) {
+    public void fillDomain(Product product) {
         product.setName(name);
         product.setPrice(price);
         product.setQuantity(quantity);

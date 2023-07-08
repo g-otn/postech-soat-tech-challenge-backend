@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ICRUDUseCase<T> {
 
-    T create(T entity);
+    T create(T entity) throws NotFoundException;
 
     T read(Long id) throws NotFoundException;
 

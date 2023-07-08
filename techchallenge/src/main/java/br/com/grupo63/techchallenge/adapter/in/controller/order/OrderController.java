@@ -2,6 +2,8 @@ package br.com.grupo63.techchallenge.adapter.in.controller.order;
 
 import br.com.grupo63.techchallenge.adapter.in.controller.AbstractController;
 import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO;
+import br.com.grupo63.techchallenge.adapter.in.controller.order.dto.CreateOrderRequestDTO;
+import br.com.grupo63.techchallenge.core.application.usecase.dto.ClientDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.ValidationException;
@@ -49,8 +51,10 @@ public class OrderController extends AbstractController {
             summary = "Fake checkout: Tela de resumo do pedido",
             description = "Registra um pedido a ser realizado, retorna o valor total")
     @PostMapping("/criar")
-    public ResponseEntity<OrderDTO> create(@Valid @RequestBody OrderDTO dto) {
-        return ResponseEntity.ok(orderUseCase.create(dto));
+    public ResponseEntity<OrderDTO> create(@RequestParam Long clientId,
+                                           @RequestBody CreateOrderRequestDTO createOrderRequestDTO) throws NotFoundException {
+
+        return ResponseEntity.ok(orderUseCase.create(createOrderRequestDTO.toDomainDto(clientId)));
     }
 
     @Operation(

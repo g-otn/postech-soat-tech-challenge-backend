@@ -22,7 +22,7 @@ public class ProductUseCase implements ICRUDUseCase<ProductDTO> {
     public ProductDTO create(@Valid ProductDTO productDTO) {
         Product product = new Product();
 
-        productDTO.toDomain(product);
+        productDTO.fillDomain(product);
 
         return ProductDTO.toDto(repository.saveAndFlush(product));
     }
@@ -40,7 +40,7 @@ public class ProductUseCase implements ICRUDUseCase<ProductDTO> {
     public ProductDTO update(@Valid ProductDTO productDTO, Long id) throws NotFoundException {
         Product product = repository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
 
-        productDTO.toDomain(product);
+        productDTO.fillDomain(product);
 
         return ProductDTO.toDto(repository.saveAndFlush(product));
     }

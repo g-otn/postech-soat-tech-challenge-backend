@@ -7,4 +7,5 @@ import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundE
 public interface IClientUseCase extends ICRUDUseCase<ClientDTO> {
 
     ClientDTO getByNationalId(String nationalId) throws NotFoundException;
+
 }

@@ -28,7 +28,7 @@ public class ClientUseCase implements IClientUseCase {
     public ClientDTO create(@Valid ClientDTO clientDTO) {
         Client client = new Client();
 
-        clientDTO.toDomain(client);
+        clientDTO.fillDomain(client);
 
         return ClientDTO.toDto(repository.saveAndFlush(client));
     }
@@ -49,7 +49,7 @@ public class ClientUseCase implements IClientUseCase {
     public ClientDTO update(@Valid ClientDTO clientDTO, Long id) throws NotFoundException {
         Client client = repository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
 
-        clientDTO.toDomain(client);
+        clientDTO.fillDomain(client);
 
         return ClientDTO.toDto(repository.saveAndFlush(client));
     }

@@ -18,10 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class OrderDTO {
-
-    @Schema(defaultValue = "0")
-    private Long id;
+public class OrderDTO extends AbstractUseCaseDomainDTO<Order> {
 
     @Schema(defaultValue = "15.99")
     private Double totalPrice;
@@ -48,20 +45,20 @@ public class OrderDTO {
         return orderDTO;
     }
 
-    public void toDomain(Order order) {
+    public void fillDomain(Order order) {
         order.setTotalPrice(totalPrice);
         order.setStatus(status);
         order.setItems(items.stream().map(item -> {
             OrderItem orderItem = order.getByProductId(item.getProductId());
-            item.toDomain(orderItem);
+            item.fillDomain(orderItem);
             return orderItem;
         }).toList());
         Client clientModel = order.getClient() != null ? order.getClient() : new Client();
-        client.toDomain(clientModel);
+        client.fillDomain(clientModel);
         order.setClient(clientModel);
         if (payment != null) {
             Payment paymentModel = order.getPayment() != null ? order.getPayment() : new Payment();
-            payment.toDomain(paymentModel);
+            payment.fillDomain(paymentModel);
             order.setPayment(paymentModel);
         }
     }
