@@ -63,7 +63,7 @@ public class ClientController extends AbstractController {
             summary = "Atualizar cliente",
             description = "Atualiza um cliente por id com os dados enviados")
     @PutMapping("/{id}")
-    public ResponseEntity<ClientDTO> update(@RequestBody ClientDTO dto, @PathVariable("id") Long id) throws NotFoundException {
+    public ResponseEntity<ClientDTO> update(@Valid @RequestBody ClientDTO dto, @PathVariable("id") Long id) throws NotFoundException {
         return ResponseEntity.ok(useCase.update(dto, id));
     }
 

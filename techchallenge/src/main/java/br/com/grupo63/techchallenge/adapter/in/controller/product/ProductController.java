@@ -64,7 +64,7 @@ public class ProductController extends AbstractController {
             summary = "Atualizar produto",
             description = "Atualiza um produto por id com os dados enviados")
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> update(@RequestBody ProductDTO dto, @PathVariable("id") Long id) throws NotFoundException {
+    public ResponseEntity<ProductDTO> update(@Valid @RequestBody ProductDTO dto, @PathVariable("id") Long id) throws NotFoundException {
         return ResponseEntity.ok(useCase.update(dto, id));
     }
 
