@@ -1,6 +1,5 @@
 package br.com.grupo63.techchallenge.core.application.usecase.dto;
 
-import br.com.grupo63.techchallenge.core.domain.model.client.Client;
 import br.com.grupo63.techchallenge.core.domain.model.order.OrderItem;
 import br.com.grupo63.techchallenge.core.domain.model.product.Product;
 import lombok.AllArgsConstructor;

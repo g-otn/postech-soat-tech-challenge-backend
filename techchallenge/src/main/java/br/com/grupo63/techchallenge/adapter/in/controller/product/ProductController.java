@@ -5,7 +5,6 @@ import br.com.grupo63.techchallenge.adapter.in.controller.dto.DefaultResponseDTO
 import br.com.grupo63.techchallenge.core.application.usecase.dto.ProductDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.exception.NotFoundException;
 import br.com.grupo63.techchallenge.core.application.usecase.product.IProductUseCase;
-import br.com.grupo63.techchallenge.core.application.usecase.product.ProductUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;

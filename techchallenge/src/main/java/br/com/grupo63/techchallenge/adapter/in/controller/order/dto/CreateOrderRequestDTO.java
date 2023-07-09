@@ -3,9 +3,9 @@ package br.com.grupo63.techchallenge.adapter.in.controller.order.dto;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.ClientDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderItemDTO;
-import br.com.grupo63.techchallenge.core.application.usecase.dto.PaymentDTO;
-import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentMethod;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,9 +25,13 @@ public class CreateOrderRequestDTO {
     @AllArgsConstructor
     public static class Item {
         private Long id;
+
+        @Min(message = "orderitem.quantity.min", value = 1)
         private Long quantity;
     }
 
+    @NotEmpty(message = "order.items.notempty")
+    @Valid
     private List<Item> items;
 
     public OrderDTO toDomainDto(Long clientId) {
