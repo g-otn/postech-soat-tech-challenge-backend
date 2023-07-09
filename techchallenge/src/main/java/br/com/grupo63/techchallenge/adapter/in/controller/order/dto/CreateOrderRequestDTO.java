@@ -29,6 +29,7 @@ public class CreateOrderRequestDTO {
         private Long quantity;
     }
 
+    @NotNull(message = "order.create.items.notEmpty")
     @Size(min = 1, message = "order.create.items.notEmpty")
     private List<Item> items;
 

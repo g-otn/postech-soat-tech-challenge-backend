@@ -52,7 +52,7 @@ public class OrderController extends AbstractController {
             description = "Registra um pedido a ser realizado, retorna o valor total")
     @PostMapping("/criar")
     public ResponseEntity<OrderDTO> create(@RequestParam Long clientId,
-                                           @RequestBody CreateOrderRequestDTO createOrderRequestDTO) throws NotFoundException {
+                                           @Valid @RequestBody CreateOrderRequestDTO createOrderRequestDTO) throws NotFoundException {
 
         return ResponseEntity.ok(useCase.create(createOrderRequestDTO.toDomainDto(clientId)));
     }
