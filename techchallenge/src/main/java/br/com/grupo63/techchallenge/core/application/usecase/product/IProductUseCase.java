@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface IProductUseCase extends ICRUDUseCase<ProductDTO> {
 
-    List<ProductDTO> listByCategoryName(@NotNull String categoryName);
+    List<ProductDTO> listByCategoryName(String categoryName);
 
 }

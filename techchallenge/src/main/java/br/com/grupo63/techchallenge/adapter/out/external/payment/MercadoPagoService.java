@@ -11,7 +11,7 @@ public class MercadoPagoService implements IMercadoPagoService {
 
     // Simulates integration with Mercado Pago
     // Would register payment on Mercado Pago side and returns the generated QR code
-    public String generateQRCode(@NotNull Long id, @NotNull Double transactionAmount) {
+    public String generateQRCode(Long id, Double transactionAmount) {
         String qrCodeData1 = String.format("%020d", id);
         String qrCodeData2 = UUID.randomUUID().toString();
         String qrCodeData3 = transactionAmount.toString();

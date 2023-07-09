@@ -20,7 +20,7 @@ public class PaymentUseCase implements IPaymentUseCase {
     private final OrderUseCase orderUseCase;
 
     @Override
-    public String startPayment(@NotNull(message = "payment.order.id.notNull") Long orderId) throws NotFoundException, ValidationException {
+    public String startPayment(Long orderId) throws NotFoundException, ValidationException {
         OrderDTO orderDTO = orderUseCase.read(orderId);
 
         if (orderDTO.getStatus() != null) {
@@ -37,7 +37,7 @@ public class PaymentUseCase implements IPaymentUseCase {
     }
 
     @Override
-    public void finishPayment(@NotNull(message = "payment.order.id.notNull") Long orderId) throws ValidationException, NotFoundException {
+    public void finishPayment(Long orderId) throws ValidationException, NotFoundException {
         OrderDTO orderDTO = orderUseCase.read(orderId);
 
         if (orderDTO.getPayment() == null) {
@@ -53,7 +53,7 @@ public class PaymentUseCase implements IPaymentUseCase {
     }
 
     @Override
-    public PaymentStatus getPaymentStatus(@NotNull Long orderId) throws NotFoundException, ValidationException {
+    public PaymentStatus getPaymentStatus(Long orderId) throws NotFoundException, ValidationException {
         OrderDTO orderDTO = orderUseCase.read(orderId);
 
         if (orderDTO.getPayment() == null) {

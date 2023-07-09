@@ -54,7 +54,7 @@ public class ProductUseCase implements IProductUseCase {
         repository.saveAndFlush(product);
     }
 
-    public List<ProductDTO> listByCategoryName(@NotNull String categoryName) {
+    public List<ProductDTO> listByCategoryName(String categoryName) {
         return repository.findByDeletedFalseAndCategory_Name(categoryName).stream().map(ProductDTO::toDto).toList();
     }
 }

@@ -43,7 +43,7 @@ public class OrderUseCase implements IOrderUseCase {
     }
 
     @Override
-    public OrderStatus advanceStatus(@NotNull Long orderId) throws NotFoundException, ValidationException {
+    public OrderStatus advanceStatus(Long orderId) throws NotFoundException, ValidationException {
         Order order = orderRepository.findByIdAndDeletedFalse(orderId).orElseThrow(NotFoundException::new);
 
         if (order.getPayment() == null || order.getPayment().getStatus() != PaymentStatus.PAID) {
