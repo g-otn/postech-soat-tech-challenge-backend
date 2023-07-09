@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum PaymentStatus {
-    PENDING("Pendente"), PAID("Pago");
+    PENDING, PAID;
 
-    private String name;
 }

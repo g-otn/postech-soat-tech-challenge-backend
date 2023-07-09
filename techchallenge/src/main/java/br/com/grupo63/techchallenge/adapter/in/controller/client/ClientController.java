@@ -26,17 +26,17 @@ public class ClientController extends AbstractController {
     private final IClientUseCase useCase;
 
     @Operation(
-            summary = "Find a client by their national id",
-            description = "Get client data by their national id.")
+            summary = "Recuperar cliente por CPF",
+            description = "Exibe os dados de um cliente a partir de seu CPF")
     @GetMapping("/cpf/{nationalId}")
     public ClientDTO findByNationalId(@PathVariable String nationalId) throws NotFoundException {
         return useCase.getByNationalId(nationalId);
     }
 
     @Operation(
-            tags = "1ª chamada - fluxo principal",
+            tags = "1ª chamada - Fluxo principal - Pedido",
             summary = "Identificação: Identifica um cliente",
-            description = "Registra um cliente com seu CPF")
+            description = "Registra um cliente através de seu CPF")
     @PostMapping("/criar")
     public ResponseEntity<ClientDTO> create(@RequestParam String nationalId) throws NotFoundException {
         ClientDTO clientDTO = new ClientDTO(nationalId);
@@ -44,32 +44,32 @@ public class ClientController extends AbstractController {
     }
 
     @Operation(
-            summary = "Get a client by it's id",
-            description = "Find a client by their id.")
+            summary = "Recuperar cliente",
+            description = "Exibe os dados de um produto a partir de seu id")
     @GetMapping("/{id}")
     public ResponseEntity<ClientDTO> read(@PathVariable("id") Long id) throws NotFoundException {
         return ResponseEntity.ok(useCase.read(id));
     }
 
     @Operation(
-            summary = "List all clients",
-            description = "List all clients.")
+            summary = "Listar clientes",
+            description = "Lista todos os clientes")
     @GetMapping("/listar")
     public ResponseEntity<List<ClientDTO>> list() {
         return ResponseEntity.ok(useCase.list());
     }
 
     @Operation(
-            summary = "Update a client",
-            description = "Update a client in the database with the DTO data.")
+            summary = "Atualizar cliente",
+            description = "Atualiza um cliente por id com os dados enviados")
     @PutMapping("/{id}")
     public ResponseEntity<ClientDTO> update(@RequestBody ClientDTO dto, @PathVariable("id") Long id) throws NotFoundException {
         return ResponseEntity.ok(useCase.update(dto, id));
     }
 
     @Operation(
-            summary = "Delete a client",
-            description = "Delete a client in the database by their id.")
+            summary = "Excluir cliente",
+            description = "Exclui um cliente por id")
     @DeleteMapping("/{id}")
     public ResponseEntity<DefaultResponseDTO> delete(@PathVariable("id") Long id) throws NotFoundException {
         useCase.delete(id);

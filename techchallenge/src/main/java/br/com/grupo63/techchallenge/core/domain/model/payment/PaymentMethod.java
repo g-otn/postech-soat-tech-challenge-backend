@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum PaymentMethod {
-    MERCADO_PAGO_QR_CODE("QR Code Mercado Pago");
+    MERCADO_PAGO_QR_CODE
 
-    private String name;
 }

@@ -10,6 +10,7 @@ import br.com.grupo63.techchallenge.core.domain.model.order.Order;
 import br.com.grupo63.techchallenge.core.domain.model.order.OrderItem;
 import br.com.grupo63.techchallenge.core.domain.model.order.OrderStatus;
 import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentStatus;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -63,7 +64,7 @@ public class OrderUseCase implements IOrderUseCase {
     }
 
     @Override
-    public OrderDTO create(OrderDTO orderDTO) throws NotFoundException {
+    public OrderDTO create(@Valid OrderDTO orderDTO) throws NotFoundException {
         Order order = new Order();
         orderDTO.fillDomain(order);
 

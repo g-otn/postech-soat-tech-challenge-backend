@@ -6,6 +6,7 @@ import br.com.grupo63.techchallenge.core.domain.model.order.OrderItem;
 import br.com.grupo63.techchallenge.core.domain.model.order.OrderStatus;
 import br.com.grupo63.techchallenge.core.domain.model.payment.Payment;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class OrderDTO extends AbstractUseCaseDomainDTO<Order> {
 
     private ClientDTO client;
 
+    @NotNull
     private List<OrderItemDTO> items = new ArrayList<>();
 
     private PaymentDTO payment;

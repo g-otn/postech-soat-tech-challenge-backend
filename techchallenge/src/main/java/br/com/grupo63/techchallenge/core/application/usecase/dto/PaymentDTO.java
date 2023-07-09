@@ -24,6 +24,7 @@ public class PaymentDTO extends AbstractUseCaseDomainDTO<Payment> {
     public static PaymentDTO toDto(Payment payment) {
         PaymentDTO paymentDTO = new PaymentDTO();
 
+        paymentDTO.setId(payment.getId());
         paymentDTO.setStatus(payment.getStatus());
         paymentDTO.setMethod(payment.getMethod());
         paymentDTO.setQrData(payment.getQrData());
