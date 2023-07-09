@@ -5,6 +5,7 @@ import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderItemDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.PaymentDTO;
 import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentMethod;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,11 @@ public class CreateOrderRequestDTO {
     @Getter
     @AllArgsConstructor
     public static class Item {
+        @NotNull(message = "order.create.item.productIdNotNull")
+        @Min(value = 1, message = "order.create.item.productIdValid")
         private Long id;
+        @NotNull(message = "order.create.item.quantityNotNull")
+        @Min(value = 1, message = "order.create.item.moreThan1Quantity")
         private Long quantity;
     }
 
