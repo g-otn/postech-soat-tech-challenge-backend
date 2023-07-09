@@ -7,7 +7,7 @@ Group course project of a self service and kitchen management system for a ficti
 Requirements: Docker, Docker Compose
 
 1. Make sure port `80` is available.
-2. With a copy of this repo (the `bd` folder has some required SQL scripts), execute Docker Compose:
+2. With a copy of this repo (the `db` folder has some required SQL scripts), execute Docker Compose:
 
 ```bash
 docker compose up
