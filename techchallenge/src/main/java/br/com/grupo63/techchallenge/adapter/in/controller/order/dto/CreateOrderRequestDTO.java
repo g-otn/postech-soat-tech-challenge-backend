@@ -6,6 +6,7 @@ import br.com.grupo63.techchallenge.core.application.usecase.dto.OrderItemDTO;
 import br.com.grupo63.techchallenge.core.application.usecase.dto.PaymentDTO;
 import br.com.grupo63.techchallenge.core.domain.model.payment.PaymentMethod;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class CreateOrderRequestDTO {
         private Long quantity;
     }
 
+    @Size(min = 1, message = "order.create.items.notEmpty")
     private List<Item> items;
 
     public OrderDTO toDomainDto(Long clientId) {
