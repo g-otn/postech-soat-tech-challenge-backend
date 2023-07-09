@@ -25,8 +25,12 @@ public class ClientUseCase implements IClientUseCase {
     }
 
     @Override
-    public ClientDTO create(@Valid ClientDTO clientDTO) {
-        Client client = new Client();
+    public ClientDTO create(ClientDTO clientDTO) {
+        Client client = repository.findByNationalId(clientDTO.getNationalId()).orElse(new Client());
+
+        if (client.getId() != null) {
+            return ClientDTO.toDto(client);
+        }
 
         clientDTO.fillDomain(client);
 
@@ -46,7 +50,7 @@ public class ClientUseCase implements IClientUseCase {
     }
 
     @Override
-    public ClientDTO update(@Valid ClientDTO clientDTO, Long id) throws NotFoundException {
+    public ClientDTO update(ClientDTO clientDTO, Long id) throws NotFoundException {
         Client client = repository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
 
         clientDTO.fillDomain(client);
