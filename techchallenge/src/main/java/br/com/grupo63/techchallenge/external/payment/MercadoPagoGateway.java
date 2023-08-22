@@ -1,15 +1,15 @@
 package br.com.grupo63.techchallenge.external.payment;
 
-import br.com.grupo63.techchallenge.external.payment.IMercadoPagoService;
+import br.com.grupo63.techchallenge.gateway.payment.IMercadoPagoGateway;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
-public class MercadoPagoService implements IMercadoPagoService {
+public class MercadoPagoGateway implements IMercadoPagoGateway {
 
     // Simulates integration with Mercado Pago
-    // Would register payment on Mercado Pago side and returns the generated QR code
+    // Would register payment on Mercado Pago side and return the generated QR code
     public String generateQRCode(Long id, Double transactionAmount) {
         String qrCodeData1 = String.format("%020d", id);
         String qrCodeData2 = UUID.randomUUID().toString();

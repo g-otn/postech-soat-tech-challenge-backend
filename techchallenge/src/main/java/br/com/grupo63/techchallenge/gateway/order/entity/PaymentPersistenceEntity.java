@@ -1,10 +1,10 @@
 package br.com.grupo63.techchallenge.gateway.order.entity;
 
-import br.com.grupo63.techchallenge.gateway.PersistenceEntity;
 import br.com.grupo63.techchallenge.entity.order.Order;
 import br.com.grupo63.techchallenge.entity.payment.Payment;
 import br.com.grupo63.techchallenge.entity.payment.PaymentMethod;
 import br.com.grupo63.techchallenge.entity.payment.PaymentStatus;
+import br.com.grupo63.techchallenge.gateway.PersistenceEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

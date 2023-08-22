@@ -1,15 +1,16 @@
 package br.com.grupo63.techchallenge.usecase.payment;
 
+import br.com.grupo63.techchallenge.entity.order.Order;
 import br.com.grupo63.techchallenge.entity.payment.PaymentStatus;
-import br.com.grupo63.techchallenge.usecase.exception.NotFoundException;
-import br.com.grupo63.techchallenge.usecase.exception.ValidationException;
+import br.com.grupo63.techchallenge.exception.NotFoundException;
+import br.com.grupo63.techchallenge.exception.ValidationException;
 
 public interface IPaymentUseCase {
 
-    String startPayment(Long orderId) throws NotFoundException, ValidationException;
+    String startPayment(Order entity) throws NotFoundException, ValidationException;
 
-    void finishPayment(Long orderId) throws ValidationException, NotFoundException;
+    void finishPayment(Order entity) throws NotFoundException, ValidationException;
 
-    PaymentStatus getPaymentStatus(Long orderId) throws NotFoundException, ValidationException;
+    PaymentStatus getPaymentStatus(Order entity) throws NotFoundException, ValidationException;
 
 }

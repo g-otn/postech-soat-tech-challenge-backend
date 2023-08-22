@@ -1,9 +1,9 @@
 package br.com.grupo63.techchallenge.gateway.order.entity;
 
-import br.com.grupo63.techchallenge.gateway.PersistenceEntity;
-import br.com.grupo63.techchallenge.gateway.client.entity.ClientPersistenceEntity;
 import br.com.grupo63.techchallenge.entity.order.Order;
 import br.com.grupo63.techchallenge.entity.order.OrderStatus;
+import br.com.grupo63.techchallenge.gateway.PersistenceEntity;
+import br.com.grupo63.techchallenge.gateway.client.entity.ClientPersistenceEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

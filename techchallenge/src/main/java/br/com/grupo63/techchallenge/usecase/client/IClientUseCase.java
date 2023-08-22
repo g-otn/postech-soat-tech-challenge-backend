@@ -1,12 +1,23 @@
 package br.com.grupo63.techchallenge.usecase.client;
 
-import br.com.grupo63.techchallenge.gateway.IPersistenceEntityRepository;
-import br.com.grupo63.techchallenge.usecase.ICRUDUseCase;
-import br.com.grupo63.techchallenge.controller.dto.ClientControllerDTO;
-import br.com.grupo63.techchallenge.usecase.exception.NotFoundException;
+import br.com.grupo63.techchallenge.entity.client.Client;
+import br.com.grupo63.techchallenge.exception.NotFoundException;
+import br.com.grupo63.techchallenge.gateway.client.gateways.IClientGateway;
 
-public interface IClientUseCase extends ICRUDUseCase<ClientControllerDTO> {
+import java.util.List;
 
-    ClientControllerDTO getByNationalId(String nationalId, IPersistenceEntityRepository gateway) throws NotFoundException;
+public interface IClientUseCase {
+
+    Client getByNationalId(String nationalId, IClientGateway gateway) throws NotFoundException;
+
+    Client create(Client entity, IClientGateway gateway);
+
+    Client read(Long id, IClientGateway gateway) throws NotFoundException;
+
+    List<Client> list(IClientGateway gateway);
+
+    Client update(Client entity, IClientGateway gateway);
+
+    void delete(Client entity, IClientGateway gateway);
 
 }

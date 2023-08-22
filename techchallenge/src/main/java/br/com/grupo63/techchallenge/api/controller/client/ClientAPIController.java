@@ -2,9 +2,9 @@ package br.com.grupo63.techchallenge.api.controller.client;
 
 import br.com.grupo63.techchallenge.api.controller.AbstractAPIController;
 import br.com.grupo63.techchallenge.api.controller.dto.DefaultResponseDTO;
-import br.com.grupo63.techchallenge.usecase.client.IClientUseCase;
+import br.com.grupo63.techchallenge.controller.ClientController;
 import br.com.grupo63.techchallenge.controller.dto.ClientControllerDTO;
-import br.com.grupo63.techchallenge.usecase.exception.NotFoundException;
+import br.com.grupo63.techchallenge.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -20,15 +20,15 @@ import java.util.List;
 @RequestMapping("/clientes")
 public class ClientAPIController extends AbstractAPIController {
 
-    private final IClientUseCase useCase;
+    private final ClientController clientController;
 
-    @Operation(
-            summary = "Recuperar cliente por CPF",
-            description = "Exibe os dados de um cliente a partir de seu CPF")
-    @GetMapping("/cpf/{nationalId}")
-    public ClientControllerDTO findByNationalId(@PathVariable String nationalId) throws NotFoundException {
-        return useCase.getByNationalId(nationalId);
-    }
+//    @Operation(
+//            summary = "Recuperar cliente por CPF",
+//            description = "Exibe os dados de um cliente a partir de seu CPF")
+//    @GetMapping("/cpf/{nationalId}")
+//    public ClientControllerDTO findByNationalId(@PathVariable String nationalId) throws NotFoundException {
+//        return clientController.(nationalId);
+//    }
 
     @Operation(
             tags = "1ª chamada - Fluxo principal - Pedido",
@@ -37,7 +37,7 @@ public class ClientAPIController extends AbstractAPIController {
     @PostMapping("/criar")
     public ResponseEntity<ClientControllerDTO> create(@RequestParam String nationalId) throws NotFoundException {
         ClientControllerDTO clientDTO = new ClientControllerDTO(nationalId);
-        return ResponseEntity.ok(useCase.create(clientDTO));
+        return ResponseEntity.ok(clientController.create(clientDTO));
     }
 
     @Operation(
@@ -45,7 +45,7 @@ public class ClientAPIController extends AbstractAPIController {
             description = "Exibe os dados de um produto a partir de seu id")
     @GetMapping("/{id}")
     public ResponseEntity<ClientControllerDTO> read(@PathVariable("id") Long id) throws NotFoundException {
-        return ResponseEntity.ok(useCase.read(id));
+        return ResponseEntity.ok(clientController.read(id));
     }
 
     @Operation(
@@ -53,7 +53,7 @@ public class ClientAPIController extends AbstractAPIController {
             description = "Lista todos os clientes")
     @GetMapping("/listar")
     public ResponseEntity<List<ClientControllerDTO>> list() {
-        return ResponseEntity.ok(useCase.list());
+        return ResponseEntity.ok(clientController.list());
     }
 
     @Operation(
@@ -61,7 +61,7 @@ public class ClientAPIController extends AbstractAPIController {
             description = "Atualiza um cliente por id com os dados enviados")
     @PutMapping("/{id}")
     public ResponseEntity<ClientControllerDTO> update(@Valid @RequestBody ClientControllerDTO dto, @PathVariable("id") Long id) throws NotFoundException {
-        return ResponseEntity.ok(useCase.update(dto, id));
+        return ResponseEntity.ok(clientController.update(dto, id));
     }
 
     @Operation(
@@ -69,7 +69,7 @@ public class ClientAPIController extends AbstractAPIController {
             description = "Exclui um cliente por id")
     @DeleteMapping("/{id}")
     public ResponseEntity<DefaultResponseDTO> delete(@PathVariable("id") Long id) throws NotFoundException {
-        useCase.delete(id);
+        clientController.delete(id);
         return ResponseEntity.ok().build();
     }
 

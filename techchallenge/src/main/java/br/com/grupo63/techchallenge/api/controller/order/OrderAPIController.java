@@ -6,8 +6,8 @@ import br.com.grupo63.techchallenge.api.controller.order.dto.AdvanceOrderStatusR
 import br.com.grupo63.techchallenge.api.controller.order.dto.CreateOrderRequestDTO;
 import br.com.grupo63.techchallenge.controller.OrderController;
 import br.com.grupo63.techchallenge.controller.dto.OrderControllerDTO;
-import br.com.grupo63.techchallenge.usecase.exception.NotFoundException;
-import br.com.grupo63.techchallenge.usecase.exception.ValidationException;
+import br.com.grupo63.techchallenge.exception.NotFoundException;
+import br.com.grupo63.techchallenge.exception.ValidationException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -50,13 +50,13 @@ public class OrderAPIController extends AbstractAPIController {
             description = "Registra um pedido a ser realizado, retorna o valor total")
     @PostMapping("/criar")
     public ResponseEntity<OrderControllerDTO> create(@RequestParam Long clientId,
-                                                     @Valid @RequestBody CreateOrderRequestDTO createOrderRequestDTO) throws NotFoundException {
+                                                     @Valid @RequestBody CreateOrderRequestDTO createOrderRequestDTO) throws ValidationException, NotFoundException {
 
         return ResponseEntity.ok(controller.create(createOrderRequestDTO.toDomainDto(clientId)));
     }
 
     @Operation(
-            tags = { "3ª chamada - Fluxo principal - Pagamento", "5ª chamada - Fluxo principal - Acompanhamento e entrega" },
+            tags = {"3ª chamada - Fluxo principal - Pagamento", "5ª chamada - Fluxo principal - Acompanhamento e entrega"},
             summary = "Recupera pedido",
             description = "Exibe os dados de um pedido a partir de seu id")
     @GetMapping("/{id}")

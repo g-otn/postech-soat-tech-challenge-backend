@@ -4,12 +4,15 @@ import br.com.grupo63.techchallenge.entity.order.Order;
 import br.com.grupo63.techchallenge.entity.order.OrderItem;
 import br.com.grupo63.techchallenge.entity.order.OrderStatus;
 import br.com.grupo63.techchallenge.entity.payment.PaymentStatus;
-import br.com.grupo63.techchallenge.usecase.exception.NotFoundException;
-import br.com.grupo63.techchallenge.usecase.exception.ValidationException;
+import br.com.grupo63.techchallenge.entity.product.Product;
+import br.com.grupo63.techchallenge.entity.validation.group.Create;
+import br.com.grupo63.techchallenge.entity.validation.group.Update;
+import br.com.grupo63.techchallenge.exception.NotFoundException;
+import br.com.grupo63.techchallenge.exception.ValidationException;
 import br.com.grupo63.techchallenge.gateway.repository.IOrderRepository;
-import br.com.grupo63.techchallenge.controller.dto.ProductControllerDTO;
+import br.com.grupo63.techchallenge.gateway.repository.IProductRepository;
+import br.com.grupo63.techchallenge.usecase.Validator;
 import br.com.grupo63.techchallenge.usecase.product.ProductUseCase;
-import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +25,10 @@ import static java.util.Map.entry;
 @Service
 public class OrderUseCase implements IOrderUseCase {
 
-    Validator validator;
+    private final Validator validator;
     private final ProductUseCase productUseCase;
+    private final IProductRepository productGateway;
+    private final IOrderRepository gateway;
     private final Map<OrderStatus, OrderStatus> nextOrderMap = Map.ofEntries(
             entry(OrderStatus.RECEIVED, OrderStatus.PREPARING),
             entry(OrderStatus.PREPARING, OrderStatus.READY),
@@ -32,69 +37,62 @@ public class OrderUseCase implements IOrderUseCase {
     private void fillCurrentPrices(Order order) throws NotFoundException {
         double totalPrice = 0.0D;
         for (OrderItem orderItem : order.getItems()) {
-            ProductControllerDTO productUseCaseDTO = productUseCase.read(orderItem.getProduct().getId());
-
-            orderItem.setPrice(productUseCaseDTO.getPrice());
-            totalPrice += productUseCaseDTO.getPrice() * orderItem.getQuantity();
+            Product product = productUseCase.read(orderItem.getProduct().getId(), productGateway);
+            orderItem.setPrice(product.getPrice());
+            totalPrice += product.getPrice() * orderItem.getQuantity();
         }
         order.setTotalPrice(totalPrice);
     }
 
     @Override
-    public OrderStatus advanceStatus(Long orderId, IOrderRepository gateway) throws NotFoundException, ValidationException {
-        Order order = gateway.findByIdAndDeletedFalse(orderId).orElseThrow(NotFoundException::new);
-
-        if (order.getPayment() == null || order.getPayment().getStatus() != PaymentStatus.PAID) {
+    public OrderStatus advanceStatus(Order entity) throws ValidationException {
+        // TODO: Perguntar se essa logica deveria ir para dentro da entidade em um novo metodo
+        // ex: produto.advanceStatus()
+        if (entity.getPayment() == null || entity.getPayment().getStatus() != PaymentStatus.PAID) {
             throw new ValidationException("order.advanceStatus.title", "order.advanceStatus.notPaid");
-        } else if (order.getStatus() == OrderStatus.FINISHED) {
+        } else if (entity.getStatus() == OrderStatus.FINISHED) {
             throw new ValidationException("order.advanceStatus.title", "order.advanceStatus.finished");
-        } else if (order.getStatus() == null) {
-            order.setStatus(OrderStatus.RECEIVED);
-        }  else {
-            order.setStatus(nextOrderMap.get(order.getStatus()));
+        } else if (entity.getStatus() == null) {
+            entity.setStatus(OrderStatus.RECEIVED);
+        } else {
+            entity.setStatus(nextOrderMap.get(entity.getStatus()));
         }
 
-        return gateway.saveAndFlush(order).getStatus();
+        return gateway.saveAndFlush(entity).getStatus();
     }
 
     @Override
-    public List<Order> listUnfinishedOrders(IOrderRepository gateway) {
+    public List<Order> listUnfinishedOrders() {
         return gateway.findByStatusNotFinishedAndDeletedOrderByCreationDate();
     }
 
     @Override
-    public Order create(Order entity, IOrderRepository gateway) throws NotFoundException {
+    public Order create(Order entity) throws ValidationException, NotFoundException {
+        validator.validate(entity, Create.class);
         fillCurrentPrices(entity);
-
-        validator.validate(entity);
-
         return gateway.saveAndFlush(entity);
     }
 
     @Override
-    public Order read(Long id, IOrderRepository gateway) throws NotFoundException {
+    public Order read(Long id) throws NotFoundException {
         return gateway.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
     }
 
     @Override
-    public List<Order> list(IOrderRepository gateway) {
-        return gateway.findByDeletedFalse().stream().toList();
+    public List<Order> list() {
+        return gateway.findByDeletedFalse();
     }
 
     @Override
-    public Order update(Order entity, IOrderRepository gateway) throws NotFoundException {
-        validator.validate(entity);
-
+    public Order update(Order entity) throws ValidationException{
+        validator.validate(entity, Update.class);
         return gateway.saveAndFlush(entity);
     }
 
     @Override
-    public void delete(Long id, IOrderRepository gateway) throws NotFoundException {
-        Order order = gateway.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
-
-        order.delete();
-
-        gateway.saveAndFlush(order);
+    public void delete(Order entity) {
+        entity.delete();
+        gateway.saveAndFlush(entity);
     }
 
 }

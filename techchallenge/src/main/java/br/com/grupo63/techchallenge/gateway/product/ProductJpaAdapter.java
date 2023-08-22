@@ -1,8 +1,8 @@
 package br.com.grupo63.techchallenge.gateway.product;
 
+import br.com.grupo63.techchallenge.entity.product.Product;
 import br.com.grupo63.techchallenge.gateway.product.entity.ProductPersistenceEntity;
 import br.com.grupo63.techchallenge.gateway.repository.IProductRepository;
-import br.com.grupo63.techchallenge.entity.product.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

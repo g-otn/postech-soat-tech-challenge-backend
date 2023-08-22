@@ -2,7 +2,6 @@ package br.com.grupo63.techchallenge.controller.dto;
 
 import br.com.grupo63.techchallenge.entity.order.OrderStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,12 +21,8 @@ public class OrderControllerDTO extends AbstractControllerDTO {
 
     @Schema(defaultValue = "Recebido")
     private OrderStatus status;
-
     private ClientControllerDTO client;
-
-    @NotNull
     private List<OrderItemControllerDTO> items = new ArrayList<>();
-
     private PaymentControllerDTO payment;
 
 }

@@ -3,10 +3,9 @@ package br.com.grupo63.techchallenge.api.controller.payment;
 import br.com.grupo63.techchallenge.api.controller.AbstractAPIController;
 import br.com.grupo63.techchallenge.api.controller.payment.dto.PaymentStatusResponseDTO;
 import br.com.grupo63.techchallenge.api.controller.payment.dto.QRCodeResponseDTO;
-import br.com.grupo63.techchallenge.usecase.exception.NotFoundException;
-import br.com.grupo63.techchallenge.usecase.exception.ValidationException;
-import br.com.grupo63.techchallenge.entity.payment.PaymentStatus;
-import br.com.grupo63.techchallenge.usecase.payment.IPaymentUseCase;
+import br.com.grupo63.techchallenge.controller.PaymentController;
+import br.com.grupo63.techchallenge.exception.NotFoundException;
+import br.com.grupo63.techchallenge.exception.ValidationException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/pagamentos")
 public class PaymentAPIController extends AbstractAPIController {
 
-    private final IPaymentUseCase useCase;
+    private final PaymentController controller;
 
     @Operation(
             tags = "3ª chamada - Fluxo principal - Pagamento",
@@ -30,8 +29,7 @@ public class PaymentAPIController extends AbstractAPIController {
     public QRCodeResponseDTO startPayment(
             @Parameter(description = "Id do pedido") @RequestParam Long orderId
     ) throws NotFoundException, ValidationException {
-        String qrData = useCase.startPayment(orderId);
-        return new QRCodeResponseDTO(qrData);
+        return controller.startPayment(orderId);
     }
 
     @Operation(
@@ -42,7 +40,7 @@ public class PaymentAPIController extends AbstractAPIController {
     @ResponseStatus(HttpStatus.OK)
     public void confirmPaymentFromOrderId(@Parameter(description = "Id do pedido associado ao pagamento")
                                           @RequestParam Long orderId) throws ValidationException, NotFoundException {
-        useCase.finishPayment(orderId);
+        controller.finishPayment(orderId);
     }
 
     @Operation(
@@ -52,8 +50,7 @@ public class PaymentAPIController extends AbstractAPIController {
     @GetMapping("/status")
     public PaymentStatusResponseDTO getStatusByOrderId(@Parameter(description = "Id do pedido associado ao pagamento")
                                                        @RequestParam Long orderId) throws NotFoundException, ValidationException {
-        PaymentStatus status = useCase.getPaymentStatus(orderId);
-        return new PaymentStatusResponseDTO(status);
+        return controller.getPaymentStatus(orderId);
     }
 
 }

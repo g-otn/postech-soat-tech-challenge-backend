@@ -1,5 +1,8 @@
 package br.com.grupo63.techchallenge.entity;
 
+import br.com.grupo63.techchallenge.entity.validation.group.Update;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +14,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-
 public abstract class Entity implements Serializable {
 
+    @NotNull(message = "order.create.idNotNull", groups = {Update.class})
+    @Min(value = 1, message = "order.create.idNotNull", groups = {Update.class})
     protected Long id;
 
     protected boolean deleted = false;

@@ -1,69 +1,46 @@
 package br.com.grupo63.techchallenge.usecase.client;
 
 import br.com.grupo63.techchallenge.entity.client.Client;
-import br.com.grupo63.techchallenge.controller.dto.ClientControllerDTO;
-import br.com.grupo63.techchallenge.usecase.exception.NotFoundException;
-import br.com.grupo63.techchallenge.gateway.repository.IClientRepository;
-import lombok.RequiredArgsConstructor;
+import br.com.grupo63.techchallenge.exception.NotFoundException;
+import br.com.grupo63.techchallenge.gateway.client.gateways.IClientGateway;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-
 @Service
 public class ClientUseCase implements IClientUseCase {
 
-    private final IClientRepository repository;
-
     @Override
-    public ClientControllerDTO getByNationalId(String nationalId) throws NotFoundException {
-        Client client = repository.findByNationalId(nationalId).orElseThrow(NotFoundException::new);
-
-        return ClientControllerDTO.toDto(client);
+    public Client getByNationalId(String nationalId, IClientGateway gateway) throws NotFoundException {
+        return gateway.getbyNationalId(nationalId).orElseThrow(NotFoundException::new);
     }
 
     @Override
-    public ClientControllerDTO create(ClientControllerDTO clientDTO) {
-        Client client = repository.findByNationalId(clientDTO.getNationalId()).orElse(new Client());
-
-        if (client.getId() != null) {
-            return ClientControllerDTO.toDto(client);
-        }
-
-        clientDTO.fillDomain(client);
-
-        return ClientControllerDTO.toDto(repository.saveAndFlush(client));
+    public Client create(Client client, IClientGateway gateway) {
+        return gateway.saveAndFlush(client);
     }
 
     @Override
-    public ClientControllerDTO read(Long id) throws NotFoundException {
-        Client client = repository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
-
-        return ClientControllerDTO.toDto(client);
+    public Client read(Long id, IClientGateway gateway) throws NotFoundException {
+        return gateway.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
     }
 
     @Override
-    public List<ClientControllerDTO> list() {
-        return repository.findByDeletedFalse().stream().map(ClientControllerDTO::toDto).toList();
+    public List<Client> list(IClientGateway gateway) {
+        return gateway.findByDeletedFalse();
     }
 
     @Override
-    public ClientControllerDTO update(ClientControllerDTO clientDTO, Long id) throws NotFoundException {
-        Client client = repository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
+    public Client update(Client client, IClientGateway gateway) {
 
-        clientDTO.fillDomain(client);
-
-        return ClientControllerDTO.toDto(repository.saveAndFlush(client));
+        return gateway.saveAndFlush(client);
     }
 
     @Override
-    public void delete(Long id) throws NotFoundException {
-        Client client = repository.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
-
+    public void delete(Client client, IClientGateway gateway) {
         client.delete();
 
-        repository.saveAndFlush(client);
+        gateway.saveAndFlush(client);
     }
 
 }

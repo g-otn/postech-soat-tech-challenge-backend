@@ -1,8 +1,8 @@
 package br.com.grupo63.techchallenge.gateway.client;
 
+import br.com.grupo63.techchallenge.entity.client.Client;
 import br.com.grupo63.techchallenge.gateway.client.entity.ClientPersistenceEntity;
 import br.com.grupo63.techchallenge.gateway.repository.IClientRepository;
-import br.com.grupo63.techchallenge.entity.client.Client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+// TODO: Perguntar se faz sentido essa classe existir sendo que temos o ClientGateway
+// isso existia para não haver conflitos com os metodos na interface do repository
 public class ClientJpaAdapter implements IClientRepository {
 
     private final ClientJpaRepository jpaRepository;

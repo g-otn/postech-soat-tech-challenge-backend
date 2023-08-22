@@ -1,4 +1,4 @@
-package br.com.grupo63.techchallenge.usecase.exception;
+package br.com.grupo63.techchallenge.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

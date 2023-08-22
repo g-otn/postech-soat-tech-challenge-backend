@@ -1,9 +1,9 @@
 package br.com.grupo63.techchallenge.api.controller;
 
 import br.com.grupo63.techchallenge.api.controller.dto.DefaultResponseDTO;
-import br.com.grupo63.techchallenge.usecase.exception.GenericException;
-import br.com.grupo63.techchallenge.usecase.exception.NotFoundException;
-import br.com.grupo63.techchallenge.usecase.exception.ValidationException;
+import br.com.grupo63.techchallenge.exception.GenericException;
+import br.com.grupo63.techchallenge.exception.NotFoundException;
+import br.com.grupo63.techchallenge.exception.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
