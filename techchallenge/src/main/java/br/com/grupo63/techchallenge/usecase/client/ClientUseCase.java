@@ -2,42 +2,45 @@ package br.com.grupo63.techchallenge.usecase.client;
 
 import br.com.grupo63.techchallenge.entity.client.Client;
 import br.com.grupo63.techchallenge.exception.NotFoundException;
-import br.com.grupo63.techchallenge.gateway.client.gateways.IClientGateway;
+import br.com.grupo63.techchallenge.gateway.repository.IClientRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class ClientUseCase implements IClientUseCase {
 
+    private final IClientRepository gateway;
+
     @Override
-    public Client getByNationalId(String nationalId, IClientGateway gateway) throws NotFoundException {
-        return gateway.getbyNationalId(nationalId).orElseThrow(NotFoundException::new);
+    public Client findByNationalId(String nationalId) throws NotFoundException {
+        return gateway.findByNationalId(nationalId).orElseThrow(NotFoundException::new);
     }
 
     @Override
-    public Client create(Client client, IClientGateway gateway) {
+    public Client create(Client client) {
         return gateway.saveAndFlush(client);
     }
 
     @Override
-    public Client read(Long id, IClientGateway gateway) throws NotFoundException {
+    public Client read(Long id) throws NotFoundException {
         return gateway.findByIdAndDeletedFalse(id).orElseThrow(NotFoundException::new);
     }
 
     @Override
-    public List<Client> list(IClientGateway gateway) {
+    public List<Client> list() {
         return gateway.findByDeletedFalse();
     }
 
     @Override
-    public Client update(Client client, IClientGateway gateway) {
-
+    public Client update(Client client) {
         return gateway.saveAndFlush(client);
     }
 
     @Override
-    public void delete(Client client, IClientGateway gateway) {
+    public void delete(Client client) {
         client.delete();
 
         gateway.saveAndFlush(client);

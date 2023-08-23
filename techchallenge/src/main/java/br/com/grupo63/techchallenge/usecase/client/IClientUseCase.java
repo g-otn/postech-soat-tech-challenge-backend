@@ -2,22 +2,21 @@ package br.com.grupo63.techchallenge.usecase.client;
 
 import br.com.grupo63.techchallenge.entity.client.Client;
 import br.com.grupo63.techchallenge.exception.NotFoundException;
-import br.com.grupo63.techchallenge.gateway.client.gateways.IClientGateway;
 
 import java.util.List;
 
 public interface IClientUseCase {
 
-    Client getByNationalId(String nationalId, IClientGateway gateway) throws NotFoundException;
+    Client findByNationalId(String nationalId) throws NotFoundException;
 
-    Client create(Client entity, IClientGateway gateway);
+    Client create(Client entity);
 
-    Client read(Long id, IClientGateway gateway) throws NotFoundException;
+    Client read(Long id) throws NotFoundException;
 
-    List<Client> list(IClientGateway gateway);
+    List<Client> list();
 
-    Client update(Client entity, IClientGateway gateway);
+    Client update(Client entity);
 
-    void delete(Client entity, IClientGateway gateway);
+    void delete(Client entity);
 
 }
