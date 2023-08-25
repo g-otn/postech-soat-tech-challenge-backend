@@ -6,6 +6,7 @@ import br.com.grupo63.techchallenge.entity.order.Order;
 import br.com.grupo63.techchallenge.entity.order.OrderStatus;
 import br.com.grupo63.techchallenge.exception.NotFoundException;
 import br.com.grupo63.techchallenge.exception.ValidationException;
+import br.com.grupo63.techchallenge.presenter.OrderPresenter;
 import br.com.grupo63.techchallenge.usecase.order.OrderUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,29 +25,29 @@ public class OrderController {
     }
 
     public List<OrderControllerDTO> listUnfinishedOrders() {
-        return orderUseCase.listUnfinishedOrders().stream().map(OrderAdapter::toDto).toList();
+        return orderUseCase.listUnfinishedOrders().stream().map(OrderPresenter::toDto).toList();
     }
 
     public OrderControllerDTO create(OrderControllerDTO dto) throws ValidationException, NotFoundException {
         Order entity = new Order();
         OrderAdapter.fillEntity(dto, entity);
         entity = orderUseCase.create(entity);
-        return OrderAdapter.toDto(entity);
+        return OrderPresenter.toDto(entity);
     }
 
     public OrderControllerDTO read(Long orderId) throws NotFoundException {
-        return OrderAdapter.toDto(orderUseCase.read(orderId));
+        return OrderPresenter.toDto(orderUseCase.read(orderId));
     }
 
     public List<OrderControllerDTO> list() {
-        return orderUseCase.list().stream().map(OrderAdapter::toDto).toList();
+        return orderUseCase.list().stream().map(OrderPresenter::toDto).toList();
     }
 
     public OrderControllerDTO update(OrderControllerDTO dto, Long orderId) throws ValidationException, NotFoundException {
         Order entity = orderUseCase.read(orderId);
         OrderAdapter.fillEntity(dto, entity);
         entity = orderUseCase.update(entity);
-        return OrderAdapter.toDto(entity);
+        return OrderPresenter.toDto(entity);
     }
 
     public void delete(Long orderId) throws NotFoundException {

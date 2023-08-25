@@ -4,6 +4,7 @@ import br.com.grupo63.techchallenge.adapter.ClientAdapter;
 import br.com.grupo63.techchallenge.controller.dto.ClientControllerDTO;
 import br.com.grupo63.techchallenge.entity.client.Client;
 import br.com.grupo63.techchallenge.exception.NotFoundException;
+import br.com.grupo63.techchallenge.presenter.ClientPresenter;
 import br.com.grupo63.techchallenge.usecase.client.ClientUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,22 +23,22 @@ public class ClientController {
         ClientAdapter.fillEntity(dto, entity);
         entity = clientUseCase.create(entity);
 
-        return ClientAdapter.toDto(entity);
+        return ClientPresenter.toDto(entity);
     }
 
     public ClientControllerDTO read(Long orderId) throws NotFoundException {
-        return ClientAdapter.toDto(clientUseCase.read(orderId));
+        return ClientPresenter.toDto(clientUseCase.read(orderId));
     }
 
     public List<ClientControllerDTO> list() {
-        return this.clientUseCase.list().stream().map(ClientAdapter::toDto).toList();
+        return this.clientUseCase.list().stream().map(ClientPresenter::toDto).toList();
     }
 
     public ClientControllerDTO update(ClientControllerDTO dto, Long orderId) throws NotFoundException {
         Client entity = clientUseCase.read(orderId);
         ClientAdapter.fillEntity(dto, entity);
         entity = clientUseCase.update(entity);
-        return ClientAdapter.toDto(entity);
+        return ClientPresenter.toDto(entity);
     }
 
     public void delete(Long orderId) throws NotFoundException {

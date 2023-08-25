@@ -6,6 +6,7 @@ import br.com.grupo63.techchallenge.entity.product.Product;
 import br.com.grupo63.techchallenge.exception.NotFoundException;
 import br.com.grupo63.techchallenge.exception.ValidationException;
 import br.com.grupo63.techchallenge.gateway.repository.IProductRepository;
+import br.com.grupo63.techchallenge.presenter.ProductPresenter;
 import br.com.grupo63.techchallenge.usecase.product.ProductUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,22 +24,22 @@ public class ProductController {
         Product product = new Product();
         ProductAdapter.fillEntity(productControllerDTO, product);
         product = useCase.create(product, gateway);
-        return ProductAdapter.toDto(product);
+        return ProductPresenter.toDto(product);
     }
 
     public ProductControllerDTO read(Long id) throws NotFoundException {
-        return ProductAdapter.toDto(useCase.read(id, gateway));
+        return ProductPresenter.toDto(useCase.read(id, gateway));
     }
 
     public List<ProductControllerDTO> list() {
-        return useCase.list(gateway).stream().map(ProductAdapter::toDto).toList();
+        return useCase.list(gateway).stream().map(ProductPresenter::toDto).toList();
     }
 
     public ProductControllerDTO update(ProductControllerDTO productControllerDTO, Long id) throws ValidationException, NotFoundException {
         Product entity = useCase.read(id, gateway);
         ProductAdapter.fillEntity(productControllerDTO, entity);
         entity = useCase.update(entity, gateway);
-        return ProductAdapter.toDto(entity);
+        return ProductPresenter.toDto(entity);
     }
 
     public void delete(Long id) throws NotFoundException {
@@ -50,7 +51,7 @@ public class ProductController {
 
     public List<ProductControllerDTO> listByCategoryName(String categoryName) {
         List<Product> entities = useCase.listByCategoryName(categoryName, gateway);
-        return entities.stream().map(ProductAdapter::toDto).toList();
+        return entities.stream().map(ProductPresenter::toDto).toList();
     }
 
 }
