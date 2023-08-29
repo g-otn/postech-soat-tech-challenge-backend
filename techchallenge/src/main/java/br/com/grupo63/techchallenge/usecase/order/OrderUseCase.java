@@ -26,18 +26,13 @@ import static java.util.Map.entry;
 public class OrderUseCase implements IOrderUseCase {
 
     private final Validator validator;
-    private final ProductUseCase productUseCase;
     private final IProductRepository productGateway;
     private final IOrderRepository gateway;
-    private final Map<OrderStatus, OrderStatus> nextOrderMap = Map.ofEntries(
-            entry(OrderStatus.RECEIVED, OrderStatus.PREPARING),
-            entry(OrderStatus.PREPARING, OrderStatus.READY),
-            entry(OrderStatus.READY, OrderStatus.FINISHED));
 
     private void fillCurrentPrices(Order order) throws NotFoundException {
         double totalPrice = 0.0D;
         for (OrderItem orderItem : order.getItems()) {
-            Product product = productUseCase.read(orderItem.getProduct().getId(), productGateway);
+            Product product = productGateway.findByIdAndDeletedFalse(orderItem.getProduct().getId()).orElseThrow(NotFoundException::new);
             orderItem.setPrice(product.getPrice());
             totalPrice += product.getPrice() * orderItem.getQuantity();
         }
@@ -46,18 +41,7 @@ public class OrderUseCase implements IOrderUseCase {
 
     @Override
     public OrderStatus advanceStatus(Order entity) throws ValidationException {
-        // TODO: Perguntar se essa logica deveria ir para dentro da entidade em um novo metodo
-        // ex: produto.advanceStatus()
-        if (entity.getPayment() == null || entity.getPayment().getStatus() != PaymentStatus.PAID) {
-            throw new ValidationException("order.advanceStatus.title", "order.advanceStatus.notPaid");
-        } else if (entity.getStatus() == OrderStatus.FINISHED) {
-            throw new ValidationException("order.advanceStatus.title", "order.advanceStatus.finished");
-        } else if (entity.getStatus() == null) {
-            entity.setStatus(OrderStatus.RECEIVED);
-        } else {
-            entity.setStatus(nextOrderMap.get(entity.getStatus()));
-        }
-
+        entity.advanceStatus();
         return gateway.saveAndFlush(entity).getStatus();
     }
 

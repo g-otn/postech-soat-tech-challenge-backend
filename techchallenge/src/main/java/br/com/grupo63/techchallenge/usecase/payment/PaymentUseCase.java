@@ -20,11 +20,7 @@ public class PaymentUseCase implements IPaymentUseCase {
 
     @Override
     public String startPayment(Order entity) throws ValidationException {
-        if (entity.getStatus() != null) {
-            throw new ValidationException("payment.startPayment.title", "payment.startPayment.alreadyFinished");
-        } else if (entity.getPayment() != null) {
-            throw new ValidationException("payment.startPayment.title", "payment.startPayment.alreadyStarted");
-        }
+        entity.canStartPayment();
 
         String qrData = mercadoPagoService.generateQRCode(entity.getId(), entity.getTotalPrice());
 
@@ -35,13 +31,7 @@ public class PaymentUseCase implements IPaymentUseCase {
 
     @Override
     public void finishPayment(Order entity) throws ValidationException, NotFoundException {
-        if (entity.getPayment() == null) {
-            throw new ValidationException("payment.confirm.title", "payment.notStarted");
-        }
-        if (PaymentStatus.PAID.equals(entity.getPayment().getStatus())) {
-            throw new ValidationException("payment.confirm.title", "payment.confirm.alreadyPaid");
-        }
-
+        entity.canFinishPayment();
         entity.getPayment().setStatus(PaymentStatus.PAID);
         entity = orderUseCase.update(entity);
         orderUseCase.advanceStatus(entity);
