@@ -19,7 +19,12 @@ public interface OrderJpaRepository extends JpaRepository<OrderPersistenceEntity
             "   order.status IN ('RECEIVED', 'PREPARING', 'READY') " +
             "   AND order.deleted = false " +
             "ORDER BY " +
-            "   order.creationDate")
+            "   CASE " +
+            "       WHEN order.status = 'READY' THEN 1 " +
+            "       WHEN order.status = 'PREPARING' THEN 2 " +
+            "       WHEN order.status = 'RECEIVED' THEN 3 " +
+            "       ELSE 4 " +
+            "   END")
     List<OrderPersistenceEntity> findByStatusNotFinishedAndDeletedOrderByCreationDate();
 
 }
