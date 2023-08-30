@@ -52,7 +52,7 @@ public class OrderAPIController extends AbstractAPIController {
     public ResponseEntity<OrderControllerDTO> create(@RequestParam Long clientId,
                                                      @Valid @RequestBody CreateOrderRequestDTO createOrderRequestDTO) throws ValidationException, NotFoundException {
 
-        return ResponseEntity.ok(controller.create(createOrderRequestDTO.toDomainDto(clientId)));
+        return ResponseEntity.ok(controller.create(clientId, createOrderRequestDTO));
     }
 
     @Operation(

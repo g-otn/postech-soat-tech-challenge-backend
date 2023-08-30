@@ -3,7 +3,7 @@ package br.com.grupo63.techchallenge.gateway;
 import java.util.List;
 import java.util.Optional;
 
-public interface IPersistenceEntityRepository<T> {
+public interface IPersistenceEntityGateway<T> {
 
     List<T> findByDeletedFalse();
 

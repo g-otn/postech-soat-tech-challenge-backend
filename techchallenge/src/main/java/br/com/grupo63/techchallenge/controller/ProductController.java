@@ -5,7 +5,7 @@ import br.com.grupo63.techchallenge.controller.dto.ProductControllerDTO;
 import br.com.grupo63.techchallenge.entity.product.Product;
 import br.com.grupo63.techchallenge.exception.NotFoundException;
 import br.com.grupo63.techchallenge.exception.ValidationException;
-import br.com.grupo63.techchallenge.gateway.repository.IProductRepository;
+import br.com.grupo63.techchallenge.gateway.product.IProductGateway;
 import br.com.grupo63.techchallenge.presenter.ProductPresenter;
 import br.com.grupo63.techchallenge.usecase.product.ProductUseCase;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductUseCase useCase;
-    private final IProductRepository gateway;
+    private final IProductGateway gateway;
 
     public ProductControllerDTO create(ProductControllerDTO productControllerDTO) throws ValidationException {
         Product product = new Product();

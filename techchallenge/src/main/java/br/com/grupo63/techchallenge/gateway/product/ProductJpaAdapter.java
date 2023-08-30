@@ -2,7 +2,6 @@ package br.com.grupo63.techchallenge.gateway.product;
 
 import br.com.grupo63.techchallenge.entity.product.Product;
 import br.com.grupo63.techchallenge.gateway.product.entity.ProductPersistenceEntity;
-import br.com.grupo63.techchallenge.gateway.repository.IProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +10,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class ProductJpaAdapter implements IProductRepository {
+public class ProductJpaAdapter implements IProductGateway {
 
     private final ProductJpaRepository productJpaRepository;
 

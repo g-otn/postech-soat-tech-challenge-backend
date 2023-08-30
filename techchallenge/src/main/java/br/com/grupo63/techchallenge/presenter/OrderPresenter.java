@@ -34,21 +34,6 @@ public class OrderPresenter {
         return dto;
     }
 
-    public static OrderControllerDTO toDto(CreateOrderRequestDTO dto) {
-        OrderControllerDTO orderUseCaseDTO = new OrderControllerDTO();
-
-        ClientControllerDTO clientDTO = new ClientControllerDTO();
-        clientDTO.setId(dto.getClientId());
-        orderUseCaseDTO.setClient(clientDTO);
-
-        if (dto.getItems() != null) {
-            orderUseCaseDTO.setItems(dto.getItems().stream()
-                    .map(i -> new OrderItemControllerDTO(i.getQuantity(), null, i.getId()))
-                    .collect(Collectors.toList()));
-        }
-        return orderUseCaseDTO;
-    }
-
     public static AdvanceOrderStatusResponseDTO toDto(OrderStatus status) {
         return new AdvanceOrderStatusResponseDTO(status);
     }

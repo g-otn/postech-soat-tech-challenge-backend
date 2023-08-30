@@ -2,7 +2,6 @@ package br.com.grupo63.techchallenge.gateway.order;
 
 import br.com.grupo63.techchallenge.entity.order.Order;
 import br.com.grupo63.techchallenge.gateway.order.entity.OrderPersistenceEntity;
-import br.com.grupo63.techchallenge.gateway.repository.IOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class OrderJpaAdapter implements IOrderRepository {
+public class OrderJpaAdapter implements IOrderGateway {
 
     private final OrderJpaRepository jpaRepository;
 

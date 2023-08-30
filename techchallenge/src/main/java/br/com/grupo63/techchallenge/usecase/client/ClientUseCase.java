@@ -2,7 +2,7 @@ package br.com.grupo63.techchallenge.usecase.client;
 
 import br.com.grupo63.techchallenge.entity.client.Client;
 import br.com.grupo63.techchallenge.exception.NotFoundException;
-import br.com.grupo63.techchallenge.gateway.repository.IClientRepository;
+import br.com.grupo63.techchallenge.gateway.client.IClientGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class ClientUseCase implements IClientUseCase {
 
-    private final IClientRepository gateway;
+    private final IClientGateway gateway;
 
     @Override
     public Client findByNationalId(String nationalId) throws NotFoundException {

@@ -1,7 +1,7 @@
 package br.com.grupo63.techchallenge.gateway.product.entity;
 
 import br.com.grupo63.techchallenge.entity.product.Category;
-import br.com.grupo63.techchallenge.gateway.PersistenceEntity;
+import br.com.grupo63.techchallenge.gateway.repository.entity.PersistenceEntity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

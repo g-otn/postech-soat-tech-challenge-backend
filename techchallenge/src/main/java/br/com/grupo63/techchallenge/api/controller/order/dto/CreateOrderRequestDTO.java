@@ -17,8 +17,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CreateOrderRequestDTO {
 
-    private Long clientId;
-
     @Setter
     @Getter
     @AllArgsConstructor
@@ -28,20 +26,5 @@ public class CreateOrderRequestDTO {
     }
 
     private List<Item> items;
-
-    public OrderControllerDTO toDomainDto(Long clientId) {
-        OrderControllerDTO orderDTO = new OrderControllerDTO();
-
-        ClientControllerDTO clientDTO = new ClientControllerDTO();
-        clientDTO.setId(clientId);
-        orderDTO.setClient(clientDTO);
-
-        if (items != null) {
-            orderDTO.setItems(items.stream()
-                    .map(i -> new OrderItemControllerDTO(i.quantity, null, i.id))
-                    .collect(Collectors.toList()));
-        }
-        return orderDTO;
-    }
 
 }

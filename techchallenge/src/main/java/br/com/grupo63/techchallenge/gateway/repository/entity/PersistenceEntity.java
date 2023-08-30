@@ -1,4 +1,4 @@
-package br.com.grupo63.techchallenge.gateway;
+package br.com.grupo63.techchallenge.gateway.repository.entity;
 
 import br.com.grupo63.techchallenge.entity.Entity;
 import jakarta.persistence.*;

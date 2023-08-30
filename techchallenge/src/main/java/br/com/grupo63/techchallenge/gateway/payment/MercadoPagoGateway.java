@@ -1,6 +1,5 @@
-package br.com.grupo63.techchallenge.external.payment;
+package br.com.grupo63.techchallenge.gateway.payment;
 
-import br.com.grupo63.techchallenge.gateway.payment.IMercadoPagoGateway;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

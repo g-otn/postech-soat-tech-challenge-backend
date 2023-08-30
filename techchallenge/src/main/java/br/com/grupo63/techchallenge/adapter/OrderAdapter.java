@@ -18,47 +18,20 @@ import java.util.stream.Collectors;
 
 public class OrderAdapter {
 
-    public static OrderControllerDTO toDto(Order entity) {
-        OrderControllerDTO dto = new OrderControllerDTO();
-
-        dto.setId(entity.getId());
-        dto.setStatus(entity.getStatus());
-        dto.setTotalPrice(entity.getTotalPrice());
-        dto.setPayment(entity.getPayment() != null ? PaymentPresenter.toDto(entity.getPayment()) : null);
-        dto.setClient(ClientPresenter.toDto(entity.getClient()));
-        dto.setItems(entity.getItems().stream().map(orderItemEntity -> {
-            OrderItemControllerDTO orderItemUseCaseDTO = new OrderItemControllerDTO();
-
-            orderItemUseCaseDTO.setId(orderItemEntity.getId());
-            orderItemUseCaseDTO.setQuantity(orderItemEntity.getQuantity());
-            orderItemUseCaseDTO.setPrice(orderItemEntity.getPrice());
-            orderItemUseCaseDTO.setProductId(orderItemEntity.getProduct().getId());
-
-            return orderItemUseCaseDTO;
-        }).toList());
-
-        return dto;
-    }
-
-    public static OrderControllerDTO toDto(CreateOrderRequestDTO dto) {
-        OrderControllerDTO orderUseCaseDTO = new OrderControllerDTO();
+    public static void fillEntity(CreateOrderRequestDTO dto, Long clientId, Order order) {
+        OrderControllerDTO orderDTO = new OrderControllerDTO();
 
         ClientControllerDTO clientDTO = new ClientControllerDTO();
-        clientDTO.setId(dto.getClientId());
-        orderUseCaseDTO.setClient(clientDTO);
+        clientDTO.setId(clientId);
+        orderDTO.setClient(clientDTO);
 
         if (dto.getItems() != null) {
-            orderUseCaseDTO.setItems(dto.getItems().stream()
+            orderDTO.setItems(dto.getItems().stream()
                     .map(i -> new OrderItemControllerDTO(i.getQuantity(), null, i.getId()))
                     .collect(Collectors.toList()));
         }
-        return orderUseCaseDTO;
-    }
 
-    //TODO: Perguntar se isso faz sentido ou devemos renomear o metodo
-    // por que esse dto é "de saída" em vez de outros que vão para o usecase
-    public static AdvanceOrderStatusResponseDTO toDto(OrderStatus status) {
-        return new AdvanceOrderStatusResponseDTO(status);
+        fillEntity(orderDTO, order);
     }
 
     public static void fillEntity(OrderControllerDTO dto, Order entity) {

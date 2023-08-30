@@ -1,6 +1,7 @@
 package br.com.grupo63.techchallenge.controller;
 
 import br.com.grupo63.techchallenge.adapter.OrderAdapter;
+import br.com.grupo63.techchallenge.api.controller.order.dto.CreateOrderRequestDTO;
 import br.com.grupo63.techchallenge.controller.dto.OrderControllerDTO;
 import br.com.grupo63.techchallenge.entity.order.Order;
 import br.com.grupo63.techchallenge.entity.order.OrderStatus;
@@ -28,9 +29,9 @@ public class OrderController {
         return orderUseCase.listUnfinishedOrders().stream().map(OrderPresenter::toDto).toList();
     }
 
-    public OrderControllerDTO create(OrderControllerDTO dto) throws ValidationException, NotFoundException {
+    public OrderControllerDTO create(Long clientId, CreateOrderRequestDTO dto) throws ValidationException, NotFoundException {
         Order entity = new Order();
-        OrderAdapter.fillEntity(dto, entity);
+        OrderAdapter.fillEntity(dto, clientId, entity);
         entity = orderUseCase.create(entity);
         return OrderPresenter.toDto(entity);
     }
