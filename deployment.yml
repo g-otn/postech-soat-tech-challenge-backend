@@ -1,0 +1,184 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+data:
+  01-create-tables.sql: "create table if not exists cat_category\r\n(\r\n    deleted
+    \         boolean      not null,\r\n    creation_date    timestamp(6) not null,\r\n
+    \   id               bigserial\r\n    primary key,\r\n    last_update_date timestamp(6)
+    not null,\r\n    name             varchar(255) not null\r\n    );\r\n\r\nalter
+    table cat_category\r\n    owner to backend;\r\n\r\ncreate table if not exists
+    cli_client\r\n(\r\n    deleted          boolean      not null,\r\n    creation_date
+    \   timestamp(6) not null,\r\n    id               bigserial\r\n    primary key,\r\n
+    \   last_update_date timestamp(6) not null,\r\n    national_id      varchar(11)\r\n
+    \   );\r\n\r\nalter table cli_client\r\n    owner to backend;\r\n\r\ncreate table
+    if not exists ord_order\r\n(\r\n    deleted          boolean          not null,\r\n
+    \   total_price      double precision not null,\r\n    client           bigint
+    \          not null\r\n    constraint fk_order_client\r\n    references cli_client,\r\n
+    \   creation_date    timestamp(6)     not null,\r\n    id               bigserial\r\n
+    \   primary key,\r\n    last_update_date timestamp(6)     not null,\r\n    payment
+    \         bigint\r\n    unique,\r\n    status           varchar(255)\r\n    constraint
+    ord_order_status_check\r\n    check ((status)::text = ANY\r\n((ARRAY ['RECEIVED'::character
+    varying, 'PREPARING'::character varying, 'READY'::character varying, 'FINISHED'::character
+    varying])::text[]))\r\n    );\r\n\r\nalter table ord_order\r\n    owner to backend;\r\n\r\ncreate
+    table if not exists pay_payment\r\n(\r\n    deleted          boolean      not
+    null,\r\n    creation_date    timestamp(6) not null,\r\n    id               bigserial\r\n
+    \   primary key,\r\n    last_update_date timestamp(6) not null,\r\n    pay_order
+    \       bigint       not null\r\n    unique\r\n    constraint fk_payment_order\r\n
+    \   references ord_order,\r\n    qr_data          varchar(200),\r\n    method
+    \          varchar(255) not null\r\n    constraint pay_payment_method_check\r\n
+    \   check ((method)::text = 'MERCADO_PAGO_QR_CODE'::text),\r\n    status           varchar(255)
+    not null\r\n    constraint pay_payment_status_check\r\n    check ((status)::text
+    = ANY ((ARRAY ['PENDING'::character varying, 'PAID'::character varying])::text[]))\r\n
+    \   );\r\n\r\nalter table pay_payment\r\n    owner to backend;\r\n\r\nalter table
+    ord_order\r\n    add constraint fk_order_payment\r\n        foreign key (payment)
+    references pay_payment;\r\n\r\ncreate table if not exists prd_product\r\n(\r\n
+    \   deleted          boolean          not null,\r\n    price            double
+    precision not null,\r\n    category         bigint           not null\r\n    constraint
+    fk_product_category\r\n    references cat_category,\r\n    creation_date    timestamp(6)
+    \    not null,\r\n    id               bigserial\r\n    primary key,\r\n    last_update_date
+    timestamp(6)     not null,\r\n    name             varchar(255)     not null\r\n
+    \   );\r\n\r\nalter table prd_product\r\n    owner to backend;\r\n\r\ncreate table
+    if not exists ori_order_item\r\n(\r\n    deleted          boolean          not
+    null,\r\n    price            double precision not null,\r\n    creation_date
+    \   timestamp(6)     not null,\r\n    id               bigserial\r\n    primary
+    key,\r\n    last_update_date timestamp(6)     not null,\r\n    ori_order        bigint
+    \          not null\r\n    constraint fk_order_item_order\r\n    references ord_order,\r\n
+    \   product          bigint           not null\r\n    constraint fk_order_item_product\r\n
+    \   references prd_product,\r\n    quantity         bigint           not null\r\n
+    \   );\r\n\r\nalter table ori_order_item\r\n    owner to backend;\r\n\r\n"
+  02-insert-fixed-data.sql: "insert into cat_category(deleted, creation_date, last_update_date,
+    name) values(false, NOW(), NOW(), 'Lanche');\r\ninsert into cat_category(deleted,
+    creation_date, last_update_date, name) values(false, NOW(), NOW(), 'Acompanhamento');\r\ninsert
+    into cat_category(deleted, creation_date, last_update_date, name) values(false,
+    NOW(), NOW(), 'Bebida');\r\ninsert into cat_category(deleted, creation_date, last_update_date,
+    name) values(false, NOW(), NOW(), 'Sobremesa');\r\n"
+  03-insert-example-data.sql: |-
+    -- Registros para a categoria 'Lanche'
+    INSERT INTO prd_product (deleted, price, category, creation_date, last_update_date, name)
+    VALUES (false, 10.99, (SELECT id FROM cat_category WHERE name = 'Lanche'), NOW(), NOW(), 'Hambúrguer');
+
+    INSERT INTO prd_product (deleted, price, category, creation_date, last_update_date, name)
+    VALUES (false, 8.99, (SELECT id FROM cat_category WHERE name = 'Lanche'), NOW(), NOW(), 'Sanduíche de Frango');
+
+    -- Registros para a categoria 'Acompanhamento'
+    INSERT INTO prd_product (deleted, price, category, creation_date, last_update_date, name)
+    VALUES (false, 3.99, (SELECT id FROM cat_category WHERE name = 'Acompanhamento'), NOW(), NOW(), 'Batata Frita');
+
+    INSERT INTO prd_product (deleted, price, category, creation_date, last_update_date, name)
+    VALUES (false, 2.99, (SELECT id FROM cat_category WHERE name = 'Acompanhamento'), NOW(), NOW(), 'Nuggets');
+
+    -- Registros para a categoria 'Bebida'
+    INSERT INTO prd_product (deleted, price, category, creation_date, last_update_date, name)
+    VALUES (false, 4.99, (SELECT id FROM cat_category WHERE name = 'Bebida'), NOW(), NOW(), 'Refrigerante');
+
+    INSERT INTO prd_product (deleted, price, category, creation_date, last_update_date, name)
+    VALUES (false, 2.49, (SELECT id FROM cat_category WHERE name = 'Bebida'), NOW(), NOW(), 'Suco');
+
+    -- Registros para a categoria 'Sobremesa'
+    INSERT INTO prd_product (deleted, price, category, creation_date, last_update_date, name)
+    VALUES (false, 6.99, (SELECT id FROM cat_category WHERE name = 'Sobremesa'), NOW(), NOW(), 'Sorvete');
+
+    INSERT INTO prd_product (deleted, price, category, creation_date, last_update_date, name)
+    VALUES (false, 4.49, (SELECT id FROM cat_category WHERE name = 'Sobremesa'), NOW(), NOW(), 'Bolo de Chocolate');
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  selector:
+      app: soat-tech-challenge-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: soat-tech-challenge-deployment-backend
+  labels:
+    app: soat-tech-challenge-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: soat-tech-challenge-backend
+  template:
+    metadata:
+      labels:
+        app: soat-tech-challenge-backend
+    spec:
+      containers:
+        - name: backend
+          image: g0tn/soat-tech-challenge-backend:latest
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              value: "postgres-service"
+            
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: soat-tech-challenge-db-deployment
+  labels:
+    app: soat-tech-challenge-db
+spec:
+  selector:
+    matchLabels:
+      app: soat-tech-challenge-db
+  template:
+    metadata:
+      labels:
+        app: soat-tech-challenge-db
+    spec:
+      containers:
+        - name: db
+          image: postgres
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+          volumeMounts:
+            - name: db-scripts
+              mountPath: /docker-entrypoint-initdb.d
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: "tech_challenge"
+            - name: POSTGRES_USER
+              value: "backend"
+            - name: POSTGRES_PASSWORD
+              value: "backend"
+      volumes:
+        - name: db-scripts
+          configMap:
+            name: db-config
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: soat-tech-challenge-backend-service
+spec:
+  type: NodePort
+  selector:
+    app: soat-tech-challenge-backend
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30000
