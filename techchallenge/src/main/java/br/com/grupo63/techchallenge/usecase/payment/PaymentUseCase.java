@@ -30,7 +30,7 @@ public class PaymentUseCase implements IPaymentUseCase {
     }
 
     @Override
-    public void finishPayment(Order entity) throws ValidationException, NotFoundException {
+    public void finishPayment(Order entity) throws ValidationException {
         entity.canFinishPayment();
         entity.getPayment().setStatus(PaymentStatus.PAID);
         entity = orderUseCase.update(entity);

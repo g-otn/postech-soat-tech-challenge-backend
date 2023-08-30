@@ -47,9 +47,8 @@ public class OrderUseCase implements IOrderUseCase {
 
     @Override
     public Order create(Order entity) throws ValidationException, NotFoundException {
-        validator.validate(entity, Create.class);
-
         fillCurrentPrices(entity);
+        validator.validate(entity, Create.class);
         return gateway.saveAndFlush(entity);
     }
 

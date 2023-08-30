@@ -7,6 +7,7 @@ import br.com.grupo63.techchallenge.entity.payment.PaymentStatus;
 import br.com.grupo63.techchallenge.entity.validation.group.Create;
 import br.com.grupo63.techchallenge.entity.validation.group.Update;
 import br.com.grupo63.techchallenge.exception.ValidationException;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class Order extends Entity {
     private Double totalPrice;
     private Client client;
 
+    @Valid
     @NotNull(message = "order.create.items.notEmpty", groups = {Create.class, Update.class})
     @Size(min = 1, message = "order.create.items.notEmpty", groups = {Create.class, Update.class})
     private List<OrderItem> items = new ArrayList<>();
