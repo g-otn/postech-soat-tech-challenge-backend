@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: soat-tech-challenge-deployment-backend
+  namespace: fiap-grupo-63
+  labels:
+    app: soat-tech-challenge-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: soat-tech-challenge-backend
+  template:
+    metadata:
+      labels:
+        app: soat-tech-challenge-backend
+    spec:
+      containers:
+        - name: backend
+          image: g0tn/soat-tech-challenge-backend:latest
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              value: "postgres-service"
+                          
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: soat-tech-challenge-db-deployment
+  namespace: fiap-grupo-63
+  labels:
+    app: soat-tech-challenge-db
+spec:
+  selector:
+    matchLabels:
+      app: soat-tech-challenge-db
+  template:
+    metadata:
+      labels:
+        app: soat-tech-challenge-db
+    spec:
+      containers:
+        - name: db
+          image: postgres
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+          volumeMounts:
+            - name: db-scripts
+              mountPath: /docker-entrypoint-initdb.d
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: "tech_challenge"
+            - name: POSTGRES_USER
+              value: "backend"
+            - name: POSTGRES_PASSWORD
+              value: "backend"
+      volumes:
+        - name: db-scripts
+          configMap:
+            name: db-config
