@@ -1,10 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: soat-tech-challenge-deployment-backend
+  name: soat-tech-challenge-backend-deployment
   namespace: fiap-grupo-63
-  labels:
-    app: soat-tech-challenge-backend
 spec:
   replicas: 2
   selector:
@@ -26,7 +24,8 @@ spec:
             - containerPort: 8080
           env:
             - name: DB_HOST
-              value: "postgres-service"
+              value: "soat-tech-challenge-db-service"
+#            TODO: Use secret for db credentials
                           
 ---
 
@@ -35,8 +34,6 @@ kind: Deployment
 metadata:
   name: soat-tech-challenge-db-deployment
   namespace: fiap-grupo-63
-  labels:
-    app: soat-tech-challenge-db
 spec:
   selector:
     matchLabels:
@@ -54,18 +51,19 @@ spec:
               memory: 512Mi
               cpu: "1"
           volumeMounts:
-            - name: db-scripts
+            - name: soat-tech-challenge-db-scripts-volume
               mountPath: /docker-entrypoint-initdb.d
           ports:
             - containerPort: 5432
           env:
             - name: POSTGRES_DB
               value: "tech_challenge"
+#            TODO: Move to secret
             - name: POSTGRES_USER
               value: "backend"
             - name: POSTGRES_PASSWORD
               value: "backend"
       volumes:
-        - name: db-scripts
+        - name: soat-tech-challenge-db-scripts-volume
           configMap:
-            name: db-config
+            name: soat-tech-challenge-db-scripts-configmap

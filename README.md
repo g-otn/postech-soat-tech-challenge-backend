@@ -2,25 +2,32 @@
 
 Group course project of a self service and kitchen management system for a fictional fast food restaurant.
 
-## Executing (for teachers)
+## Executing via Kubernetes (for teachers)
+Requirements: Kubernetes, kubectl
 
-Requirements: Docker, Docker Compose
-
-1. Make sure port `80` is available.
-2. With a copy of this repo (the `db` folder has some required SQL scripts), execute Docker Compose:
-
-```bash
-docker compose up
-# or
-docker-compose up
+1. Clone and navigate to this repository: 
 ```
+git clone https://github.com/g-otn/soat-tech-challenge.git
+cd soat-tech-challenge/
+```
+2. Make sure:
+   - Port `30000` is available.
+   - Kubernetes cluster is running.
+3. Apply configuration files in the `kubernetes` folder:
+```
+kubectl apply -f kubernetes/
+```
+This will create in the `fiap-grupo-63` namespace and all the
+objects required to run the workload inside it.
 
-3. Access http://localhost/ or http://localhost/swagger-ui/index.html to access 
-a live OpenAPI spec of the available endpoints.
+4. Access http://localhost:30000/ or http://localhost:30000/swagger-ui/index.html to access a live OpenAPI spec of the available endpoints.
 
 <hr>
 
+
 ## Contributing (for group members)
+
+<details>
 
 ### Executing the project in `dev` mode
 
@@ -37,7 +44,7 @@ Requirements: Docker, Docker Compose, Java 17
 
 ### Manually compiling and publishing the Docker image
 
-#### Packaging the Maven project
+#### Compiling and packaging the Maven project
 
 1. With your IDE, **change the Maven profile to `prod`**. (see `application-prod.yml`)
    - Check if `dev` profile is not enabled at the same time (`!dev`)
@@ -67,6 +74,36 @@ Requirements: Docker, Docker Compose, Java 17
 #### Validating the `docker-compose.yaml` with the new image
 
 Execute the steps in "Executing (for teachers)" at the beginning of this doc.
+
+### Kubernetes
+
+#### Generating configmap volume for SQL scripts
+```
+kubectl create configmap db-config --from-file=/caminho_para_scripts
+```
+
+</details>
+
+## Executing via docker-compose
+
+<details>
+
+Requirements: Docker, Docker Compose
+
+1. Make sure port `80` is available.
+2. With a copy of this repo (the `db` folder has some required SQL scripts), execute Docker Compose:
+
+```bash
+docker compose up
+# or
+docker-compose up
+```
+
+3. Access http://localhost/ or http://localhost/swagger-ui/index.html to access
+   a live OpenAPI spec of the available endpoints.
+
+</details>
+
 
 ## Acknowledgments
 
