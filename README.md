@@ -16,6 +16,10 @@ cd soat-tech-challenge/
 2. Make sure:
    - Port `30000` is available.
    - Kubernetes cluster is running.
+       - If using minikube due to a limitation in how it works is necessary to run the following code snippet to forward correctly the application, it will automatically open a browser window with the correct IP and PORT to execute the tests, if using the Docker Desktop kubernates this step is not required.
+       ```
+       minikube service soat-tech-challenge-backend-service -n fiap-grupo-63
+       ```
 3. Apply configuration files in the `kubernetes` folder:
 
 ```
