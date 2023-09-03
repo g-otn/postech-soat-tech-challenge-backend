@@ -16,10 +16,7 @@ cd soat-tech-challenge/
 2. Make sure:
    - Port `30000` is available.
    - Kubernetes cluster is running.
-       - If using minikube due to a limitation in how it works is necessary to run the following code snippet to forward correctly the application, it will automatically open a browser window with the correct IP and PORT to execute the tests, if using the Docker Desktop kubernates this step is not required.
-       ```
-       minikube service soat-tech-challenge-backend-service -n fiap-grupo-63
-       ```
+
 3. Apply configuration files in the `kubernetes` folder:
 
 ```
@@ -29,7 +26,12 @@ kubectl apply -f kubernetes/
 This will create in the `fiap-grupo-63` namespace and all the
 objects required to run the workload inside it.
 
-4. Access http://localhost:30000/ or http://localhost:30000/swagger-ui/index.html to access a live OpenAPI spec of the available endpoints.
+4. If using minikube due to a limitation in how it works is necessary to run the following code snippet to forward correctly the application, it will automatically open a browser window with the correct IP and PORT to execute the tests, if using the Docker Desktop kubernates this step is not required.
+-  ```
+   minikube service soat-tech-challenge-backend-service -n fiap-grupo-63
+   ```
+
+5. Access http://localhost:30000/ or http://localhost:30000/swagger-ui/index.html to access a live OpenAPI spec of the available endpoints.
 
 <hr>
 
