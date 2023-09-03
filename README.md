@@ -4,34 +4,31 @@ Group course project of a self service and kitchen management system for a ficti
 
 ## Executing via Kubernetes (for teachers)
 
-Requirements: Kubernetes, kubectl
+Requirements: Local Kubernetes cluster, kubectl
 
 1. Clone and navigate to this repository:
-
 ```
 git clone https://github.com/g-otn/soat-tech-challenge.git
 cd soat-tech-challenge/
 ```
-
 2. Make sure:
    - Port `30000` is available.
    - Kubernetes cluster is running.
 
 3. Apply configuration files in the `kubernetes` folder:
-
 ```
 kubectl apply -f kubernetes/
 ```
-
-This will create in the `fiap-grupo-63` namespace and all the
+This will create the `fiap-grupo-63` namespace and all the
 objects required to run the workload inside it.
 
-4. If using minikube due to a limitation in how it works is necessary to run the following code snippet to forward correctly the application, it will automatically open a browser window with the correct IP and PORT to execute the tests, if using the Docker Desktop kubernates this step is not required.
-   -  ```
-      minikube service soat-tech-challenge-backend-service -n fiap-grupo-63
-      ```
+4. If you're using minikube, you _need_ to forward the backend service using [`minikube service`](https://minikube.sigs.k8s.io/docs/commands/service/):
+```
+minikube service soat-tech-challenge-backend-service -n fiap-grupo-63
+```
+It'll automatically open a browser window with the proper URL.
 
-5. If using Docker Desktop kubernates you can access http://localhost:30000/ or http://localhost:30000/swagger-ui/index.html, if using minikube use the IP and PORT provided by the last instuction to access a live OpenAPI spec of the available endpoints.
+5. If you're using Docker Desktop's Kubernetes you can access http://localhost:30000/ or http://localhost:30000/swagger-ui/index.html to access a live OpenAPI spec of the available endpoints.
 
 <hr>
 
