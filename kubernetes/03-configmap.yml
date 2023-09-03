@@ -4,7 +4,8 @@ metadata:
   name: soat-tech-challenge-db-scripts-configmap
   namespace: fiap-grupo-63
 data:
-  01-create-tables.sql: "create table if not exists cat_category\r\n(\r\n    deleted
+  01-create-tables.sql:
+    "create table if not exists cat_category\r\n(\r\n    deleted
     \         boolean      not null,\r\n    creation_date    timestamp(6) not null,\r\n
     \   id               bigserial\r\n    primary key,\r\n    last_update_date timestamp(6)
     not null,\r\n    name             varchar(255) not null\r\n    );\r\n\r\nalter
@@ -48,7 +49,8 @@ data:
     \   product          bigint           not null\r\n    constraint fk_order_item_product\r\n
     \   references prd_product,\r\n    quantity         bigint           not null\r\n
     \   );\r\n\r\nalter table ori_order_item\r\n    owner to backend;\r\n\r\n"
-  02-insert-fixed-data.sql: "insert into cat_category(deleted, creation_date, last_update_date,
+  02-insert-fixed-data.sql:
+    "insert into cat_category(deleted, creation_date, last_update_date,
     name) values(false, NOW(), NOW(), 'Lanche');\r\ninsert into cat_category(deleted,
     creation_date, last_update_date, name) values(false, NOW(), NOW(), 'Acompanhamento');\r\ninsert
     into cat_category(deleted, creation_date, last_update_date, name) values(false,

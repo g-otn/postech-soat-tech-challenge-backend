@@ -1,13 +1,13 @@
 services:
   db:
-    image: postgres
+    image: postgres:15.4
     environment:
       - POSTGRES_DB=tech_challenge
       - POSTGRES_USER=backend
       - POSTGRES_PASSWORD=backend
     expose:
       - 5432:5432
-    # Para inspeção do DB, remova o comentário desta linha
+    # For DB inspection, uncomment this line
     #ports: [ "5432:5432" ]
     networks:
       - tech-challenge-grupo63
@@ -16,7 +16,7 @@ services:
       - ./db/02-insert-fixed-data.sql:/docker-entrypoint-initdb.d/02-insert-fixed-data.sql
       - ./db/03-insert-example-data.sql:/docker-entrypoint-initdb.d/03-insert-example-data.sql
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -d tech_challenge -U backend" ]
+      test: ["CMD-SHELL", "pg_isready -d tech_challenge -U backend"]
       interval: 2s
       timeout: 2s
       retries: 10

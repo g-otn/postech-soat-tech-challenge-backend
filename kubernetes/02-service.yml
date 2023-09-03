@@ -5,14 +5,12 @@ metadata:
   namespace: fiap-grupo-63
 spec:
   selector:
-      app: soat-tech-challenge-db
+    app: soat-tech-challenge-db
   ports:
     - protocol: TCP
       port: 5432
       targetPort: 5432
-
 ---
-
 apiVersion: v1
 kind: Service
 metadata:

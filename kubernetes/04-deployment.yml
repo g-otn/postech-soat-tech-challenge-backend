@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: soat-tech-challenge-backend-deployment
   namespace: fiap-grupo-63
+  annotations:
+    ignore-check.kube-linter.io/latest-tag: "This deployment is for the application whose tags are managed in the same repository."
+    ignore-check.kube-linter.io/no-read-only-root-fs: "Tomcat and other Spring Boot tools may write to filesystem (e.g /tmp)."
 spec:
   replicas: 2
   selector:
@@ -13,10 +16,16 @@ spec:
       labels:
         app: soat-tech-challenge-backend
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
       containers:
         - name: backend
           image: g0tn/soat-tech-challenge-backend:latest
           resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
             limits:
               memory: 512Mi
               cpu: "1"
@@ -26,14 +35,16 @@ spec:
             - name: DB_HOST
               value: "soat-tech-challenge-db-service"
 #            TODO: Use secret for db credentials
-                          
----
 
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: soat-tech-challenge-db-deployment
   namespace: fiap-grupo-63
+  annotations:
+    ignore-check.kube-linter.io/no-read-only-root-fs: "Postgres needs write access to its container file system."
+    ignore-check.kube-linter.io/run-as-non-root: "Postgres needs elevated permissions within its container."
 spec:
   selector:
     matchLabels:
@@ -45,8 +56,11 @@ spec:
     spec:
       containers:
         - name: db
-          image: postgres
+          image: postgres:15.4
           resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
             limits:
               memory: 512Mi
               cpu: "1"
@@ -58,7 +72,7 @@ spec:
           env:
             - name: POSTGRES_DB
               value: "tech_challenge"
-#            TODO: Move to secret
+            #            TODO: Move to secret
             - name: POSTGRES_USER
               value: "backend"
             - name: POSTGRES_PASSWORD
