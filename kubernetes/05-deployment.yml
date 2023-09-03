@@ -34,7 +34,16 @@ spec:
           env:
             - name: DB_HOST
               value: "soat-tech-challenge-db-service"
-#            TODO: Use secret for db credentials
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: password
 
 ---
 apiVersion: apps/v1
@@ -72,11 +81,16 @@ spec:
           env:
             - name: POSTGRES_DB
               value: "tech_challenge"
-            #            TODO: Move to secret
             - name: POSTGRES_USER
-              value: "backend"
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: username
             - name: POSTGRES_PASSWORD
-              value: "backend"
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: password
       volumes:
         - name: soat-tech-challenge-db-scripts-volume
           configMap:
