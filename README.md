@@ -31,7 +31,7 @@ objects required to run the workload inside it.
       minikube service soat-tech-challenge-backend-service -n fiap-grupo-63
       ```
 
-5. If using Docker Desktop kubernates yoy can access http://localhost:30000/ or http://localhost:30000/swagger-ui/index.html, if using minikube use the IP and PORT provided by the last instuction to access a live OpenAPI spec of the available endpoints.
+5. If using Docker Desktop kubernates you can access http://localhost:30000/ or http://localhost:30000/swagger-ui/index.html, if using minikube use the IP and PORT provided by the last instuction to access a live OpenAPI spec of the available endpoints.
 
 <hr>
 
