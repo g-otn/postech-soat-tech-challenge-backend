@@ -37,12 +37,12 @@ spec:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: db-user-pass
+                  name: soat-tech-challenge-db-secret
                   key: username
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-user-pass
+                  name: soat-tech-challenge-db-secret
                   key: password
 
 ---
@@ -84,12 +84,12 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: db-user-pass
+                  name: soat-tech-challenge-db-secret
                   key: username
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-user-pass
+                  name: soat-tech-challenge-db-secret
                   key: password
       volumes:
         - name: soat-tech-challenge-db-scripts-volume
