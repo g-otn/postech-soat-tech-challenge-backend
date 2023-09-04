@@ -7,25 +7,32 @@ Group course project of a self service and kitchen management system for a ficti
 Requirements: Local Kubernetes cluster, kubectl
 
 1. Clone and navigate to this repository:
-```
+
+```bash
 git clone https://github.com/g-otn/soat-tech-challenge.git
 cd soat-tech-challenge/
 ```
+
 2. Make sure:
+
    - Port `30000` is available.
    - Kubernetes cluster is running.
 
 3. Apply configuration files in the `kubernetes` folder:
-```
+
+```bash
 kubectl apply -f kubernetes/
 ```
+
 This will create the `fiap-grupo-63` namespace and all the
 objects required to run the workload inside it.
 
 4. If you're using minikube, you _need_ to forward the backend service using [`minikube service`](https://minikube.sigs.k8s.io/docs/commands/service/):
+
 ```
 minikube service soat-tech-challenge-backend-service -n fiap-grupo-63
 ```
+
 It'll automatically open a browser window with the proper URL.
 
 5. If you're using Docker Desktop's Kubernetes you can access http://localhost:30000/ or http://localhost:30000/swagger-ui/index.html to access a live OpenAPI spec of the available endpoints.
@@ -85,8 +92,14 @@ Execute the steps in "Executing (for teachers)" at the beginning of this doc.
 
 #### Generating configmap volume for SQL scripts
 
-```
+```bash
 kubectl create configmap db-config --from-file=db/
+```
+
+#### Running KubeLinter
+
+```bash
+docker run --rm -v kubernetes/:/dir  stackrox/kube-linter lint /di
 ```
 
 </details>
