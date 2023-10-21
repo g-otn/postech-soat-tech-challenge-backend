@@ -1,18 +1,21 @@
 spring:
-    datasource:
-        driver-class-name: org.postgresql.Driver
-        password: ${DB_PASSWORD:backend}
-        url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:tech_challenge}
-        username: ${DB_USERNAME:backend}
-    docker:
-        compose:
-            enabled: true
-            file: compose-dev.yaml
-            # Recreates db_dev container so sql scripts (mapped volumes in compose) are executed each time
-    jpa:
-        hibernate:
-            ddl-auto: validate
-#            start:
-#                command: up
-#            stop:
-#                command: down
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: ${DB_PASSWORD:backend}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:tech_challenge}
+    username: ${DB_USERNAME:backend}
+  docker:
+    compose:
+      enabled: true
+      file: compose-dev.yaml
+      # Recreates db_dev container so sql scripts (mapped volumes in compose) are executed each time
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  #            start:
+  #                command: up
+  #            stop:
+  #                command: down
+  flyway:
+    locations: classpath:db/migration/{vendor}/
+    enabled: true
