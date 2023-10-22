@@ -11,8 +11,8 @@ services:
       - 'POSTGRES_PASSWORD=backend'
       - 'POSTGRES_USER=backend'
     volumes:
-      - ../db/01-create-tables.sql:/docker-entrypoint-initdb.d/01-create-tables.sql
-      - ../db/02-insert-fixed-data.sql:/docker-entrypoint-initdb.d/02-insert-fixed-data.sql
-      - ../db/03-insert-example-data.sql:/docker-entrypoint-initdb.d/03-insert-example-data.sql
+      - ./db/01-create-tables.sql:/docker-entrypoint-initdb.d/01-create-tables.sql
+      - ./db/02-insert-fixed-data.sql:/docker-entrypoint-initdb.d/02-insert-fixed-data.sql
+      - ./db/03-insert-example-data.sql:/docker-entrypoint-initdb.d/03-insert-example-data.sql
     ports:
       - 5432:5432
