@@ -1,16 +1,19 @@
 package br.com.grupo63.techchallenge;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-@ActiveProfiles("test")
 class TechchallengeApplicationTests {
+
+    private static Logger logger = LoggerFactory.getLogger(TechchallengeApplicationTests.class);
 
     @Test
     void contextLoads() {
-        System.out.println("testes!");
+        logger.info("Testing!");
     }
+
 
 }
