@@ -11,8 +11,8 @@ spring:
             # Recreates db_dev container so sql scripts (mapped volumes in compose) are executed each time
     jpa:
         hibernate:
-            ddl-auto: validate
-#            start:
-#                command: up
-#            stop:
-#                command: down
+#            ddl-auto: validate
+            start:
+                command: up
+            stop:
+                command: down
