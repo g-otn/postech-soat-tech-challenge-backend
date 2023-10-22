@@ -15,7 +15,6 @@
     <description>Tech Challenge - Grupo 63 - FIAP SOAT1</description>
     <properties>
         <java.version>17</java.version>
-        <skipTests>true</skipTests>
     </properties>
     <dependencies>
         <dependency>
@@ -96,6 +95,7 @@
         </plugins>
         <resources>
             <resource>
+                <!-- For application files which use maven config data -->
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
