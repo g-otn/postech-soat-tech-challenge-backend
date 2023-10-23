@@ -1,11 +1,11 @@
-name: Build
+name: PR checks
 
 on:
   pull_request:
 
 jobs:
   build:
-
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +18,7 @@ jobs:
         distribution: 'liberica'
 
     - name: Verify with Maven
-      run: mvn -B verify --file pom.xml
+      run: mvn verify -B -P prod "-Dstyle.color=always"
 
     - name: Build the Docker image
-      run: docker build . --tag g0tn/soat-tech-challenge-backend:$(date +%s)
+      run: docker build . --tag g0tn/soat-tech-challenge-backend:temp_$(date +%s)

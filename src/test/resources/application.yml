@@ -14,3 +14,6 @@ spring:
     url: jdbc:h2:mem:db_test;DB_CLOSE_DELAY=-1;NON_KEYWORDS=KEY,VALUE
   main:
     banner-mode: off
+  output:
+    ansi:
+      enabled: always
