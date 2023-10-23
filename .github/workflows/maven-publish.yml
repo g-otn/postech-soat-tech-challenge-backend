@@ -1,0 +1,24 @@
+name: Build
+
+on:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'liberica'
+
+    - name: Verify with Maven
+      run: mvn -B verify --file pom.xml
+
+    - name: Build the Docker image
+      run: docker build . --tag g0tn/soat-tech-challenge-backend:$(date +%s)
