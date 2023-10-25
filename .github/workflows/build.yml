@@ -24,9 +24,9 @@ jobs:
       - name: Package with Maven
         run: mvn package -B -P prod "-Dstyle.color=always"
 
-      - name: Bump version and sync git
-        id: bump
-        uses: mickem/gh-action-bump-maven-version@v1.0.0
+#      - name: Bump version and sync git
+#        id: bump
+#        uses: mickem/gh-action-bump-maven-version@v1.0.0
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -41,6 +41,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: g0tn/soat-tech-challenge-backend:${{steps.bump.outputs.tag}}
+          tags: g0tn/soat-tech-challenge-backend:$(mvn help:evaluate -Dexpression="project.version" -q -DforceStdout),g0tn/soat-tech-challenge-backend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
