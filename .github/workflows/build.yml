@@ -41,6 +41,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: g0tn/soat-tech-challenge-backend:$(mvn help:evaluate -Dexpression="project.version" -q -DforceStdout),g0tn/soat-tech-challenge-backend:latest
+          tags: g0tn/soat-tech-challenge-backend:$(mvn help:evaluate -Dexpression='project.version' -q -DforceStdout),g0tn/soat-tech-challenge-backend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
