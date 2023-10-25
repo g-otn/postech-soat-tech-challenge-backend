@@ -21,8 +21,5 @@ jobs:
     - name: Verify with Maven
       run: mvn verify -B -P prod "-Dstyle.color=always"
 
-    - name: Build Docker container
-      uses: docker/build-push-action@v5
-      with:
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+    - name: Build the Docker image
+      run: docker build .
