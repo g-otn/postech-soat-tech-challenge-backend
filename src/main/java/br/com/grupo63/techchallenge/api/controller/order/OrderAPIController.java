@@ -11,6 +11,7 @@ import br.com.grupo63.techchallenge.exception.ValidationException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -49,10 +50,11 @@ public class OrderAPIController extends AbstractAPIController {
             summary = "Fake checkout: Tela de resumo do pedido",
             description = "Registra um pedido a ser realizado, retorna o valor total")
     @PostMapping("/criar")
-    public ResponseEntity<OrderControllerDTO> create(@RequestParam Long clientId,
-                                                     @Valid @RequestBody CreateOrderRequestDTO createOrderRequestDTO) throws ValidationException, NotFoundException {
-
-        return ResponseEntity.ok(controller.create(clientId, createOrderRequestDTO));
+    public ResponseEntity<OrderControllerDTO> create(@Valid @RequestBody CreateOrderRequestDTO createOrderRequestDTO,
+                                                     HttpServletRequest request) throws ValidationException, NotFoundException {
+        return ResponseEntity.ok(controller
+                .create(Long.parseLong((String) request.getAttribute("clientId")),
+                        createOrderRequestDTO));
     }
 
     @Operation(
