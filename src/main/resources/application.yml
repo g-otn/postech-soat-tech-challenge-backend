@@ -7,10 +7,20 @@ spring:
       # We don't want to use docker compose in prod and test
       enabled: false
   jpa:
+    hibernate:
+      ddl-auto: validate
     show-sql: true
   profiles:
     # Value comes from Maven profile (pom.xml)
     active: '@spring.profiles.active@'
+  flyway:
+    locations: classpath:db/migrations/{vendor}/
+    enabled: true
+jwt:
+  token:
+    key:
+      public: "${JWT_PUBLIC_KEY}"
+
 springdoc:
   swagger-ui:
     path: /
