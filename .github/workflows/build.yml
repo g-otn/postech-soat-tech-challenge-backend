@@ -9,7 +9,7 @@ jobs:
   build:
     name: Build, bump and push
     runs-on: ubuntu-latest
-    environment: Main Build
+    environment: Docker Hub
 
     steps:
       - uses: actions/checkout@v3
