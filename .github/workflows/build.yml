@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: Docker Hub
-      url: https://hub.docker.com/r/${{ vars.DOCKER_IMAGE_NAME }}
+      url: https://hub.docker.com/r/${{ vars.DOCKER_IMAGE_NAME }}/${{ steps.bump.outputs.tag }}/images/${{ steps.docker_build_push.outputs.digest }}
 
     steps:
       - uses: actions/checkout@v3
@@ -45,6 +45,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push image
+        id: docker_build_push
         uses: docker/build-push-action@v5
         with:
           context: .
