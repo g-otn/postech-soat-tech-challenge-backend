@@ -8,7 +8,7 @@ RUN addgroup -S $APP_USER && adduser -D -g "" -G $APP_USER $APP_USER
 USER backend
 
 # Copiar .jar para o container
-ARG JAR_FILE=target/techchallenge.jar
+ARG JAR_FILE=target/app.jar
 ENV APP_FOLDER=/opt/app
 WORKDIR $APP_FOLDER
 COPY $JAR_FILE app.jar

@@ -20,6 +20,9 @@ spring:
 
   flyway:
     locations: classpath:br/com/grupo63/techchallenge/db/migrations/{vendor}/
+  docker:
+    compose:
+      enabled: false
 
 jwt:
   token:
