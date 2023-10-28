@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: Docker Hub
-      url: https://hub.docker.com/r/${{ vars.DOCKER_IMAGE_NAME }}/${{ steps.bump.outputs.tag }}/images/${{ steps.docker_build_push.outputs.digest }}
+      url: https://hub.docker.com/layers/${{ vars.DOCKER_IMAGE_NAME }}/${{ steps.bump.outputs.tag }}/images/${{ steps.docker_build_push.outputs.digest }}
 
     steps:
       - uses: actions/checkout@v3
