@@ -11,7 +11,7 @@
     </parent>
     <groupId>br.com.grupo63</groupId>
     <artifactId>techchallenge</artifactId>
-    <version>3.0.3</version>
+    <version>3.0.4</version>
     <name>Tech Challenge</name>
     <description>Tech Challenge - Grupo 63 - FIAP SOAT1</description>
     <properties>
