@@ -10,7 +10,9 @@ jobs:
   build:
     name: Build, bump and push
     runs-on: ubuntu-latest
-    environment: Docker Hub
+    environment:
+      name: Docker Hub
+      url: https://hub.docker.com/r/${{ vars.DOCKER_IMAGE_NAME }}
 
     steps:
       - uses: actions/checkout@v3
