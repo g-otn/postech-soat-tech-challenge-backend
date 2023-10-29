@@ -31,7 +31,7 @@ jobs:
 
       - name: Bump Maven version
         id: bump
-        uses: mickem/gh-action-bump-maven-version@v1.0.0
+        uses: soat-tech-challenge/gh-action-bump-maven-version@main
         with:
           commit-message: '[skip ci] Bump version to'
 
