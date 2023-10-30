@@ -25,3 +25,19 @@ springdoc:
   swagger-ui:
     path: /
     tags-sorter: alpha
+  show-actuator: true
+management:
+  info:
+    env:
+      enabled: true
+  endpoint:
+    health:
+      show-components: always
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+info:
+  name: '@project.name@'
+  description: '@project.description@'
+  version: '@project.version@'
