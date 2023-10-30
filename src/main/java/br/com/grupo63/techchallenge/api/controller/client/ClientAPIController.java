@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Clientes", description = "CRUD de clientes permitindo identificação e gerenciamento")
+@Tag(name = "Clientes", description = "CRUD de clientes para gerenciamento")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("/clients")
 public class ClientAPIController extends AbstractAPIController {
 
     private final ClientController clientController;
@@ -34,7 +34,7 @@ public class ClientAPIController extends AbstractAPIController {
             tags = "1ª chamada - Fluxo principal - Pedido",
             summary = "Identificação: Identifica um cliente",
             description = "Registra um cliente através de seu CPF")
-    @PostMapping("/criar")
+    @PostMapping
     public ResponseEntity<ClientControllerDTO> create(@RequestParam String nationalId) throws NotFoundException {
         ClientControllerDTO clientDTO = new ClientControllerDTO(nationalId);
         return ResponseEntity.ok(clientController.create(clientDTO));
@@ -51,7 +51,7 @@ public class ClientAPIController extends AbstractAPIController {
     @Operation(
             summary = "Listar clientes",
             description = "Lista todos os clientes")
-    @GetMapping("/listar")
+    @GetMapping
     public ResponseEntity<List<ClientControllerDTO>> list() {
         return ResponseEntity.ok(clientController.list());
     }
