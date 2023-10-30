@@ -18,7 +18,7 @@ public class JwtFilterConfig {
     public FilterRegistrationBean<JwtFilter> jwtFilterFilterRegistrationBean() {
         FilterRegistrationBean<JwtFilter> jwtFilterFilterRegistrationBean = new FilterRegistrationBean<>();
         jwtFilterFilterRegistrationBean.setFilter(new JwtFilter(jwtService));
-        jwtFilterFilterRegistrationBean.setUrlPatterns(Arrays.asList("/pedidos/criar", "/pagamentos/iniciar"));
+        jwtFilterFilterRegistrationBean.setUrlPatterns(Arrays.asList("/orders", "/payments/initialize"));
         return jwtFilterFilterRegistrationBean;
     }
 }
