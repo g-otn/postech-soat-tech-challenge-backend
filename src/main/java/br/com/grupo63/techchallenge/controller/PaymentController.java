@@ -18,9 +18,9 @@ public class PaymentController {
     private final OrderUseCase orderUseCase;
     private final PaymentUseCase useCase;
 
-    public QRCodeResponseDTO startPayment(Long orderId) throws NotFoundException, ValidationException {
+    public QRCodeResponseDTO startPayment(Long clientId, Long orderId) throws NotFoundException, ValidationException {
         Order entity = orderUseCase.read(orderId);
-        return PaymentPresenter.toDto(useCase.startPayment(entity));
+        return PaymentPresenter.toDto(useCase.startPayment(clientId, entity));
     }
 
     public void finishPayment(Long orderId) throws NotFoundException, ValidationException {

@@ -4,12 +4,12 @@ spring:
     password: ${DB_PASSWORD:backend}
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:tech_challenge}
     username: ${DB_USERNAME:backend}
-  docker:
-    compose:
-      enabled: true
-      file: compose-dev.yml
-      start:
-        command: up
+#  docker:
+#    compose:
+#      enabled: true
+#      file: compose-dev.yml
+#      start:
+#        command: up
   jpa:
     hibernate:
       ddl-auto: validate
@@ -19,4 +19,4 @@ spring:
 jwt:
   token:
     key:
-      public: "${JWT_PUBLIC_KEY:MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoNgzDuoQFLRFb3ivIA5CEHFRuqltT7xR6hFu+6xPD5q0sq8Exjue5s5MIQwkJMldk8/Dhp85OT5ULmAA5x4hPZfFlQEMlMPT5QItQImQ7UFCxBbMwksZlUQEP37Aa5OJ+KhEPBDTe0AaXqXFKxIOLEjHYWqhFHq5whxNotbuPrqLWEopCAgY4lqCe0pSoT3V+7Jszpq+czLBOl6eCbD933pK98/aVD9yA2+7LNOwmkYVyR4kvXX25K5Q/DDUZgMWyQTm3TCnfCrbdH6IH/Z12/DkePNuGFygUKDCEYPkPYnHbRXee4CXbeDkEdgZwzGJPM8gPhSUFrrzFVeihvN5OQIDAQAB}"
+      public: "${JWT_PUBLIC_KEY:MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu1SU1LfVLPHCozMxH2Mo4lgOEePzNm0tRgeLezV6ffAt0gunVTLw7onLRnrq0/IzW7yWR7QkrmBL7jTKEn5u+qKhbwKfBstIs+bMY2Zkp18gnTxKLxoS2tFczGkPLPgizskuemMghRniWaoLcyehkd3qqGElvW/VDL5AaWTg0nLVkjRo9z+40RQzuVaE8AkAFmxZzow3x+VJYKdjykkJ0iT9wCS0DRTXu269V264Vf/3jvredZiKRkgwlL9xNAwxXFg0x/XFw005UWVRIkdgcKWTjpBP2dPwVZ4WWC+9aGVd+Gyn1o0CLelf4rEjGoXbAAEgAqeGUxrcIlbjXfbcmwIDAQAB}"

@@ -7,7 +7,7 @@ import br.com.grupo63.techchallenge.exception.ValidationException;
 
 public interface IPaymentUseCase {
 
-    String startPayment(Order entity) throws NotFoundException, ValidationException;
+    String startPayment(Long clientId, Order entity) throws NotFoundException, ValidationException;
 
     void finishPayment(Order entity) throws NotFoundException, ValidationException;
 

@@ -9,6 +9,7 @@ import br.com.grupo63.techchallenge.exception.ValidationException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +27,9 @@ public class PaymentAPIController extends AbstractAPIController {
             summary = "Fake checkout: Confirma pedido",
             description = "Registra um pedido e o associa a um pedido. Retorna o QRCode gerado via Mercado Pago para exibição ao cliente.")
     @PostMapping("/iniciar")
-    public QRCodeResponseDTO startPayment(
-            @Parameter(description = "Id do pedido") @RequestParam Long orderId
-    ) throws NotFoundException, ValidationException {
-        return controller.startPayment(orderId);
+    public QRCodeResponseDTO startPayment(@Parameter(description = "Id do pedido") @RequestParam Long orderId,
+                                          HttpServletRequest request) throws NotFoundException, ValidationException {
+        return controller.startPayment(Long.parseLong((String) request.getAttribute("clientId")), orderId);
     }
 
     @Operation(
