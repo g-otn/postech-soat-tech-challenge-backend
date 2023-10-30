@@ -19,7 +19,7 @@ import java.util.List;
 @Tag(name = "Produtos", description = "CRUD de produtos para gerenciamento e exibição ao cliente")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/produtos")
+@RequestMapping("/products")
 public class ProductAPIController extends AbstractAPIController {
 
     private final ProductController controller;
@@ -28,7 +28,7 @@ public class ProductAPIController extends AbstractAPIController {
             tags = "2ª chamada - Fluxo principal - Pedido",
             summary = "Listar produtos por categoria",
             description = "Lista todos os produtos por nome da categoria")
-    @GetMapping("/listar-por-categoria")
+    @GetMapping("/by-category")
     public ResponseEntity<List<ProductControllerDTO>> listByCategoryName(
             @Schema(allowableValues = {"Lanche", "Acompanhamento", "Bebida", "Sobremesa"})
             @RequestParam(value = "categoria") String categoryName) {
@@ -39,7 +39,7 @@ public class ProductAPIController extends AbstractAPIController {
             summary = "Criar um produto",
             description = "Cria um produto com nome, preço, estoque inicial e categoria. Possíveis categorias (IDs): " +
                     "1 - Lanche, 2 - Acompanhamento, 3 - Bebida, 4 - Sobremesa")
-    @PostMapping("/criar")
+    @PostMapping
     public ResponseEntity<ProductControllerDTO> create(@Valid @RequestBody ProductControllerDTO dto) throws ValidationException {
         return ResponseEntity.ok(controller.create(dto));
     }
@@ -55,7 +55,7 @@ public class ProductAPIController extends AbstractAPIController {
     @Operation(
             summary = "Listar produtos",
             description = "Lista todos os produtos")
-    @GetMapping("/listar")
+    @GetMapping
     public ResponseEntity<List<ProductControllerDTO>> list() {
         return ResponseEntity.ok(controller.list());
     }
