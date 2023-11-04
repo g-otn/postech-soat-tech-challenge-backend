@@ -17,9 +17,14 @@ public class ClientController {
 
     private final ClientUseCase clientUseCase;
 
+    public ClientControllerDTO identify(ClientControllerDTO dto) throws NotFoundException {
+        Client entity = new Client();
+        ClientAdapter.fillEntity(dto, entity);
+        return ClientPresenter.toDto(clientUseCase.identify(entity));
+    }
+
     public ClientControllerDTO create(ClientControllerDTO dto) throws NotFoundException {
         Client entity = new Client();
-
         ClientAdapter.fillEntity(dto, entity);
         entity = clientUseCase.create(entity);
 
