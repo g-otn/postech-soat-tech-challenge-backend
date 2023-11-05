@@ -6,6 +6,7 @@ import br.com.grupo63.techchallenge.controller.ClientController;
 import br.com.grupo63.techchallenge.controller.dto.ClientControllerDTO;
 import br.com.grupo63.techchallenge.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,16 +23,9 @@ public class ClientAPIController extends AbstractAPIController {
 
     private final ClientController clientController;
 
-//    @Operation(
-//            summary = "Recuperar cliente por CPF",
-//            description = "Exibe os dados de um cliente a partir de seu CPF")
-//    @GetMapping("/cpf/{nationalId}")
-//    public ClientControllerDTO findByNationalId(@PathVariable String nationalId) throws NotFoundException {
-//        return clientController.(nationalId);
-//    }
-
     @Operation(
-            summary = "Identificar o cliente",
+            tags = "1ª chamada - Fluxo principal - Identificação",
+            summary = "Identificar o cliente (Utilizado pelo Lambda de identificação)",
             description = "Recupera o ID do cliente caso ele exista e se não existir já o cria")
     @PostMapping("/identification")
     public ResponseEntity<ClientControllerDTO> identify(@RequestParam String nationalId) throws NotFoundException {
@@ -40,8 +34,7 @@ public class ClientAPIController extends AbstractAPIController {
     }
 
     @Operation(
-            tags = "1ª chamada - Fluxo principal - Pedido",
-            summary = "Identificação: Identifica um cliente",
+            summary = "Cria um cliente",
             description = "Registra um cliente através de seu CPF")
     @PostMapping
     public ResponseEntity<ClientControllerDTO> create(@RequestParam String nationalId) throws NotFoundException {

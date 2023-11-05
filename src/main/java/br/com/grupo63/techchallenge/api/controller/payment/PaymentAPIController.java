@@ -8,6 +8,7 @@ import br.com.grupo63.techchallenge.exception.NotFoundException;
 import br.com.grupo63.techchallenge.exception.ValidationException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,8 @@ public class PaymentAPIController extends AbstractAPIController {
     @Operation(
             tags = "3ª chamada - Fluxo principal - Pagamento",
             summary = "Fake checkout: Confirma pedido",
-            description = "Registra um pedido e o associa a um pedido. Retorna o QRCode gerado via Mercado Pago para exibição ao cliente.")
+            description = "Registra um pedido e o associa a um pedido. Retorna o QRCode gerado via Mercado Pago para exibição ao cliente.",
+            security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping("/initialize")
     public QRCodeResponseDTO startPayment(
             @Parameter(description = "Id do pedido") @RequestParam Long orderId
@@ -34,7 +36,7 @@ public class PaymentAPIController extends AbstractAPIController {
 
     @Operation(
             tags = "4ª chamada - Fluxo principal - Pagamento",
-            summary = "Fake checkout: Finalizar pagamento",
+            summary = "Fake checkout: Finalizar pagamento (Utilizado pelo Mercado Pago)",
             description = "Atualiza o status do pagamento e do pedido. Seria utilizado pelo sistema externo Mercado Pago para simular uma integração de Webhook IPN para notificar o sistema que o pagamento foi concluido.")
     @PostMapping("/finalize")
     @ResponseStatus(HttpStatus.OK)

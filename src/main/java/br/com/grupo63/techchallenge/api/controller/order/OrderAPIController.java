@@ -10,6 +10,7 @@ import br.com.grupo63.techchallenge.exception.NotFoundException;
 import br.com.grupo63.techchallenge.exception.ValidationException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -48,7 +49,8 @@ public class OrderAPIController extends AbstractAPIController {
     @Operation(
             tags = "2ª chamada - Fluxo principal - Pedido",
             summary = "Fake checkout: Tela de resumo do pedido",
-            description = "Registra um pedido a ser realizado, retorna o valor total")
+            description = "Registra um pedido a ser realizado, retorna o valor total",
+            security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping
     public ResponseEntity<OrderControllerDTO> create(@Valid @RequestBody CreateOrderRequestDTO createOrderRequestDTO,
                                                      HttpServletRequest request) throws ValidationException, NotFoundException {
