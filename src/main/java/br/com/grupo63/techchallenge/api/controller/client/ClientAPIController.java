@@ -31,6 +31,15 @@ public class ClientAPIController extends AbstractAPIController {
 //    }
 
     @Operation(
+            summary = "Identificar o cliente",
+            description = "Recupera o ID do cliente caso ele exista e se não existir já o cria")
+    @PostMapping("/identification")
+    public ResponseEntity<ClientControllerDTO> identify(@RequestParam String nationalId) throws NotFoundException {
+        ClientControllerDTO clientDTO = new ClientControllerDTO(nationalId);
+        return ResponseEntity.ok(clientController.identify(clientDTO));
+    }
+
+    @Operation(
             tags = "1ª chamada - Fluxo principal - Pedido",
             summary = "Identificação: Identifica um cliente",
             description = "Registra um cliente através de seu CPF")

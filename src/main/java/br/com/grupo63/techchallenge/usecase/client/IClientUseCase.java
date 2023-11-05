@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface IClientUseCase {
 
+    Client identify(Client client);
+
     Client findByNationalId(String nationalId) throws NotFoundException;
 
     Client create(Client entity);

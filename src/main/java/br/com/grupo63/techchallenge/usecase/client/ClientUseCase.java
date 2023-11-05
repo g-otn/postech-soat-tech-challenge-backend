@@ -7,12 +7,24 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class ClientUseCase implements IClientUseCase {
 
     private final IClientGateway gateway;
+
+    @Override
+    public Client identify(Client client) {
+        Optional<Client> optionalClient = gateway.findByNationalId(client.getNationalId());
+        
+        if (optionalClient.isPresent()) {
+            return optionalClient.get();
+        }
+        
+        return gateway.saveAndFlush(client);
+    }
 
     @Override
     public Client findByNationalId(String nationalId) throws NotFoundException {
