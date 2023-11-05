@@ -41,5 +41,3 @@ info:
   name: '@project.name@'
   description: '@project.description@'
   version: '@project.version@'
-server:
-  port: 80
