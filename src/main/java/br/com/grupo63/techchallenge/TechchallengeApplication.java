@@ -5,10 +5,18 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.servers.Server;
+import io.swagger.v3.oas.annotations.servers.Servers;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@OpenAPIDefinition(info = @Info(title = "Tech Challenge", description = "Grupo 63", version = "${app.version}"))
+@OpenAPIDefinition(
+        info = @Info(title = "${info.name}", description = "${info.description}", version = "${info.version}"),
+        servers ={
+                @Server(url = "/", description = "Current URL"),
+                @Server(url = "localhost:8080", description = "Local"),
+                @Server(url = "${docs.api.url}", description = "API Gateway Invoke URL")
+        })
 @SecurityScheme(
         name = "bearerAuth",
         type = SecuritySchemeType.HTTP,

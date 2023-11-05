@@ -1,6 +1,4 @@
 # Global config
-app:
-  version: '@project.version@'
 spring:
   docker:
     compose:
@@ -41,3 +39,7 @@ info:
   name: '@project.name@'
   description: '@project.description@'
   version: '@project.version@'
+
+docs:
+  api:
+    url: "${DOCS_API_URL:https://9ah1j49vm1.execute-api.us-east-2.amazonaws.com}"

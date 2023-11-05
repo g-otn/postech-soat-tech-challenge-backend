@@ -11,4 +11,4 @@ Grupo 63
 - RM 350008 - Henrique Zaim
 - RM 350009 - Marcelo Vilas Boas
 - RM 350383 - Thiago Bezerra
-Version ${app.version} - Spring Boot ${spring-boot.version}
+Version ${info.version} - Spring Boot ${spring-boot.version}
