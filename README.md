@@ -2,6 +2,10 @@
 
 Group course project of a self service and kitchen management system for a fictional fast food restaurant.
 
+<details>
+
+   <summary>Old README.md</summary>
+
 ## Executing via Kubernetes (for teachers)
 
 Requirements: Local Kubernetes cluster, kubectl
@@ -124,9 +128,10 @@ docker-compose up
 
 </details>
 
+</details>
+
 ## Acknowledgments
 
 - Course project group members: [g-otn](https://github.com/g-otn), [HenriqueZaim](https://github.com/HenriqueZaim),
   [marcelovbcfilho](https://github.com/marcelovbcfilho), [thgosii](https://github.com/thgosii).
 - Course teachers
-
