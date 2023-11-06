@@ -19,8 +19,6 @@ jobs:
     needs: build
     uses: soat-tech-challenge/github-workflows/.github/workflows/redeploy-ecs-service.yml@main
     with:
-      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
-      image_name: ${{ vars.DOCKER_IMAGE_NAME }}
       aws_region: ${{ vars.DEFAULT_AWS_REGION }}
       cluster_name: ${{ vars.ECS_CLUSTER_NAME }}
       service_name: ${{ vars.ECS_SERVICE_NAME }}
