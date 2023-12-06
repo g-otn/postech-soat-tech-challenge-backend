@@ -31,7 +31,7 @@ public class JwtFilter implements Filter {
             String authHeader = ((HttpServletRequest) request).getHeader("Authorization");
             logger.info("Auth header: " + authHeader);
             if (!StringUtils.hasLength(authHeader) || !StringUtils.startsWithIgnoreCase(authHeader, "Bearer ")) {
-                throw new GeneralSecurityException("Missing or invalid authorization header");
+                throw new GeneralSecurityException("Missing or invalid authorization header.");
             }
             String jwt = authHeader.substring(7);
             Claims claims = jwtService.getClaims(jwt);
