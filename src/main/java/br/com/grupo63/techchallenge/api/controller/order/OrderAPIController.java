@@ -28,6 +28,7 @@ public class OrderAPIController extends AbstractAPIController {
 
     private final OrderController controller;
 
+    // Remover este metodo, status nao fica mais na order
     @Operation(
             tags = "5ª chamada - Fluxo principal - Acompanhamento e entrega",
             summary = "Listar pedidos pagos porém não finalizados",
@@ -37,6 +38,7 @@ public class OrderAPIController extends AbstractAPIController {
         return ResponseEntity.ok(controller.listUnfinishedOrders());
     }
 
+    // Remover este metodo, status nao fica mais na order
     @Operation(
             tags = "5ª chamada - Fluxo principal - Acompanhamento e entrega",
             summary = "Avança com o status do pedido",

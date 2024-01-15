@@ -15,11 +15,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class PaymentUseCase implements IPaymentUseCase {
 
+    // Criar entidade de Payment que guarda o status
+
     private final IMercadoPagoGateway mercadoPagoService;
     private final OrderUseCase orderUseCase;
+    // GatewayOrder orderGateway;
+    // ProductionGateway productionGateway;
 
     @Override
     public String startPayment(Order entity) throws ValidationException {
+        // GET /public/orders/{orderId}
+        // Order order = orderGateway.getById(orderId);
         entity.canStartPayment();
 
         String qrData = mercadoPagoService.generateQRCode(entity.getId(), entity.getTotalPrice());
@@ -31,9 +37,12 @@ public class PaymentUseCase implements IPaymentUseCase {
 
     @Override
     public void finishPayment(Order entity) throws ValidationException {
+        // Payment payment = paymentGatweay.findByOrderId(orderId);
         entity.canFinishPayment();
         entity.getPayment().setStatus(PaymentStatus.PAID);
         entity = orderUseCase.update(entity);
+        // POST /public/production/advance-status?orderId={orderId}
+        // productionGateway.advanceStatus(orderId)
         orderUseCase.advanceStatus(entity);
     }
 

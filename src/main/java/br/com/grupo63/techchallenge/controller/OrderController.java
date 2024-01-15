@@ -20,11 +20,13 @@ public class OrderController {
 
     private final OrderUseCase orderUseCase;
 
+    // Remover este metodo, status nao fica mais na order
     public OrderStatus advanceStatus(Long orderId) throws NotFoundException, ValidationException {
         Order entity = orderUseCase.read(orderId);
         return orderUseCase.advanceStatus(entity);
     }
 
+    // Remover este metodo, status nao fica mais na order
     public List<OrderControllerDTO> listUnfinishedOrders() {
         return orderUseCase.listUnfinishedOrders().stream().map(OrderPresenter::toDto).toList();
     }

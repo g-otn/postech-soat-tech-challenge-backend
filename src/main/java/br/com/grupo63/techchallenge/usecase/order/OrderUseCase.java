@@ -23,6 +23,7 @@ public class OrderUseCase implements IOrderUseCase {
     private final Validator validator;
     private final IProductGateway productGateway;
     private final IOrderGateway gateway;
+    // IdentificationGateway identificationGateway;
 
     private void fillCurrentPrices(Order order) throws NotFoundException {
         double totalPrice = 0.0D;
@@ -34,19 +35,28 @@ public class OrderUseCase implements IOrderUseCase {
         order.setTotalPrice(totalPrice);
     }
 
+    // ISSO E DE PRODUCTION NAO FAZER!!!!
+    // REMOVER este metodo, status nao fica mais na order
     @Override
     public OrderStatus advanceStatus(Order entity) throws ValidationException {
+        // GET /public/order/{orderId}
+        // Order order = orderGateway.getById(orderId);
         entity.advanceStatus();
         return gateway.saveAndFlush(entity).getStatus();
     }
 
+    // REMOVER este metodo, status nao fica mais na order
     @Override
     public List<Order> listUnfinishedOrders() {
+        // return gateway.findByStatusNotFinishedOrderByCreationDate();
         return gateway.findByStatusNotFinishedAndDeletedOrderByCreationDate();
     }
 
     @Override
     public Order create(Order entity) throws ValidationException, NotFoundException {
+        // GET /public/clients/{clientId}
+        // Client client = identificationGateway.getById(clientId);
+        // order.setClient(client);
         fillCurrentPrices(entity);
         validator.validate(entity, Create.class);
         return gateway.saveAndFlush(entity);
