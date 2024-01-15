@@ -135,4 +135,3 @@ docker-compose up
   [marcelovbcfilho](https://github.com/marcelovbcfilho), [thgosii](https://github.com/thgosii).
 - Course teachers
 
-
