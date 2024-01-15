@@ -11,7 +11,7 @@ jobs:
     uses: soat-tech-challenge/github-workflows/.github/workflows/maven-bump-push-dockerhub.yml@main
     secrets: inherit
     with:
-      dockerhub_username: g0tn
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       image_name: ${{ vars.DOCKER_IMAGE_NAME }}
 
   deploy:
