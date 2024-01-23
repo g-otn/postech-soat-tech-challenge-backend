@@ -13,7 +13,7 @@
     <artifactId>techchallenge</artifactId>
     <version>3.6.4</version>
     <name>Backend</name>
-    <description>FIAP SOAT1 2023 - Group 63 - Phase 3.</description>
+    <description>FIAP SOAT1 2023 - Group 63 - Phase 3</description>
     <properties>
         <java.version>17</java.version>
     </properties>
