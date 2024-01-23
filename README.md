@@ -1,4 +1,5 @@
 # FIAP - SOAT1 - Tech Challenge - Group 63
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=soat-tech-challenge_backend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=soat-tech-challenge_backend) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=soat-tech-challenge_backend&metric=coverage)](https://sonarcloud.io/summary/new_code?id=soat-tech-challenge_backend) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=soat-tech-challenge_backend&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=soat-tech-challenge_backend)
 
 Group course project of a self service and kitchen management system for a fictional fast food restaurant.
 
