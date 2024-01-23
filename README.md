@@ -130,6 +130,7 @@ docker-compose up
 
 </details>
 
+
 ## Acknowledgments
 - Course project group members: [g-otn](https://github.com/g-otn), [HenriqueZaim](https://github.com/HenriqueZaim),
   [marcelovbcfilho](https://github.com/marcelovbcfilho), [thgosii](https://github.com/thgosii).
