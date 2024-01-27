@@ -1,6 +1,5 @@
 package br.com.grupo63.techchallenge.adapter;
 
-import br.com.grupo63.techchallenge.api.controller.order.dto.AdvanceOrderStatusResponseDTO;
 import br.com.grupo63.techchallenge.api.controller.order.dto.CreateOrderRequestDTO;
 import br.com.grupo63.techchallenge.controller.dto.ClientControllerDTO;
 import br.com.grupo63.techchallenge.controller.dto.OrderControllerDTO;
@@ -8,11 +7,8 @@ import br.com.grupo63.techchallenge.controller.dto.OrderItemControllerDTO;
 import br.com.grupo63.techchallenge.entity.client.Client;
 import br.com.grupo63.techchallenge.entity.order.Order;
 import br.com.grupo63.techchallenge.entity.order.OrderItem;
-import br.com.grupo63.techchallenge.entity.order.OrderStatus;
 import br.com.grupo63.techchallenge.entity.payment.Payment;
 import br.com.grupo63.techchallenge.entity.product.Product;
-import br.com.grupo63.techchallenge.presenter.ClientPresenter;
-import br.com.grupo63.techchallenge.presenter.PaymentPresenter;
 
 import java.util.stream.Collectors;
 

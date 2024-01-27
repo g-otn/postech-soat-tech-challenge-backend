@@ -1,14 +1,10 @@
 package br.com.grupo63.techchallenge.presenter;
 
 import br.com.grupo63.techchallenge.api.controller.order.dto.AdvanceOrderStatusResponseDTO;
-import br.com.grupo63.techchallenge.api.controller.order.dto.CreateOrderRequestDTO;
-import br.com.grupo63.techchallenge.controller.dto.ClientControllerDTO;
 import br.com.grupo63.techchallenge.controller.dto.OrderControllerDTO;
 import br.com.grupo63.techchallenge.controller.dto.OrderItemControllerDTO;
 import br.com.grupo63.techchallenge.entity.order.Order;
 import br.com.grupo63.techchallenge.entity.order.OrderStatus;
-
-import java.util.stream.Collectors;
 
 public class OrderPresenter {
 

@@ -4,7 +4,6 @@ import br.com.grupo63.techchallenge.entity.order.Order;
 import br.com.grupo63.techchallenge.entity.payment.Payment;
 import br.com.grupo63.techchallenge.entity.payment.PaymentMethod;
 import br.com.grupo63.techchallenge.entity.payment.PaymentStatus;
-import br.com.grupo63.techchallenge.exception.NotFoundException;
 import br.com.grupo63.techchallenge.exception.ValidationException;
 import br.com.grupo63.techchallenge.gateway.payment.IMercadoPagoGateway;
 import br.com.grupo63.techchallenge.usecase.order.OrderUseCase;

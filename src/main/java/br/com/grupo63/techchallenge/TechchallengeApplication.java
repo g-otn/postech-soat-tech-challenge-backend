@@ -6,16 +6,16 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
-import io.swagger.v3.oas.annotations.servers.Servers;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @OpenAPIDefinition(
-        info = @Info(title = "${info.name}", description = "${info.description}", version = "${info.version}"),
+        info = @Info(title = "${info.name}", description = "${git.commit.id}", version = "${info.version}"),
+
         servers ={
-                @Server(url = "/", description = "Current URL"),
-                @Server(url = "localhost:8080", description = "Local"),
-                @Server(url = "${docs.api.url}", description = "API Gateway Invoke URL")
+                @Server(url = "${server.servlet.context-path:}", description = "Current URL"),
+                @Server(url = "localhost:${server.port:8080}${server.servlet.context-path:}", description = "Localhost"),
+                @Server(url = "${app.docs-api-url:(no value)}${server.servlet.context-path:}", description = "Custom URL from env")
         })
 @SecurityScheme(
         name = "bearerAuth",
