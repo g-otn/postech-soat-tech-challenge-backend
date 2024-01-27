@@ -3,7 +3,6 @@ package br.com.grupo63.techchallenge.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ import java.security.spec.X509EncodedKeySpec;
 @Service
 public class JwtService {
 
-    @Value("${jwt.token.key.public}")
+    @Value("${app.jwt-pub-key}")
     private String jwtSigningKey;
 
     public Claims getClaims(String token) throws NoSuchAlgorithmException, InvalidKeySpecException {

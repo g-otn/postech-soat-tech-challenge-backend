@@ -1,7 +1,7 @@
 package br.com.grupo63.techchallenge.gateway.order;
 
-import br.com.grupo63.techchallenge.gateway.repository.IJpaRepository;
 import br.com.grupo63.techchallenge.gateway.order.entity.OrderPersistenceEntity;
+import br.com.grupo63.techchallenge.gateway.repository.IJpaRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
